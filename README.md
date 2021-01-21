@@ -60,3 +60,6 @@ find . -type d -empty
 
 touch .gitkeep
 git add .
+
+
+https://angular-folder-structure.readthedocs.io/en/latest/media.html
