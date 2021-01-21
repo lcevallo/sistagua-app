@@ -34,6 +34,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     Tips:
         ⇧ ⌥ ↑ / ↓
         Ctrl+ Shift + Alt+ ↑ / ↓
+        Alt + CLICK del mouse
         Alt+ ↑ / ↓
        
 -->
@@ -52,3 +53,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
         ⌘ K ⌘ S
         Ctrl + K Ctrl + S
 -->
+
+Para ver los directorios vacios
+find . -type d -empty
+
+
+touch .gitkeep
+git add .
