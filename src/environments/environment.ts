@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+ // baseUrl: 'http://api.ulvr.edu.ec:8080/api/ulvr/estudiante-eku'
+ // baseUrl: 'http://api.ulvr.edu.ec:8080/api/ulvr/estudiante-eku'
+ //  baseUrl: 'http://localhost:8081/api/ulvr/estudiante-eku'
+ baseUrl: 'http://sistagua.ec/sistagua-api/',
 };
 
 /*

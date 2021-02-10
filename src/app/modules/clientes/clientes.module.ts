@@ -6,6 +6,7 @@ import {ClienteNaturalComponent} from '@modules/clientes/cliente-natural/cliente
 import {ClienteEmpresarialComponent} from '@modules/clientes/cliente-empresarial/cliente-empresarial.component';
 import {ClientesListNaturalComponent} from '@modules/clientes/clientes-list-natural/clientes-list-natural.component';
 import {ClientesListEmpresarialComponent} from '@modules/clientes/clientes-list-empresarial/clientes-list-empresarial.component';
+import { MaterialModule } from '@material/material.module';
 
 
 
@@ -13,7 +14,8 @@ import {ClientesListEmpresarialComponent} from '@modules/clientes/clientes-list-
   declarations: [ClienteNaturalComponent, ClienteEmpresarialComponent, ClientesListNaturalComponent, ClientesListEmpresarialComponent],
   imports: [
     SharedModule,
-    ClientesRoutingModule
+    ClientesRoutingModule,
+    MaterialModule
   ]
 })
 export class ClientesModule { }

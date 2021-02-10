@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import {SkeletonComponent} from '@layout/skeleton/skeleton.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'clientes', pathMatch: 'full'},
+
   {
-    path: '',
+    path: 'clientes',
     component: SkeletonComponent,
     children: [
       {

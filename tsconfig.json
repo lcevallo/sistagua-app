@@ -27,7 +27,8 @@
       "@env/*":["environments/*"],
       "@modules/*":["app/modules/*"],
       "@data/*":["app/data/*"],
-      "@layout/*":["app/layout/*"]
+      "@layout/*":["app/layout/*"],
+      "@material/*":["app/material/*"]
     }
   },
   "angularCompilerOptions": {
