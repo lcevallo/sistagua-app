@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment as env } from '../../../../environments/environment';
 import { map } from 'rxjs/operators';
-import { IProvincias } from '@data/interfaces/i-provincias';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class ProvinciasService {
 
     const url: string = env.baseUrl + this.PATH_PROVINCIAS;
 
-    return this.http.get<IProvincias>(url)
+    return this.http.get<any>(url)
       .pipe(map( data => data)
       );
   }

@@ -1,23 +1,6 @@
-<!--<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>Crear Cliente</mat-card-title>
-    <mat-card-subtitle>Clientes de Sistagua</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <form class="example-form">
-
-    </form>
-
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button routerLink="/clientes/clientes-natural-lista">Regresar</button>
-    <button mat-raised-button color="primary">GUARDAR</button>
-  </mat-card-actions>
-</mat-card>-->
-
-<mat-horizontal-stepper class="example-card" [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="clienteFormGroup">
-    <form [formGroup]="clienteFormGroup" class="example-form">
+<form (ngSubmit)="onSubmit()" class="example-card">
+<mat-horizontal-stepper class="example-form" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="clienteFormGroup" [formGroup]="clienteFormGroup">
       <ng-template matStepLabel>Datos del Cliente</ng-template>
       <mat-form-field class="example-full-width">
         <mat-label>Código</mat-label>
@@ -51,12 +34,12 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Correo</mat-label>
-        <input matInput placeholder="Ej. ccerezo90@gmail.com" formControlName="correo" required>
+        <input matInput placeholder="Ej. ccerezo90@gmail.com" formControlName="correo">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Celular</mat-label>
-        <input matInput placeholder="Ej. 0994898989" formControlName="celular">
+        <input matInput placeholder="Ej. 0994898989" formControlName="celular" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="fill">
@@ -67,19 +50,13 @@
       </mat-form-field>
 
       <div>
-        <button mat-button matStepperNext>Siguiente</button>
+        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
       </div>
-    </form>
   </mat-step>
 
-  <mat-step [stepControl]="direccionFormGroup" label="Dirección">
-    <form [formGroup]="direccionFormGroup">
+  <mat-step [stepControl]="direccionFormGroup" [formGroup]="direccionFormGroup" label="Dirección">
       <mat-form-field class="example-full-width">
         <mat-label>Provincia</mat-label>
-        <input matInput placeholder="Ej. C0001" formControlName="provincia_id" required>
-      </mat-form-field>
-      <mat-form-field class="col-md-6">
-        <mat-label>País</mat-label>
         <mat-select formControlName="provincia_id">
           <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
         </mat-select>
@@ -87,12 +64,16 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Ciudad</mat-label>
-        <input matInput placeholder="Ej. Carlos" formControlName="ciudad_id" required>
+        <mat-select formControlName="ciudad_id">
+          <mat-option *ngFor="let c of ciudades"  [value]="c.id">{{c.canton}}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Parroquia</mat-label>
-        <input matInput placeholder="Ej. Luis" formControlName="parroquia_id">
+        <mat-select formControlName="parroquia_id">
+          <mat-option *ngFor="let pa of parroquias"  [value]="pa.id">{{pa.parroquia}}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -110,14 +91,12 @@
         <input matInput placeholder="Ej. 09455454545" formControlName="telefono_convencional">
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Regresar</button>
-        <button mat-button matStepperNext>Siguiente</button>
+        <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
       </div>
-    </form>
   </mat-step>
 
-  <mat-step [stepControl]="parentescoFormGroup" label="Parentesco Familiar">
-    <form [formGroup]="parentescoFormGroup">
+  <mat-step [stepControl]="parentescoFormGroup" [formGroup]="parentescoFormGroup" label="Parentesco Familiar">
       <mat-form-field class="example-full-width">
         <mat-label>Tipo Parentesco</mat-label>
         <input matInput placeholder="Ej. C0001" formControlName="tipo_parentesco" required>
@@ -155,18 +134,19 @@
         <mat-datepicker #picker_parentesco></mat-datepicker>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Regresar</button>
-        <button mat-button matStepperNext>Siguiente</button>
+        <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
       </div>
-    </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <ng-template matStepLabel>Finalizar</ng-template>
+    <p>Estas listo para guardar los cambios.</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+      <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
+      <button mat-raised-button color="primary" (click)="done()" type="submit">GUARDAR</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
+</form>
 
