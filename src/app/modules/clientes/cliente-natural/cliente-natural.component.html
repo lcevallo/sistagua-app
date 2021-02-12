@@ -78,6 +78,12 @@
         <mat-label>Provincia</mat-label>
         <input matInput placeholder="Ej. C0001" formControlName="provincia_id" required>
       </mat-form-field>
+      <mat-form-field class="col-md-6">
+        <mat-label>País</mat-label>
+        <mat-select formControlName="provincia_id">
+          <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Ciudad</mat-label>

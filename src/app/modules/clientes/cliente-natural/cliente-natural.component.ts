@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { IProvincias } from '@data/interfaces/i-provincias';
 import { IclienteNatural } from '@data/interfaces/icliente-natural';
 import { ProvinciasService } from '@data/services/api/provincias.service';
 
@@ -14,7 +15,8 @@ export class ClienteNaturalComponent implements OnInit {
   clienteFormGroup: FormGroup;
   direccionFormGroup: FormGroup;
   parentescoFormGroup: FormGroup;
-  clienteNatural: IclienteNatural;
+  provincias: IProvincias[] = [];
+  //clienteNatural: IclienteNatural;
 
   constructor(private _formBuilder: FormBuilder,
               private provinciaService: ProvinciasService) {
@@ -50,10 +52,13 @@ export class ClienteNaturalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.provinciaService.lista_provincias().subscribe(data => console.log(data));
+    this.provinciaService.lista_provincias().subscribe(data => {
+      this.provincias = data;
+      console.log(this.provincias);
+    });
   }
 
-  getFormClienteNatural() {
+  /*getFormClienteNatural() {
     this.clienteNatural.cedula = this.clienteFormGroup.get('cedula')?.value;
     this.clienteNatural.codigo = this.clienteFormGroup.get('codigo')?.value;
     this.clienteNatural.primer_apellido = this.clienteFormGroup.get('primer_apellido')?.value;
@@ -81,6 +86,6 @@ export class ClienteNaturalComponent implements OnInit {
 
 
 
-  }
+  }*/
 
 }
