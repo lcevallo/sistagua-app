@@ -106,16 +106,20 @@ export class ClienteNaturalComponent implements OnInit {
       console.log(this.clienteFormGroup.get('cedula')?.value);
       //this.clienteNatural = {
       this.datosCliente = {
-          codigo: this.clienteFormGroup.get('codigo')?.value,
-          ruc: this.clienteFormGroup.get('cedula')?.value,
-          apellido1: this.clienteFormGroup.get('primer_apellido')?.value,
-          apellido2: this.clienteFormGroup.get('segundo_apellido')?.value,
-          nombre1: this.clienteFormGroup.get('primer_nombre')?.value,
-          nombre2: this.clienteFormGroup.get('segundo_nombre')?.value,
-          celular: this.clienteFormGroup.get('celular')?.value,
-          correo: this.clienteFormGroup.get('correo')?.value,
-          cumple: this.clienteFormGroup.get('cumpleanos')?.value,
-          foto: "",
+        cliente_natural:[
+                          {
+                          codigo: this.clienteFormGroup.get('codigo')?.value,
+                          ruc: this.clienteFormGroup.get('cedula')?.value,
+                          apellido1: this.clienteFormGroup.get('primer_apellido')?.value,
+                          apellido2: this.clienteFormGroup.get('segundo_apellido')?.value,
+                          nombre1: this.clienteFormGroup.get('primer_nombre')?.value,
+                          nombre2: this.clienteFormGroup.get('segundo_nombre')?.value,
+                          celular: this.clienteFormGroup.get('celular')?.value,
+                          correo: this.clienteFormGroup.get('correo')?.value,
+                          cumple: this.clienteFormGroup.get('cumpleanos')?.value,
+                          foto: ""
+                          }
+                    ],
           parentesco:[
             {
               tipo_parentesco: this.parentescoFormGroup.get('tipo_parentesco')?.value,
@@ -126,7 +130,7 @@ export class ClienteNaturalComponent implements OnInit {
               apellido2: this.parentescoFormGroup.get('segundo_apellido_parentesco')?.value,
               celular: this.parentescoFormGroup.get('celular_parentesco')?.value,
               correo: '',
-              cumple: this.parentescoFormGroup.get('picker_parentesco')?.value,
+              cumple: this.parentescoFormGroup.get('picker_parentesco')?.value
             }
           ],
           direcciones:[
@@ -136,7 +140,7 @@ export class ClienteNaturalComponent implements OnInit {
               fk_parroquia: this.direccionFormGroup.get('parroquia_id')?.value,
               direccion_domiciliaria: this.direccionFormGroup.get('direccion_domiciliaria')?.value,
               direccion_oficina: this.direccionFormGroup.get('direccion_oficina')?.value,
-              telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value,
+              telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value
             }
           ]
       };

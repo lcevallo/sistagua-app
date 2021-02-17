@@ -7,7 +7,8 @@ export const environment = {
  // baseUrl: 'http://api.ulvr.edu.ec:8080/api/ulvr/estudiante-eku'
  // baseUrl: 'http://api.ulvr.edu.ec:8080/api/ulvr/estudiante-eku'
  //  baseUrl: 'http://localhost:8081/api/ulvr/estudiante-eku'
- baseUrl: 'http://sistagua.ec/sistagua-api/',
+ //baseUrl: 'http://sistagua.ec/sistagua-api/',
+  baseUrl: 'http://127.0.0.1:5000/'
 };
 
 /*
