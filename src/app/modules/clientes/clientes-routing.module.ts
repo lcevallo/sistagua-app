@@ -4,7 +4,7 @@ import {ClienteNaturalComponent} from '@modules/clientes/cliente-natural/cliente
 import {ClientesListNaturalComponent} from '@modules/clientes/clientes-list-natural/clientes-list-natural.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'cliente-natural', pathMatch: 'full'},
+  {path: '', redirectTo: 'clientes-natural-lista', pathMatch: 'full'},
 
   {
     path: 'cliente-natural',

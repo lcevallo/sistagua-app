@@ -14,6 +14,16 @@ const routes: Routes = [
         loadChildren: () => import('@modules/clientes/clientes.module').then( (m) => m.ClientesModule)
       }
     ]
+  },
+  {
+    path: 'accesorios',
+    component: SkeletonComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@modules/accesorios/accesorios.module').then( (m) => m.AccesoriosModule)
+      }
+    ]
   }
 ];
 

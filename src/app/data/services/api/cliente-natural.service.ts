@@ -34,4 +34,22 @@ export class ClienteNaturalService extends ApiClass {
         catchError((e) => of(response))
       );
   }
+
+
+  getClienteByCedula(cedula: string): Observable<{
+    error: boolean,
+    msg: string,
+    data: IclienteNatural
+  }>{
+    const response = {error: false, msg: '', data: null as any};
+    return this.http.get<IclienteNatural>(`${this.url}clientes_naturales?ruc=${cedula}`).pipe(
+      map(r => {
+          response.data = r;
+          return response;
+        }
+      ),
+      catchError(() => of(response))
+    );
+  }
+
 }

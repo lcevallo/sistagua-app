@@ -33,16 +33,23 @@ export class ClientesListNaturalComponent implements OnInit {
   public clientes_naturales_list: IclienteNatural[] = [];
 
   constructor(private clienteNaturalService: ClienteNaturalService) {
-    this.clienteNaturalService.getAllClientesNaturales().subscribe(
-      r => {
-        if (!r.error) {
-          this.clientes_naturales_list = r.data;
-        }
-      }
-    );
+   
   }
 
   ngOnInit(): void {
+
+    this.clienteNaturalService.getAllClientesNaturales().subscribe(
+      r => {
+        if (!r.error) {
+          console.log(r);
+          this.clientes_naturales_list = r.data['clientes'];
+        }
+        else{
+          console.log("Estoy en el else");
+          console.log(r.error);
+        }
+      }
+    );
   }
 
 }
