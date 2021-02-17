@@ -1,0 +1,49 @@
+{
+    "cliente_natural":
+    [{ 
+    "codigo": "C0001",
+    "ruc": "0705114775",
+    "apellido1": "Cerezo",
+    "apellido2": "",
+    "nombre1": "Carlos",
+    "nombre2": "",
+    "celular": "0994898148",
+    "correo": "",
+    "cumple": "1990-04-24",
+    "foto": ""
+    }],
+    "direcciones": [
+      {
+        "fk_provincia": 2,
+        "fk_canton": 18,
+        "fk_parroquia": 122,
+        "direccion_domiciliaria": "Vía Arcapamba",
+        "direccion_oficina": "",
+        "telefono_convencional": ""
+      }
+    ],
+    "parentesco": [
+      {
+        "tipo_parentesco": "sdfsdf",
+        "sexo":"M",
+        "nombre1": "sdfsd",
+        "nombre2": "",
+        "apellido1": "dfsdf",
+        "apellido2": "",
+        "celular": "fsdfsdfsdf",
+        "correo":"",
+        "cumple": ""
+      },
+       {
+        "tipo_parentesco": "primo",
+        "sexo":"M",
+        "nombre1": "Luis",
+        "nombre2": "Alfredo",
+        "apellido1": "Pincay",
+        "apellido2": "",
+        "celular": "09157484",
+        "correo":"lpincay@gmail.com",
+        "cumple": ""
+      }
+    ]
+  }
