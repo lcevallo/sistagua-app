@@ -27,7 +27,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ClientesListNaturalComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto'];
   dataSource = ELEMENT_DATA;
   // tslint:disable-next-line:variable-name
   public clientes_naturales_list: IclienteNatural[] = [];
