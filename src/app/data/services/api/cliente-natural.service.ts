@@ -52,4 +52,24 @@ export class ClienteNaturalService extends ApiClass {
     );
   }
 
+  guardarClienteNaturalParentescoDireccion(
+      clienteNaturalPyD: iClienteNaturalGuardar
+  ):Observable<{
+    error: boolean;
+    msg: string;
+    data: any
+  }>{
+    const response = {error=true, msg:'', data: null};
+    return this.http.post<{error: boolean, msg:string, data: any}>(clienteNaturalPyD)
+    .pipe(
+      map(r => {
+        response.msg = r.msg;
+        response.error = r.error;
+        response.data = r.data;
+        
+
+      })
+    )
+  }
+
 }
