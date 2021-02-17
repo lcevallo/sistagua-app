@@ -1,3 +1,6 @@
+<mat-card>
+  <button routerLink="/clientes/cliente-natural/" mat-raised-button color="primary" (click)="nuevoCliente()">Nuevo Cliente</button>
+</mat-card>
 <table mat-table [dataSource]="clientes_naturales_list" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.
@@ -39,6 +42,14 @@
   <ng-container matColumnDef="foto">
     <th mat-header-cell *matHeaderCellDef> Foto </th>
     <td mat-cell *matCellDef="let element"> {{element.foto}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let element">
+      <!--<button [routerLink]="['/clientes/cliente-natural/', element.cedula]" mat-stroked-button>Editar</button>-->
+      <button routerLink="/clientes/cliente-natural/{{element.cedula}}" mat-stroked-button>Editar</button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ICiudades } from '@data/interfaces/i-ciudades';
 import { IParroquias } from '@data/interfaces/i-parroquias';
 import { IProvincias } from '@data/interfaces/i-provincias';
@@ -24,12 +25,15 @@ export class ClienteNaturalComponent implements OnInit {
   parroquias: IParroquias[] = [];
   clienteNatural!: IclienteNatural;
   datosCliente: any;
+  cedula: string;
 
   constructor(private _formBuilder: FormBuilder,
+              private route: ActivatedRoute,
               private provinciaService: ProvinciasService,
               private ciudadesServices: CiudadesService,
               private parroquiasServices: ParroquiasService) {
 
+    this.cedula = this.route.snapshot.params.cedula;
     this.clienteFormGroup = this._formBuilder.group({
       codigo: ['', Validators.required],
       cedula: ['', Validators.required],
@@ -72,7 +76,7 @@ export class ClienteNaturalComponent implements OnInit {
   getCiudad(provinciaSeleccionada: number) {
     this.ciudadesServices.lista_ciudades(provinciaSeleccionada)
       .subscribe( data => {
-        this.ciudades = data['provincias'] as [];
+        this.ciudades = data['cantones'] as [];
       });
   }
 
