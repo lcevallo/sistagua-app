@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ApiClass} from '@data/schema/ApiClass.class';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {IclienteNatural} from '@data/interfaces/icliente-natural';
 import { HttpClient } from '@angular/common/http';
@@ -23,15 +23,15 @@ export class ClienteNaturalService extends ApiClass {
     data: IclienteNatural[]
   }> {
 
-    const response = {error: false, msg: '', data: null};
+    const response = {error: false, msg: '', data: [] as  IclienteNatural[] };
 
     return this.http.get<IclienteNatural[]>(this.url + '')
       .pipe(
           map( r =>  {
-            response.data = r;
+            response.data = r as IclienteNatural[];
             return response;
           }),
-        catchError(this.error)
+        catchError((e) => {return of(response); })
       );
   }
 }
