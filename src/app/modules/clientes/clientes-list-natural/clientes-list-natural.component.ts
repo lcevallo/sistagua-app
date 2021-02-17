@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ClienteNaturalService} from '@data/services/api/cliente-natural.service';
+import {IclienteNatural} from '@data/interfaces/icliente-natural';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -27,8 +29,18 @@ export class ClientesListNaturalComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+  // tslint:disable-next-line:variable-name
+  public clientes_naturales_list: IclienteNatural[] = [];
 
-  constructor() { }
+  constructor(private clienteNaturalService: ClienteNaturalService) {
+    this.clienteNaturalService.getAllClientesNaturales().subscribe(
+      r => {
+        if (!r.error) {
+          this.clientes_naturales_list = r.data;
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
   }

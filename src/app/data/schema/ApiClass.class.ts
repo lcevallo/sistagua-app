@@ -11,10 +11,7 @@ export class ApiClass{
 
   constructor(
     protected http: HttpClient
-  )
-  {
-
-  }
+  ){}
 
   error(error: HttpErrorResponse){
     let errorMessage = '';

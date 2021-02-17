@@ -25,7 +25,7 @@ export class ClienteNaturalService extends ApiClass {
 
     const response = {error: false, msg: '', data: [] as  IclienteNatural[] };
 
-    return this.http.get<IclienteNatural[]>(this.url + '')
+    return this.http.get<IclienteNatural[]>(this.url + '/clientes_naturales')
       .pipe(
           map( r =>  {
             response.data = r as IclienteNatural[];
