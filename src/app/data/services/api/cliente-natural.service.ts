@@ -31,7 +31,7 @@ export class ClienteNaturalService extends ApiClass {
             response.data = r as IclienteNatural[];
             return response;
           }),
-        catchError((e) => {return of(response); })
+        catchError((e) => of(response))
       );
   }
 }
