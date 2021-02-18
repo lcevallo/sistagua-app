@@ -4,6 +4,8 @@ import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {IclienteNatural, iClienteNaturalGuardar} from '@data/interfaces/icliente-natural';
 import { HttpClient } from '@angular/common/http';
+import { API_ROUTES } from '@data/constants/routes/api.routes';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +27,7 @@ export class ClienteNaturalService extends ApiClass {
 
     const response = {error: false, msg: '', data: [] as  IclienteNatural[] };
 
-    return this.http.get <{clientes: IclienteNatural[]} > (this.url + '/clientes_naturales')
+    return this.http.get <{clientes: IclienteNatural[]} > (API_ROUTES.CLIENTE_NATURAL.LISTA)
       .pipe(
           map( r =>  {
             response.data = r.clientes;
@@ -42,7 +44,7 @@ export class ClienteNaturalService extends ApiClass {
     data: IclienteNatural
   }>{
     const response = {error: false, msg: '', data: null as any};
-    return this.http.get<IclienteNatural>(`${this.url}clientes_naturales?ruc=${cedula}`).pipe(
+    return this.http.get<IclienteNatural>(`${API_ROUTES.CLIENTE_NATURAL.LISTA}?ruc=${cedula}`).pipe(
       map(r => {
           response.data = r;
           return response;
@@ -60,7 +62,7 @@ export class ClienteNaturalService extends ApiClass {
     data: number
   }>{
     const response = {error: true, msg: '', data: null as any};
-    return this.http.post<{cliente: number}>(`${this.url}cliente_natural`, clienteNaturalPyD)
+    return this.http.post<{cliente: number}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE, clienteNaturalPyD)
     .pipe(
       map(r => {
         response.data = r.cliente;
