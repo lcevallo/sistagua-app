@@ -17,40 +17,40 @@ export interface IclienteNatural {
 
 export interface iClienteNaturalGuardar {
   cliente_natural: iClienteNaturalSend[];
-  direcciones:     iDireccionCNSend[];
-  parentesco:      iParentescoCNSend[];
+  direcciones: iDireccionCNSend[];
+  parentesco: iParentescoCNSend[];
 }
 
 export interface iClienteNaturalSend {
-  codigo:    string;
-  ruc:       string;
+  codigo: string;
+  ruc: string;
   apellido1: string;
   apellido2: string;
-  nombre1:   string;
-  nombre2:   string;
-  celular:   string;
-  correo:    string;
-  cumple:    string;
-  foto:      string;
+  nombre1: string;
+  nombre2: string;
+  celular: string;
+  correo: string;
+  cumple: string;
+  foto: string;
 }
 
 export interface iDireccionCNSend {
-  fk_provincia:           number;
-  fk_canton:              number;
-  fk_parroquia:           number;
+  fk_provincia: number;
+  fk_canton: number;
+  fk_parroquia: number;
   direccion_domiciliaria: string;
-  direccion_oficina:      string;
-  telefono_convencional:  string;
+  direccion_oficina: string;
+  telefono_convencional: string;
 }
 
 export interface iParentescoCNSend {
   tipo_parentesco: string;
-  sexo:            string;
-  nombre1:         string;
-  nombre2:         string;
-  apellido1:       string;
-  apellido2:       string;
-  celular:         string;
-  correo:          string;
-  cumple:          string;
+  sexo: string;
+  nombre1: string;
+  nombre2: string;
+  apellido1: string;
+  apellido2: string;
+  celular: string;
+  correo: string;
+  cumple: string;
 }
