@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "npx ng",
-    "start:dev": "npx ng serve --c=dev",
-    "start:prod": "npx ng serve --c=production",
+    "start:dev": "npx ng serve --c=dev -o",
+    "start:prod": "npx ng serve --c=production -o",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
