@@ -60,6 +60,8 @@ export class ClienteNaturalService extends ApiClass {
     data: any
   }>{
     const response = {error: true, msg: '', data: null};
+    console.log('Estoy en el servicio:')
+    console.log(clienteNaturalPyD)
     return this.http.post<{error: boolean, msg: string, data: any}>(`${this.url}cliente_natural`, clienteNaturalPyD)
     .pipe(
       map(r => {
