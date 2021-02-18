@@ -60,7 +60,7 @@ export class ClienteNaturalService extends ApiClass {
     data: any
   }>{
     const response = {error: true, msg: '', data: null};
-    return this.http.post<{error: boolean, msg: string, data: any}>('', clienteNaturalPyD)
+    return this.http.post<{error: boolean, msg: string, data: any}>(`${this.url}cliente_natural`, clienteNaturalPyD)
     .pipe(
       map(r => {
         response.msg = r.msg;
