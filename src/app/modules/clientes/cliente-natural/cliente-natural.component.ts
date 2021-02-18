@@ -9,7 +9,8 @@ import { CiudadesService } from '@data/services/api/ciudades.service';
 import { ClienteNaturalService } from '@data/services/api/cliente-natural.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
-
+import * as moment from 'moment';
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-cliente-natural',
   templateUrl: './cliente-natural.component.html',
@@ -111,8 +112,11 @@ export class ClienteNaturalComponent implements OnInit {
 
     if (this.clienteFormGroup.valid && this.direccionFormGroup.valid) {
 
-      console.log('Form Submitted!');
-      //this.datosCliente = {
+      let cumple = moment(this.clienteFormGroup.get('cumpleanos')?.value);
+      let dia = String(cumple.date());
+      let mes = String(cumple.month()+1);
+      let anio = String(cumple.year());
+
       this.clienteNatural = [{
         codigo: this.clienteFormGroup.get('codigo')?.value,
         ruc: this.clienteFormGroup.get('cedula')?.value,
@@ -122,7 +126,7 @@ export class ClienteNaturalComponent implements OnInit {
         nombre2: this.clienteFormGroup.get('segundo_nombre')?.value,
         celular: this.clienteFormGroup.get('celular')?.value,
         correo: this.clienteFormGroup.get('correo')?.value,
-        cumple: this.clienteFormGroup.get('cumpleanos')?.value,
+        cumple: anio+"-"+mes+"-"+dia,
         foto: ""
       }];
       this.parentescoCN = [{
@@ -150,33 +154,7 @@ export class ClienteNaturalComponent implements OnInit {
         parentesco: this.parentescoCN
       }
 
-      /*this.clienteGuardar.cliente_natural.push(this.clienteNatural);
-      this.clienteGuardar.direcciones.push(this.direccionesCN);
-      this.clienteGuardar.parentesco.push(this.parentescoCN);*/
-      /*this.clienteNatural.codigo = this.clienteFormGroup.get('codigo')?.value;
-      this.clienteNatural.primer_apellido = this.clienteFormGroup.get('primer_apellido')?.value;
-      this.clienteNatural.segundo_apellido = this.clienteFormGroup.get('segundo_apellido')?.value;
-      this.clienteNatural.primer_nombre = this.clienteFormGroup.get('primer_nombre')?.value;
-      this.clienteNatural.segundo_nombre = this.clienteFormGroup.get('segundo_nombre')?.value;
-      this.clienteNatural.celular = this.clienteFormGroup.get('celular')?.value;
-      this.clienteNatural.correo = this.clienteFormGroup.get('correo')?.value;
-      this.clienteNatural.cumpleanios = this.clienteFormGroup.get('cumpleanos')?.value;
 
-      this.clienteNatural.provincia_id = this.direccionFormGroup.get('provincia_id')?.value;
-      this.clienteNatural.ciudad_id = this.direccionFormGroup.get('ciudad_id')?.value;
-      this.clienteNatural.parroquia_id = this.direccionFormGroup.get('parroquia_id')?.value;
-      this.clienteNatural.direccion_domiciliaria = this.direccionFormGroup.get('direccion_domiciliaria')?.value;
-      this.clienteNatural.direccion_oficina = this.direccionFormGroup.get('direccion_oficina')?.value;
-      this.clienteNatural.telefono = this.direccionFormGroup.get('telefono_convencional')?.value;
-
-      this.clienteNatural.tipo_parentesco_id = this.parentescoFormGroup.get('tipo_parentesco')?.value;
-      this.clienteNatural.primer_nombre_parentesco = this.parentescoFormGroup.get('primer_nombre_parentesco')?.value;
-      this.clienteNatural.segundo_nombre_parentesco = this.parentescoFormGroup.get('segundo_nombre_parentesco')?.value;
-      this.clienteNatural.primer_apellido_parentesco = this.parentescoFormGroup.get('primer_apellido_parentesco')?.value;
-      this.clienteNatural.segundo_apellido_parentesco = this.parentescoFormGroup.get('segundo_apellido_parentesco')?.value;
-      this.clienteNatural.celular_parentesco = this.parentescoFormGroup.get('celular_parentesco')?.value;
-      this.clienteNatural.cumpleanios_parentesco = this.parentescoFormGroup.get('picker_parentesco')?.value;
-      */
       console.log(this.clienteGuardar);
     }
 
@@ -184,7 +162,21 @@ export class ClienteNaturalComponent implements OnInit {
 
     done() {
       this.clienteNaturalServices.guardarClienteNaturalParentescoDireccion(this.clienteGuardar)
-        .subscribe( data => console.log(data));
+        .subscribe( data => {
+          if (data.data > 0) {
+            swal.fire({
+              icon: 'success',
+              title: 'El registro se guardó con éxito',
+              confirmButtonText: 'Ok',
+            })
+          } else {
+            swal.fire({
+              icon: 'error',
+              title: 'Intente nuevamente!',
+              confirmButtonText: 'Cerrar',
+            })
+          }
+        });
     }
 
 }
