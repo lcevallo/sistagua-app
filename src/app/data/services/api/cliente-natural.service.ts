@@ -57,17 +57,13 @@ export class ClienteNaturalService extends ApiClass {
   ): Observable<{
     error: boolean;
     msg: string;
-    data: any
+    data: number
   }>{
-    const response = {error: true, msg: '', data: null};
-    console.log('Estoy en el servicio:')
-    console.log(clienteNaturalPyD)
-    return this.http.post<{error: boolean, msg: string, data: any}>(`${this.url}cliente_natural`, clienteNaturalPyD)
+    const response = {error: true, msg: '', data: null as any};
+    return this.http.post<{cliente: number}>(`${this.url}cliente_natural`, clienteNaturalPyD)
     .pipe(
       map(r => {
-        response.msg = r.msg;
-        response.error = r.error;
-        response.data = r.data;
+        response.data = r.cliente;
         return response;
       }),
       catchError(() => of(response))
