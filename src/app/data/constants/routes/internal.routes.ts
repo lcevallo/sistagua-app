@@ -1,0 +1,60 @@
+/**
+ * Estas son las rutas en las que navegamos internamente en nuestra aplicacion
+ */
+export const ROUTES_PATHS = {
+    CLIENTE_NATURAL:{
+        DEFAULT:'clientes_naturales',
+        CLIENTE: 'cliente-natural'
+    },
+    /**
+     * FILTRACION
+     */
+    FILTRACION:{
+        DEFAULT:'filtraciones',
+        DETALLE: 'filtracion'
+    },
+    /**
+     * ACCESORIOS
+     */
+    ACCESORIO:{
+        DEFAULT:'accesorios',
+        DETALLE: 'accesorio'
+    }
+}
+
+export const INTERNAL_PATHS={
+    /**
+     * CLIENTE NATURAL
+     */
+    CLIENTE_NATURAL_DEFAULT: `${ROUTES_PATHS.CLIENTE_NATURAL.DEFAULT}`,
+    CLIENTE_NATURAL_DETALLE: `${ROUTES_PATHS.CLIENTE_NATURAL.CLIENTE}`,
+    /**
+     * FILTRACION*/
+    FILTRACION_DEFAULT: `${ROUTES_PATHS.FILTRACION.DEFAULT}`,
+    FILTRACION_DETALLE: `${ROUTES_PATHS.FILTRACION.DETALLE}`,
+    /**
+     * ACCESORIO*/
+    ACCESORIO_DEFAULT: `${ROUTES_PATHS.ACCESORIO.DEFAULT}`,
+    ACCESORIO_DETALLE: `${ROUTES_PATHS.ACCESORIO.DETALLE}`
+}
+
+
+export const INTERNAL_ROUTES = {
+    /**
+     * CLIENTE NATURAL
+     */
+    CLIENTE_NATURAL_LIST: `/${INTERNAL_PATHS.CLIENTE_NATURAL_DEFAULT}`,
+    CLIENTE_NATURAL_DETALLE: `/${INTERNAL_PATHS.CLIENTE_NATURAL_DETALLE}`,
+
+    /**
+     * FILTRACION
+     */
+    FILTRACION_LIST: `/${INTERNAL_PATHS.FILTRACION_DEFAULT}`,
+    FILTRACION_DETALLE: `/${INTERNAL_PATHS.FILTRACION_DETALLE}`,
+    /**
+     * ACCESORIO
+     */
+    ACCESORIO_LIST: `/${INTERNAL_PATHS.ACCESORIO_DEFAULT}`,
+    ACCESORIO_DETALLE: `/${INTERNAL_PATHS.ACCESORIO_DETALLE}`
+
+}

@@ -2,8 +2,9 @@
   "name": "sistagua-app",
   "version": "1.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
+    "ng": "npx ng",
+    "start:dev": "npx ng serve --c=dev",
+    "start:prod": "npx ng serve --c=production",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
