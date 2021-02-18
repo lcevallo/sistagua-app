@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ICiudades } from '@data/interfaces/i-ciudades';
 import { IParroquias } from '@data/interfaces/i-parroquias';
 import { IProvincias } from '@data/interfaces/i-provincias';
-import { IclienteNatural } from '@data/interfaces/icliente-natural';
+import { IclienteNatural, iClienteNaturalGuardar, iClienteNaturalSend, iDireccionCNSend, iParentescoCNSend } from '@data/interfaces/icliente-natural';
 import { CiudadesService } from '@data/services/api/ciudades.service';
+import { ClienteNaturalService } from '@data/services/api/cliente-natural.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
 
@@ -23,7 +24,10 @@ export class ClienteNaturalComponent implements OnInit {
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
   parroquias: IParroquias[] = [];
-  clienteNatural!: IclienteNatural;
+  clienteNatural: iClienteNaturalSend[] = [];
+  direccionesCN: iDireccionCNSend[] = [];
+  parentescoCN: iParentescoCNSend[] = [];
+  clienteGuardar!: iClienteNaturalGuardar;
   datosCliente: any;
   cedula: string;
 
@@ -31,7 +35,8 @@ export class ClienteNaturalComponent implements OnInit {
               private route: ActivatedRoute,
               private provinciaService: ProvinciasService,
               private ciudadesServices: CiudadesService,
-              private parroquiasServices: ParroquiasService) {
+              private parroquiasServices: ParroquiasService,
+              private clienteNaturalServices: ClienteNaturalService) {
 
     this.cedula = this.route.snapshot.params.cedula;
     this.clienteFormGroup = this._formBuilder.group({
@@ -107,47 +112,47 @@ export class ClienteNaturalComponent implements OnInit {
     if (this.clienteFormGroup.valid && this.direccionFormGroup.valid) {
 
       console.log('Form Submitted!');
-      console.log(this.clienteFormGroup.get('cedula')?.value);
-      //this.clienteNatural = {
-      this.datosCliente = {
-        cliente_natural:[
-                          {
-                          codigo: this.clienteFormGroup.get('codigo')?.value,
-                          ruc: this.clienteFormGroup.get('cedula')?.value,
-                          apellido1: this.clienteFormGroup.get('primer_apellido')?.value,
-                          apellido2: this.clienteFormGroup.get('segundo_apellido')?.value,
-                          nombre1: this.clienteFormGroup.get('primer_nombre')?.value,
-                          nombre2: this.clienteFormGroup.get('segundo_nombre')?.value,
-                          celular: this.clienteFormGroup.get('celular')?.value,
-                          correo: this.clienteFormGroup.get('correo')?.value,
-                          cumple: this.clienteFormGroup.get('cumpleanos')?.value,
-                          foto: ""
-                          }
-                    ],
-          parentesco:[
-            {
-              tipo_parentesco: this.parentescoFormGroup.get('tipo_parentesco')?.value,
-              sexo: '',
-              nombre1: this.parentescoFormGroup.get('primer_nombre_parentesco')?.value,
-              nombre2: this.parentescoFormGroup.get('segundo_nombre_parentesco')?.value,
-              apellido1: this.parentescoFormGroup.get('primer_apellido_parentesco')?.value,
-              apellido2: this.parentescoFormGroup.get('segundo_apellido_parentesco')?.value,
-              celular: this.parentescoFormGroup.get('celular_parentesco')?.value,
-              correo: '',
-              cumple: this.parentescoFormGroup.get('picker_parentesco')?.value
-            }
-          ],
-          direcciones:[
-            {
-              fk_provincia: this.direccionFormGroup.get('provincia_id')?.value,
-              fk_canton: this.direccionFormGroup.get('ciudad_id')?.value,
-              fk_parroquia: this.direccionFormGroup.get('parroquia_id')?.value,
-              direccion_domiciliaria: this.direccionFormGroup.get('direccion_domiciliaria')?.value,
-              direccion_oficina: this.direccionFormGroup.get('direccion_oficina')?.value,
-              telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value
-            }
-          ]
-      };
+      //this.datosCliente = {
+      this.clienteNatural = [{
+        codigo: this.clienteFormGroup.get('codigo')?.value,
+        ruc: this.clienteFormGroup.get('cedula')?.value,
+        apellido1: this.clienteFormGroup.get('primer_apellido')?.value,
+        apellido2: this.clienteFormGroup.get('segundo_apellido')?.value,
+        nombre1: this.clienteFormGroup.get('primer_nombre')?.value,
+        nombre2: this.clienteFormGroup.get('segundo_nombre')?.value,
+        celular: this.clienteFormGroup.get('celular')?.value,
+        correo: this.clienteFormGroup.get('correo')?.value,
+        cumple: this.clienteFormGroup.get('cumpleanos')?.value,
+        foto: ""
+      }];
+      this.parentescoCN = [{
+        tipo_parentesco: this.parentescoFormGroup.get('tipo_parentesco')?.value,
+        sexo: "",
+        nombre1: this.parentescoFormGroup.get('primer_nombre_parentesco')?.value,
+        nombre2: this.parentescoFormGroup.get('segundo_nombre_parentesco')?.value,
+        apellido1: this.parentescoFormGroup.get('primer_apellido_parentesco')?.value,
+        apellido2: this.parentescoFormGroup.get('segundo_apellido_parentesco')?.value,
+        celular: this.parentescoFormGroup.get('celular_parentesco')?.value,
+        correo: "",
+        cumple: this.parentescoFormGroup.get('picker_parentesco')?.value
+      }];
+      this.direccionesCN = [{
+        fk_provincia: this.direccionFormGroup.get('provincia_id')?.value,
+        fk_canton: this.direccionFormGroup.get('ciudad_id')?.value,
+        fk_parroquia: this.direccionFormGroup.get('parroquia_id')?.value,
+        direccion_domiciliaria: this.direccionFormGroup.get('direccion_domiciliaria')?.value,
+        direccion_oficina: this.direccionFormGroup.get('direccion_oficina')?.value,
+        telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value
+      }];
+      this.clienteGuardar = {
+        cliente_natural: this.clienteNatural,
+        direcciones: this.direccionesCN,
+        parentesco: this.parentescoCN
+      }
+
+      /*this.clienteGuardar.cliente_natural.push(this.clienteNatural);
+      this.clienteGuardar.direcciones.push(this.direccionesCN);
+      this.clienteGuardar.parentesco.push(this.parentescoCN);*/
       /*this.clienteNatural.codigo = this.clienteFormGroup.get('codigo')?.value;
       this.clienteNatural.primer_apellido = this.clienteFormGroup.get('primer_apellido')?.value;
       this.clienteNatural.segundo_apellido = this.clienteFormGroup.get('segundo_apellido')?.value;
@@ -172,12 +177,14 @@ export class ClienteNaturalComponent implements OnInit {
       this.clienteNatural.celular_parentesco = this.parentescoFormGroup.get('celular_parentesco')?.value;
       this.clienteNatural.cumpleanios_parentesco = this.parentescoFormGroup.get('picker_parentesco')?.value;
       */
-      console.log(this.datosCliente);
+      console.log(this.clienteGuardar);
     }
 
   }
 
     done() {
+      this.clienteNaturalServices.guardarClienteNaturalParentescoDireccion(this.clienteGuardar)
+        .subscribe( data => console.log(data));
     }
 
 }
