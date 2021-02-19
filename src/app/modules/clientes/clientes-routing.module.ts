@@ -7,6 +7,10 @@ const routes: Routes = [
   {path: '', redirectTo: 'clientes-natural-lista', pathMatch: 'full'},
 
   {
+    path: 'cliente-natural/:id',
+    component: ClienteNaturalComponent
+  },
+  {
     path: 'cliente-natural',
     component: ClienteNaturalComponent
   },

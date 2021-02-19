@@ -37,6 +37,24 @@ export class ClienteNaturalService extends ApiClass {
       );
   }
 
+  getClientesNaturalesForStepperByIdCliente(idCliente:number): Observable<
+  {
+    error: boolean,
+    msg: string,
+    data: iClienteNaturalGuardar
+  }>{
+    const response = {error: false, msg: '', data: null as any };
+    return this.http.get<iClienteNaturalGuardar>(`${API_ROUTES.CLIENTE_NATURAL.STEPPER}?fk_cliente=${idCliente}`).pipe(
+      map(r => {
+          response.data = r;
+          return response;
+        }
+      ),
+      catchError(() => of(response))
+    );
+
+  }
+
 
   getClienteByCedula(cedula: string): Observable<{
     error: boolean,

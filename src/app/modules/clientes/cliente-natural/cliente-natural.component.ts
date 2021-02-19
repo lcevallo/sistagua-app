@@ -30,7 +30,7 @@ export class ClienteNaturalComponent implements OnInit {
   parentescoCN: iParentescoCNSend[] = [];
   clienteGuardar!: iClienteNaturalGuardar;
   datosCliente: any;
-  cedula: string;
+  id: number;
 
   constructor(private _formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -39,7 +39,7 @@ export class ClienteNaturalComponent implements OnInit {
               private parroquiasServices: ParroquiasService,
               private clienteNaturalServices: ClienteNaturalService) {
 
-    this.cedula = this.route.snapshot.params.cedula;
+    
     this.clienteFormGroup = this._formBuilder.group({
       codigo: ['', Validators.required],
       cedula: ['', Validators.required],
@@ -71,6 +71,10 @@ export class ClienteNaturalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.id = this.route.snapshot.params.id;
+    console.log(this.id);
+
     this.provinciaService.lista_provincias().subscribe(data => {
       this.provincias = data['provincias'] as [];
       console.log(this.provincias);

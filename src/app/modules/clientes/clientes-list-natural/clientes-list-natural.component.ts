@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ClientesListNaturalComponent implements OnInit {
 
-  displayedColumns: string[] = ['codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto','acciones'];
+  displayedColumns: string[] = ['id','codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto','acciones'];
   // tslint:disable-next-line:variable-name
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public clientes_naturales_list: IclienteNatural[] = [];
@@ -24,6 +24,19 @@ export class ClientesListNaturalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+    // this.clienteNaturalService.getClientesNaturalesForStepperByIdCliente(1).subscribe(
+    //   r => {
+    //     if (!r.error) {
+    //       console.log(r.data);         
+    //     }
+    //     else{
+    //       console.log("Estoy en el else");
+    //       console.log(r.error);
+    //     }
+    //   }
+    // )
 
     this.clienteNaturalService.getAllClientesNaturales().subscribe(
       r => {

@@ -5,7 +5,11 @@ import  {environment as ENV} from 'environments/environment';
 export const API_ROUTES = {
     CLIENTE_NATURAL: {
         LISTA: `${ENV.baseUrl}clientes_naturales`,
-        CLIENTE: `${ENV.baseUrl}cliente_natural`
+        CLIENTE: `${ENV.baseUrl}cliente_natural`,
+        STEPPER: `${ENV.baseUrl}clientes_stepper_naturales`
+    },
+    DIRECCION: {
+      LISTA: `${ENV.baseUrl}direcciones_cliente`
     },
     FILTRACION: {
         LISTA: `${ENV.baseUrl}filtraciones`,

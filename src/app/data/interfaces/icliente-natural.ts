@@ -22,6 +22,7 @@ export interface iClienteNaturalGuardar {
 }
 
 export interface iClienteNaturalSend {
+  id?: number;
   codigo: string;
   ruc: string;
   apellido1: string;
@@ -35,6 +36,7 @@ export interface iClienteNaturalSend {
 }
 
 export interface iDireccionCNSend {
+  id?: number;
   fk_provincia: number;
   fk_canton: number;
   fk_parroquia: number;
@@ -44,6 +46,7 @@ export interface iDireccionCNSend {
 }
 
 export interface iParentescoCNSend {
+  id?: number;
   tipo_parentesco: string;
   sexo: string;
   nombre1: string;
