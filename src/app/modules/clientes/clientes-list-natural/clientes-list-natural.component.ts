@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ClienteNaturalService} from '@data/services/api/cliente-natural.service';
 import {IclienteNatural} from '@data/interfaces/icliente-natural';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -11,9 +14,10 @@ import {IclienteNatural} from '@data/interfaces/icliente-natural';
 export class ClientesListNaturalComponent implements OnInit {
 
   displayedColumns: string[] = ['codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto','acciones'];
-  //dataSource = ELEMENT_DATA;
   // tslint:disable-next-line:variable-name
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   public clientes_naturales_list: IclienteNatural[] = [];
+  dataSource!: MatTableDataSource<IclienteNatural>;
 
   constructor(private clienteNaturalService: ClienteNaturalService) {
 
@@ -26,6 +30,8 @@ export class ClientesListNaturalComponent implements OnInit {
         if (!r.error) {
           console.log(r);
           this.clientes_naturales_list = r.data;
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
         }
         else{
           console.log("Estoy en el else");

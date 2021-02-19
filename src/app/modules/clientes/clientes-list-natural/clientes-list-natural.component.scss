@@ -4,7 +4,6 @@ table{
   position: relative;
   top: 85px;
   margin: 0 auto;
-  background-color: rgb(241 241 241 / 55%) !important;
   width: 100%;
 }
 mat-card{
@@ -13,12 +12,20 @@ mat-card{
   position: relative;
   top: 85px;
   margin: 5px auto;
-  background-color: rgb(241 241 241 / 55%) !important;
   width: 100%;
   padding: 10px 0px;
   text-align: right;
 }
 button{
   margin-right: 10px;
+}
+mat-paginator{
+  min-width: 400px;
+  max-width: 800px;
+  position: relative;
+  top: 85px;
+  margin: 0px auto;
+  width: 100%;
+  padding: 10px 0px;
 }
 
