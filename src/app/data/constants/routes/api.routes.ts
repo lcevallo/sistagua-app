@@ -11,6 +11,10 @@ export const API_ROUTES = {
         LISTA: `${ENV.baseUrl}filtraciones`,
         FILTRACION_DETAIL: `${ENV.baseUrl}filtracion`
     },
+    ACCESORIO: {
+        LISTA: `${ENV.baseUrl}accesorios`,
+        ACCESORIO_DETAIL: `${ENV.baseUrl}accesorio`
+    },
     PROVINCIAS: {
       LISTA: `${ENV.baseUrl}provincias`
     },
