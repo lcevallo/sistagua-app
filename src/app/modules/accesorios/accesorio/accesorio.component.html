@@ -1,1 +1,15 @@
-<p>accesorio works!</p>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Crear Accesorio</mat-card-title>
+  </mat-card-header>
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre de Accesorio</mat-label>
+    <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Descripción de Accesorio</mat-label>
+    <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onSubmit()">GUARDAR</button>
+</mat-card>

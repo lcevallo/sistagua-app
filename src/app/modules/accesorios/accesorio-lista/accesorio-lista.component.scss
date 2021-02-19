@@ -1,0 +1,31 @@
+table{
+  min-width: 400px;
+  max-width: 800px;
+  position: relative;
+  top: 85px;
+  margin: 0 auto;
+  width: 100%;
+}
+mat-card{
+  min-width: 400px;
+  max-width: 800px;
+  position: relative;
+  top: 85px;
+  margin: 5px auto;
+  width: 100%;
+  padding: 10px 0px;
+  text-align: right;
+}
+button{
+  margin-right: 10px;
+}
+mat-paginator{
+  min-width: 400px;
+  max-width: 800px;
+  position: relative;
+  top: 85px;
+  margin: 0px auto;
+  width: 100%;
+  padding: 10px 0px;
+}
+
