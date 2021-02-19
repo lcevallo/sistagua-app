@@ -61,6 +61,8 @@ find . -type d -empty
 touch .gitkeep
 git add .
 
+//Esta pagina sirve para generar Datos aleatorios y llenarlos en la base de datos
+https://www.mockaroo.com/
 
 https://angular-folder-structure.readthedocs.io/en/latest/media.html
 
