@@ -34,4 +34,22 @@ export class AccesoriosService extends ApiClass{
         catchError((e) => of(response))
       );
   }
+
+  guardar(
+    accesorio: IAccesorios): Observable<{
+      error: boolean;
+      msg: string;
+      data: number
+    }>{
+  const response = {error: true, msg: '', data: null as any};
+  return this.http.post<{accesorios: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL, accesorio)
+  .pipe(
+    map(r => {
+      response.data = r.accesorios;
+      return response;
+    }),
+    catchError(() => of(response))
+  );
+}
+
 }

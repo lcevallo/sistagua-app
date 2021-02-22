@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAccesorios } from '@data/interfaces/i-accesorios';
+import { AccesoriosService } from '@data/services/api/accesorios.service';
 
 @Component({
   selector: 'app-accesorio',
@@ -12,7 +13,8 @@ export class AccesorioComponent implements OnInit {
   accesorioFormGroup!: FormGroup;
   accesorio!: IAccesorios;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private accesorioService: AccesoriosService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +32,8 @@ export class AccesorioComponent implements OnInit {
       nombre: this.accesorioFormGroup.get('nombre')?.value,
       descripcion: this.accesorioFormGroup.get('descripcion')?.value,
     };
-    console.log(this.accesorio)
+    this.accesorioService.guardar(this.accesorio)
+      .subscribe(data => console.log(data));
   }
 
 }
