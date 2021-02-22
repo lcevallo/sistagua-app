@@ -10,6 +10,10 @@ const routes: Routes = [
     component: AccesorioComponent
   },
   {
+    path: 'accesorio/:id',
+    component: AccesorioComponent
+  },
+  {
     path: 'accesorio-lista',
     component: AccesorioListaComponent
   }

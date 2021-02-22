@@ -11,7 +11,7 @@ import { AccesoriosService } from '@data/services/api/accesorios.service';
 })
 export class AccesorioListaComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['id','nombre', 'descripcion', 'acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<IAccesorios>;
 
