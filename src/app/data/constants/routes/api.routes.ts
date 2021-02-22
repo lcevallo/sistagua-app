@@ -6,7 +6,7 @@ export const API_ROUTES = {
     CLIENTE_NATURAL: {
         LISTA: `${ENV.baseUrl}clientes_naturales`,
         CLIENTE: `${ENV.baseUrl}cliente_natural`,
-        STEPPER: `${ENV.baseUrl}clientes_stepper_naturales`
+        STEPPER: `${ENV.baseUrl}cliente_natural_stepper`
     },
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`

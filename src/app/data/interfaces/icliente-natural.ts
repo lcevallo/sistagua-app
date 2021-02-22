@@ -33,6 +33,7 @@ export interface iClienteNaturalSend {
   correo: string;
   cumple: string;
   foto: string;
+  publish?: boolean;
 }
 
 export interface iDireccionCNSend {
@@ -43,6 +44,7 @@ export interface iDireccionCNSend {
   direccion_domiciliaria: string;
   direccion_oficina: string;
   telefono_convencional: string;
+  publish?: boolean;
 }
 
 export interface iParentescoCNSend {
@@ -56,4 +58,5 @@ export interface iParentescoCNSend {
   celular: string;
   correo: string;
   cumple: string;
+  publish?: boolean;
 }
