@@ -9,19 +9,23 @@ import { IAccesorios } from '@data/interfaces/i-accesorios';
 })
 export class AccesorioComponent implements OnInit {
 
-  accesorioFormGroup: FormGroup;
+  accesorioFormGroup!: FormGroup;
   accesorio!: IAccesorios;
+
   constructor(private _formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(): void {
     this.accesorioFormGroup = this._formBuilder.group({
       nombre: ['', Validators.required],
       descripcion: ['']
     });
   }
 
-  ngOnInit(): void {
-  }
-
   onSubmit() {
+    if (!this.accesorioFormGroup.valid) {
+      return;
+    }
     this.accesorio = {
       nombre: this.accesorioFormGroup.get('nombre')?.value,
       descripcion: this.accesorioFormGroup.get('descripcion')?.value,

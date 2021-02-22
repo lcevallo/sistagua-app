@@ -1,4 +1,4 @@
-<div >
+<form (ngSubmit)="onSubmit()" [formGroup]="accesorioFormGroup" novalidate>
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>Crear Accesorio</mat-card-title>
@@ -11,6 +11,7 @@
     <mat-label>Descripción de Accesorio</mat-label>
     <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="onSubmit()">GUARDAR</button>
+  <button mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">GUARDAR</button>
 </mat-card>
-</div>
+</form>
+
