@@ -12,17 +12,17 @@ export class AccesorioComponent implements OnInit {
   accesorioFormGroup!: FormGroup;
   accesorio!: IAccesorios;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.accesorioFormGroup = this._formBuilder.group({
+    this.accesorioFormGroup = this.formBuilder.group({
       nombre: ['', Validators.required],
       descripcion: ['']
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (!this.accesorioFormGroup.valid) {
       return;
     }
