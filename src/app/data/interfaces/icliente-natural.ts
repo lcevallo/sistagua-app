@@ -38,6 +38,7 @@ export interface iClienteNaturalSend {
 
 export interface iDireccionCNSend {
   id?: number;
+  fk_cliente?: number;
   fk_provincia: number;
   fk_canton: number;
   fk_parroquia: number;
@@ -49,6 +50,7 @@ export interface iDireccionCNSend {
 
 export interface iParentescoCNSend {
   id?: number;
+  fk_cliente?: number;
   tipo_parentesco: string;
   sexo: string;
   nombre1: string;
@@ -58,5 +60,4 @@ export interface iParentescoCNSend {
   celular: string;
   correo: string;
   cumple: string;
-  publish?: boolean;
 }

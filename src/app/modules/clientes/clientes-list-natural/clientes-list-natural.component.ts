@@ -29,7 +29,7 @@ export class ClientesListNaturalComponent implements OnInit {
     // this.clienteNaturalService.getClientesNaturalesForStepperByIdCliente(1).subscribe(
     //   r => {
     //     if (!r.error) {
-    //       console.log(r.data);         
+    //       console.log(r.data);
     //     }
     //     else{
     //       console.log("Estoy en el else");
@@ -41,14 +41,11 @@ export class ClientesListNaturalComponent implements OnInit {
     this.clienteNaturalService.getAllClientesNaturales().subscribe(
       r => {
         if (!r.error) {
-          console.log(r);
           this.clientes_naturales_list = r.data;
           this.dataSource = new MatTableDataSource(r.data);
           this.dataSource.paginator = this.paginator;
         }
         else{
-          console.log("Estoy en el else");
-          console.log(r.error);
         }
       }
     );

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ApiClass} from '@data/schema/ApiClass.class';
 import {Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {IclienteNatural, iClienteNaturalGuardar} from '@data/interfaces/icliente-natural';
+import {IclienteNatural, iClienteNaturalGuardar, iDireccionCNSend, iParentescoCNSend} from '@data/interfaces/icliente-natural';
 import { HttpClient } from '@angular/common/http';
 import { API_ROUTES } from '@data/constants/routes/api.routes';
 
@@ -90,6 +90,26 @@ export class ClienteNaturalService extends ApiClass {
     );
   }
 
+  getById(id: number): Observable<{ error: boolean, msg: string, data: any }> {
+
+    const response = {error: false, msg: '', data: {
+      cliente_natural: [] as  IclienteNatural[],
+      direcciones: [] as  iDireccionCNSend[],
+      parentesco: [] as iParentescoCNSend[]
+    } };
+
+    return this.http.get<{cliente_natural: IclienteNatural[], direcciones: iDireccionCNSend[], parentesco: iParentescoCNSend[]}> (API_ROUTES.CLIENTE_NATURAL.STEPPER+'?fk_cliente='+id)
+      .pipe(
+          map( r =>  {
+            response.data.cliente_natural = r.cliente_natural;
+            response.data.direcciones = r.direcciones;
+            response.data.parentesco = r.parentesco;
+
+            return response;
+          }),
+        catchError((e) => of(response))
+      );
+  }
 
   actualizarClienteNaturalParentescoDireccion(
     clienteNaturalPyD: iClienteNaturalGuardar
