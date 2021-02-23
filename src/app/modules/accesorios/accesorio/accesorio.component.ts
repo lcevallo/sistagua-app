@@ -13,39 +13,41 @@ import swal from 'sweetalert2';
 export class AccesorioComponent implements OnInit {
 
   accesorioFormGroup!: FormGroup;
-  accesorio!: IAccesorios;
-  id?: number;
+  accesorio: IAccesorios;
+  id: number = 0;
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private accesorioService: AccesoriosService) {
+              this.id = this.route.snapshot.params.id;
+              this.accesorio = { nombre: '',  descripcion: ''};
+              console.log(this.accesorio)
+
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params.id;
-    console.log(this.id);
-    if(this.id != undefined) {
+    if(this.id > 0) {
       this.accesorioService.getById(this.id)
         .subscribe(data => {
           console.log(data.data)
-          /*this.accesorio = {
+          this.accesorio = {
             id: data.data.id,
             nombre: data.data.nombre,
             descripcion: data.data.descripcion
-          };*/
-        })
-    }else {
-      this.accesorioFormGroup = this.formBuilder.group({
-        nombre: ['', Validators.required],
-        descripcion: ['']
-      });
+          };
+          console.log(this.accesorio)
+        });
     }
+    this.accesorioFormGroup = this.formBuilder.group({
+      nombre: [this.accesorio.nombre, Validators.required],
+      descripcion: [this.accesorio.descripcion]
+    });
 
   }
 
   onSubmit(): void {
-    if (!this.accesorioFormGroup.valid) {
+    /*if (!this.accesorioFormGroup.valid) {
       return;
-    }
+    }*/
     this.accesorio = {
       nombre: this.accesorioFormGroup.get('nombre')?.value,
       descripcion: this.accesorioFormGroup.get('descripcion')?.value,
