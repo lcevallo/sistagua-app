@@ -20,7 +20,6 @@ export class AccesorioComponent implements OnInit {
               private accesorioService: AccesoriosService) {
               this.id = this.route.snapshot.params.id;
               this.accesorio = { id: undefined, nombre: '',  descripcion: ''};
-              console.log(this.accesorio)
 
   }
 
@@ -46,11 +45,7 @@ export class AccesorioComponent implements OnInit {
   }
 
   onSubmit(): void {
-    /*if (!this.accesorioFormGroup.valid) {
-      return;
-    }*/
 
-    console.log(this.accesorioFormGroup.get('id')?.value);
     if(!this.accesorioFormGroup.get('id')?.value){
       this.accesorioService.guardar(this.accesorioFormGroup.getRawValue())
       .subscribe(data => {
@@ -60,8 +55,6 @@ export class AccesorioComponent implements OnInit {
         else{
           this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
         }
-
-
       });
     } else {
 
