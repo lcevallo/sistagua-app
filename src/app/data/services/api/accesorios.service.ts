@@ -35,11 +35,7 @@ export class AccesoriosService extends ApiClass{
       );
   }
 
-  getById(id: number): Observable<{
-    error: boolean,
-    msg: string,
-    data: any
-  }> {
+  getById(id: number): Observable<{ error: boolean, msg: string, data: any }> {
 
     const response = {error: false, msg: '', data: null as any };
 
@@ -47,6 +43,20 @@ export class AccesoriosService extends ApiClass{
       .pipe(
           map( r =>  {
             response.data = r.accesorio;
+            return response;
+          }),
+        catchError((e) => of(response))
+      );
+  }
+
+  getByNombre(nombre: string): Observable<{ error: boolean, msg: string, data: IAccesorios[] }> {
+
+    const response = {error: false, msg: '', data: [] as  IAccesorios[] };
+
+    return this.http.get<{accesorios: IAccesorios[]}> (API_ROUTES.ACCESORIO.LISTA+'?nombre='+nombre)
+      .pipe(
+          map( r =>  {
+            response.data = r.accesorios;
             return response;
           }),
         catchError((e) => of(response))
@@ -62,6 +72,7 @@ export class AccesoriosService extends ApiClass{
     return this.http.post<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL, accesorioObj)
     .pipe(
       map(r => {
+        response.error = false;
         response.data = r.accesorio;
         return response;
       }),
@@ -71,10 +82,24 @@ export class AccesoriosService extends ApiClass{
 
   actualizar(accesorioObj: IAccesorios): Observable<{error: boolean; msg: string; data: any }>{
     const response = {error: true, msg: '', data: null as any};
-    return this.http.put<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL, accesorioObj)
+    return this.http.put<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL+'?id='+accesorioObj.id, accesorioObj)
       .pipe(
         map(r => {
+          response.error = false;
           response.data = r.accesorio;
+          return response;
+        }),
+        catchError(() => of(response))
+      );
+  }
+
+  eliminar(id: number): Observable<{error: boolean; msg: string; data: IAccesorios[] }>{
+    const response = {error: true, msg: '', data: [] as  IAccesorios[]};
+    return this.http.delete<{accesorios: IAccesorios[]}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL+'?id='+id)
+      .pipe(
+        map(r => {
+          response.error = false;
+          response.data = r.accesorios;
           return response;
         }),
         catchError(() => of(response))

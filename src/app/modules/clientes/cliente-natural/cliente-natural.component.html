@@ -9,27 +9,27 @@
 
       <mat-form-field class="example-full-width">
         <mat-label>Cédula</mat-label>
-        <input matInput placeholder="Ej. 0705114777" formControlName="cedula" required>
+        <input matInput placeholder="Ej. 0705114777" formControlName="ruc" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Primer Nombre</mat-label>
-        <input matInput placeholder="Ej. Carlos" formControlName="primer_nombre" required>
+        <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Segundo Nombre</mat-label>
-        <input matInput placeholder="Ej. Luis" formControlName="segundo_nombre">
+        <input matInput placeholder="Ej. Luis" formControlName="nombre2">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Primer Apellido</mat-label>
-        <input matInput placeholder="Ej. Cerezo" formControlName="primer_apellido" required>
+        <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Segundo Apellido</mat-label>
-        <input matInput placeholder="Ej. Romero" formControlName="segundo_apellido">
+        <input matInput placeholder="Ej. Romero" formControlName="apellido2">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -44,7 +44,7 @@
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Fecha de Cumpleaños</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="cumpleanos">
+        <input matInput [matDatepicker]="picker" formControlName="cumple">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -57,21 +57,21 @@
   <mat-step [stepControl]="direccionFormGroup" [formGroup]="direccionFormGroup" label="Dirección">
       <mat-form-field class="example-full-width">
         <mat-label>Provincia</mat-label>
-        <mat-select formControlName="provincia_id">
+        <mat-select formControlName="fk_provincia">
           <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Ciudad</mat-label>
-        <mat-select formControlName="ciudad_id">
+        <mat-select formControlName="fk_canton">
           <mat-option *ngFor="let c of ciudades"  [value]="c.id">{{c.canton}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Parroquia</mat-label>
-        <mat-select formControlName="parroquia_id">
+        <mat-select formControlName="fk_parroquia">
           <mat-option *ngFor="let pa of parroquias"  [value]="pa.id">{{pa.parroquia}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -99,40 +99,42 @@
   <mat-step [stepControl]="parentescoFormGroup" [formGroup]="parentescoFormGroup" label="Parentesco Familiar">
       <mat-form-field class="example-full-width">
         <mat-label>Tipo Parentesco</mat-label>
-        <input matInput placeholder="Ej. C0001" formControlName="tipo_parentesco" required>
+        <mat-select formControlName="tipo_parentesco">
+          <mat-option *ngFor="let tipo of tipos"  [value]="tipo">{{tipo}}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Primer Nombre</mat-label>
-        <input matInput placeholder="Ej. Carlos" formControlName="primer_nombre_parentesco" required>
+        <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Segundo Nombre</mat-label>
-        <input matInput placeholder="Ej. Luis" formControlName="segundo_nombre_parentesco">
+        <input matInput placeholder="Ej. Luis" formControlName="nombre2">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Primer Apellido</mat-label>
-        <input matInput placeholder="Ej. Cerezo" formControlName="primer_apellido_parentesco" required>
+        <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Segundo Apellido</mat-label>
-        <input matInput placeholder="Ej. Romero" formControlName="segundo_apellido_parentesco">
+        <input matInput placeholder="Ej. Romero" formControlName="apellido2">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Celular</mat-label>
-        <input matInput placeholder="Ej. 09455454545" formControlName="celular_parentesco" required>
+        <input matInput placeholder="Ej. 09455454545" formControlName="celular" required>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
+      <!--<mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Fecha de Cumpleaños</mat-label>
         <input matInput [matDatepicker]="picker_parentesco">
         <mat-datepicker-toggle matSuffix [for]="picker_parentesco"></mat-datepicker-toggle>
         <mat-datepicker #picker_parentesco></mat-datepicker>
-      </mat-form-field>
+      </mat-form-field>-->
       <div>
         <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
         <button mat-button mat-raised-button matStepperNext>Siguiente</button>

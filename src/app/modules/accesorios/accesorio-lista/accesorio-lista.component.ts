@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IAccesorios } from '@data/interfaces/i-accesorios';
 import { AccesoriosService } from '@data/services/api/accesorios.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-accesorio-lista',
@@ -18,6 +19,9 @@ export class AccesorioListaComponent implements OnInit {
   constructor(private accesorioServices: AccesoriosService) { }
 
   ngOnInit(): void {
+    this.listar();
+  }
+  listar() {
     this.accesorioServices.getAllAccesorios()
       .subscribe(
         r => {
@@ -32,5 +36,49 @@ export class AccesorioListaComponent implements OnInit {
           }
         });
   }
-  nuevo() {}
+  buscar(buscar:string) {
+    if(buscar.length > 1) {
+      this.accesorioServices.getByNombre(buscar)
+      .subscribe(  r => {
+        if (!r.error) {
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
+        }
+        else{
+          console.log(r.error);
+        }
+      });
+    } else {
+      this.listar();
+    }
+  }
+  borrar(id: number) {
+    this.accesorioServices.eliminar(id)
+      .subscribe(r => {
+        if (!r.error) {
+          this.alertRespuesta(id, 'El Registro se Eliminó con éxito')
+          this.listar();
+        }
+        else{
+          this.alertRespuesta(0, 'El Registro se No fue Eliminado')
+        }
+      });
+  }
+
+  alertRespuesta(id: number, message: string) {
+    if (id > 0) {
+      swal.fire({
+        icon: 'success',
+        title: `${message}`,
+        confirmButtonText: 'Ok',
+      })
+    } else {
+      swal.fire({
+        icon: 'error',
+        title: `${message}`,
+        confirmButtonText: 'Cerrar',
+      })
+    }
+  }
+
 }

@@ -19,9 +19,9 @@ import swal from 'sweetalert2';
 export class ClienteNaturalComponent implements OnInit {
 
   isLinear = true;
-  clienteFormGroup: FormGroup;
-  direccionFormGroup: FormGroup;
-  parentescoFormGroup: FormGroup;
+  clienteFormGroup!: FormGroup;
+  direccionFormGroup!: FormGroup;
+  parentescoFormGroup!: FormGroup;
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
   parroquias: IParroquias[] = [];
@@ -29,8 +29,8 @@ export class ClienteNaturalComponent implements OnInit {
   direccionesCN: iDireccionCNSend[] = [];
   parentescoCN: iParentescoCNSend[] = [];
   clienteGuardar!: iClienteNaturalGuardar;
-  datosCliente: any;
-  id?: number;
+  tipos: string[] = [];
+  id: number = 0;
 
   constructor(private _formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -39,45 +39,77 @@ export class ClienteNaturalComponent implements OnInit {
               private parroquiasServices: ParroquiasService,
               private clienteNaturalServices: ClienteNaturalService) {
 
-
-    this.clienteFormGroup = this._formBuilder.group({
-      codigo: ['', Validators.required],
-      cedula: ['', Validators.required],
-      primer_nombre: ['', Validators.required],
-      segundo_nombre: [''],
-      primer_apellido: ['', Validators.required],
-      segundo_apellido: [''],
-      correo: [''],
-      celular: ['', Validators.required],
-      cumpleanos: [''],
-    });
-    this.direccionFormGroup = this._formBuilder.group({
-      provincia_id: ['', Validators.required],
-      ciudad_id: ['', Validators.required],
-      parroquia_id: [''],
-      direccion_domiciliaria: ['', Validators.required],
-      direccion_oficina: [''],
-      telefono_convencional: [''],
-    });
-    this.parentescoFormGroup = this._formBuilder.group({
-      tipo_parentesco: ['', Validators.required],
-      primer_nombre_parentesco: ['', Validators.required],
-      segundo_nombre_parentesco: [''],
-      primer_apellido_parentesco: ['', Validators.required],
-      segundo_apellido_parentesco: [''],
-      celular_parentesco: [''],
-      picker_parentesco: ['']
-    });
+    this.id = this.route.snapshot.params.id;
+    this.clienteNatural = [{id: undefined, codigo: '', ruc: '', nombre1: '', nombre2: '', apellido1: '',
+                            apellido2: '', correo: '', celular: '', cumple: '', foto: '', publish: true}];
+    this.parentescoCN = [{id: undefined, fk_cliente: 0, tipo_parentesco: '', sexo: '', nombre1: '', nombre2: '', apellido1: '',
+                          apellido2: '', celular: '', correo: '', cumple: ''}];
+    this.direccionesCN = [{id: undefined, fk_cliente: 0, fk_provincia: 0, fk_canton: 0, fk_parroquia: 0, direccion_domiciliaria: '',
+                          direccion_oficina: '', telefono_convencional: '', publish: true}]
+    this.tipos = ['Esposo', 'esposa', 'Papá', 'Mamá', 'hijo'];
   }
 
   ngOnInit(): void {
 
-    this.id = this.route.snapshot.params.id;
-    console.log(this.id);
+    this.clienteFormGroup = this._formBuilder.group({
+      id: [this.clienteNatural[0].id],
+      codigo: [this.clienteNatural[0].codigo, Validators.required],
+      ruc: [this.clienteNatural[0].ruc, Validators.required],
+      nombre1: [this.clienteNatural[0].nombre1, Validators.required],
+      nombre2: [this.clienteNatural[0].nombre2],
+      apellido1: [this.clienteNatural[0].apellido1, Validators.required],
+      apellido2: [this.clienteNatural[0].apellido2],
+      correo: [this.clienteNatural[0].correo],
+      celular: [this.clienteNatural[0].celular, Validators.required],
+      cumple: [this.clienteNatural[0].cumple],
+      foto: [this.clienteNatural[0].foto],
+      publish: [this.clienteNatural[0].publish]
+    });
+
+    this.direccionFormGroup = this._formBuilder.group({
+      id: [this.direccionesCN[0].id],
+      fk_cliente: [this.direccionesCN[0].fk_cliente],
+      fk_provincia: [this.direccionesCN[0].fk_provincia, Validators.required],
+      fk_canton: [this.direccionesCN[0].fk_canton, Validators.required],
+      fk_parroquia: [this.direccionesCN[0].fk_parroquia],
+      direccion_domiciliaria: [this.direccionesCN[0].direccion_domiciliaria, Validators.required],
+      direccion_oficina: [this.direccionesCN[0].direccion_oficina],
+      telefono_convencional: [this.direccionesCN[0].telefono_convencional],
+      publish: [this.direccionesCN[0].publish]
+    });
+
+    this.parentescoFormGroup = this._formBuilder.group({
+      id: [this.parentescoCN[0].id],
+      fk_cliente: [this.parentescoCN[0].fk_cliente],
+      tipo_parentesco: [this.parentescoCN[0].tipo_parentesco, Validators.required],
+      sexo: [this.parentescoCN[0].sexo],
+      nombre1: [this.parentescoCN[0].nombre1, Validators.required],
+      nombre2: [this.parentescoCN[0].nombre2],
+      apellido1: [this.parentescoCN[0].apellido1, Validators.required],
+      apellido2: [this.parentescoCN[0].apellido2],
+      celular: [this.parentescoCN[0].celular],
+      correo: [this.parentescoCN[0].correo],
+      cumple: [this.parentescoCN[0].cumple]
+    });
+
+    if(this.id > 0) {
+      this.clienteNaturalServices.getById(this.id)
+        .subscribe(data => {
+          console.log(data.data);
+          this.clienteNatural = JSON.parse(data.data.cliente_natural) as iClienteNaturalSend[];
+          this.clienteFormGroup.setValue(this.clienteNatural);
+
+          this.direccionesCN = JSON.parse(data.data.direcciones) as iDireccionCNSend[];
+          this.direccionFormGroup.setValue(this.direccionesCN);
+
+          this.parentescoCN = JSON.parse(data.data.parentesco) as iParentescoCNSend[];
+          this.parentescoFormGroup.setValue(this.parentescoCN);
+
+        });
+    }
 
     this.provinciaService.lista_provincias().subscribe(data => {
       this.provincias = data['provincias'] as [];
-      console.log(this.provincias);
     });
 
     this.onChanges();
@@ -98,15 +130,15 @@ export class ClienteNaturalComponent implements OnInit {
   }
 
   onChanges() {
-    this.direccionFormGroup.get('provincia_id')?.valueChanges
+    this.direccionFormGroup.get('fk_provincia')?.valueChanges
       .subscribe(provinciaSeleccionada => {
-        this.direccionFormGroup.get('ciudad_id')?.reset();
+        this.direccionFormGroup.get('fk_canton')?.reset();
         this.getCiudad(provinciaSeleccionada);
       });
 
-    this.direccionFormGroup.get('ciudad_id')?.valueChanges
+    this.direccionFormGroup.get('fk_canton')?.valueChanges
       .subscribe(ciudadSeleccionada => {
-        this.direccionFormGroup.get('parroquia_id')?.reset();
+        this.direccionFormGroup.get('fk_parroquia')?.reset();
         this.getParroquia(ciudadSeleccionada);
       });
 
@@ -159,7 +191,7 @@ export class ClienteNaturalComponent implements OnInit {
       }
 
 
-      console.log(this.clienteGuardar);
+      //console.log(this.clienteGuardar);
     }
 
   }

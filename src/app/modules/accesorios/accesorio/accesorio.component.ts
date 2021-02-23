@@ -19,57 +19,72 @@ export class AccesorioComponent implements OnInit {
               private route: ActivatedRoute,
               private accesorioService: AccesoriosService) {
               this.id = this.route.snapshot.params.id;
-              this.accesorio = { nombre: '',  descripcion: ''};
-              console.log(this.accesorio)
+              this.accesorio = { id: undefined, nombre: '',  descripcion: ''};
 
   }
 
   ngOnInit(): void {
+    this.accesorioFormGroup = this.formBuilder.group({
+      id: [this.accesorio.id],
+      nombre: [this.accesorio.nombre, Validators.required],
+      descripcion: [this.accesorio.descripcion],
+      created_at: [this.accesorio.created_at],
+      publish: [this.accesorio.publish],
+      updated_at: [this.accesorio.updated_at],
+    });
     if(this.id > 0) {
       this.accesorioService.getById(this.id)
         .subscribe(data => {
-          console.log(data.data)
-          this.accesorio = {
-            id: data.data.id,
-            nombre: data.data.nombre,
-            descripcion: data.data.descripcion
-          };
-          console.log(this.accesorio)
+
+          this.accesorio = data.data as IAccesorios;
+          console.log(this.accesorio);
+          this.accesorioFormGroup.setValue(this.accesorio);
         });
     }
-    this.accesorioFormGroup = this.formBuilder.group({
-      nombre: [this.accesorio.nombre, Validators.required],
-      descripcion: [this.accesorio.descripcion]
-    });
 
   }
 
   onSubmit(): void {
-    /*if (!this.accesorioFormGroup.valid) {
-      return;
-    }*/
-    this.accesorio = {
-      nombre: this.accesorioFormGroup.get('nombre')?.value,
-      descripcion: this.accesorioFormGroup.get('descripcion')?.value,
-    };
-    this.accesorioService.guardar(this.accesorio)
-      .subscribe(data => {
-        console.log(data.data.id);
 
-        if (data.data.id > 0) {
-          swal.fire({
-            icon: 'success',
-            title: 'El registro se guardó con éxito',
-            confirmButtonText: 'Ok',
-          })
-        } else {
-          swal.fire({
-            icon: 'error',
-            title: 'Intente nuevamente!',
-            confirmButtonText: 'Cerrar',
-          })
+    if(!this.accesorioFormGroup.get('id')?.value){
+      this.accesorioService.guardar(this.accesorioFormGroup.getRawValue())
+      .subscribe(data => {
+        if(!data.error){
+          this.alertRespuesta(data.data.id as number, 'El Registro se Guardó con éxito');
+        }
+        else{
+          this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
         }
       });
+    } else {
+
+      this.accesorioService.actualizar(this.accesorioFormGroup.getRawValue())
+        .subscribe(data => {
+          if(!data.error){
+            this.alertRespuesta(data.data.id as number, 'El Registro se Actualizó con éxito')
+          }
+          else{
+            this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
+          }
+        })
+    }
+
+  }
+
+  alertRespuesta(id: number, message: string) {
+    if (id > 0) {
+      swal.fire({
+        icon: 'success',
+        title: `${message}`,
+        confirmButtonText: 'Ok',
+      })
+    } else {
+      swal.fire({
+        icon: 'error',
+        title: `${message}`,
+        confirmButtonText: 'Cerrar',
+      })
+    }
   }
 
 }
