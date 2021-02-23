@@ -62,6 +62,7 @@ export class AccesoriosService extends ApiClass{
     return this.http.post<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL, accesorioObj)
     .pipe(
       map(r => {
+        response.error = false;
         response.data = r.accesorio;
         return response;
       }),
@@ -71,9 +72,10 @@ export class AccesoriosService extends ApiClass{
 
   actualizar(accesorioObj: IAccesorios): Observable<{error: boolean; msg: string; data: any }>{
     const response = {error: true, msg: '', data: null as any};
-    return this.http.put<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL, accesorioObj)
+    return this.http.put<{accesorio: number}>(API_ROUTES.ACCESORIO.ACCESORIO_DETAIL+'?id='+accesorioObj.id, accesorioObj)
       .pipe(
         map(r => {
+          response.error = false;
           response.data = r.accesorio;
           return response;
         }),

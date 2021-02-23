@@ -11,7 +11,8 @@
     <mat-label>Descripción de Accesorio</mat-label>
     <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
   </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">GUARDAR</button>
+  <button *ngIf="accesorioFormGroup.get('id')?.value > 0" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">ACTUALIZAR</button>
+  <button *ngIf="!accesorioFormGroup.get('id')?.value" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">GUARDAR</button>
 </mat-card>
 </form>
 
