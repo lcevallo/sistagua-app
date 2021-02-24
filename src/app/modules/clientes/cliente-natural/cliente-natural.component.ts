@@ -186,9 +186,9 @@ export class ClienteNaturalComponent implements OnInit {
       }];
       */
       this.clienteGuardar = {
-        cliente_natural: this.clienteFormGroup.getRawValue(),
-        direcciones: this.direccionFormGroup.getRawValue(),
-        parentesco: this.parentescoFormGroup.getRawValue()
+        cliente_natural: [this.clienteFormGroup.getRawValue()],
+        direcciones: [this.direccionFormGroup.getRawValue()],
+        parentesco: [this.parentescoFormGroup.getRawValue()]
       }
 
       console.log(this.clienteGuardar);
@@ -211,11 +211,12 @@ export class ClienteNaturalComponent implements OnInit {
 
       this.clienteNaturalServices.actualizar(this.clienteGuardar)
         .subscribe(data => {
+          console.log(data);
           if(!data.error){
             this.alertRespuesta(data.data as number, 'El Registro se Actualizó con éxito')
           }
           else{
-            this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
+            this.alertRespuesta(0, 'Ocurrió un error al actualizar intente mas tarde');
           }
         })
     }
