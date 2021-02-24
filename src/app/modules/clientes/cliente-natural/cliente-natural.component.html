@@ -1,154 +1,175 @@
-<form (ngSubmit)="onSubmit()" class="example-card" autocomplete="off">
-<mat-horizontal-stepper class="example-form" [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="clienteFormGroup" [formGroup]="clienteFormGroup">
-      <ng-template matStepLabel>Datos del Cliente</ng-template>
-      <mat-form-field class="example-full-width">
-        <mat-label>Código</mat-label>
-        <input matInput placeholder="Ej. C0001" formControlName="codigo" required>
-      </mat-form-field>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1 class="h5 mb-0 text-gray-800">Registro de Clientes Domicilio</h1>
+</div>
+<div class="row">
+  <div class="col-xl-12 mb-4">
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Cédula</mat-label>
-        <input matInput placeholder="Ej. 0705114777" formControlName="ruc" required>
-      </mat-form-field>
+    <form (ngSubmit)="onSubmit()" class="example-card" autocomplete="off">
+      <mat-horizontal-stepper class="example-form" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="clienteFormGroup" [formGroup]="clienteFormGroup">
+            <ng-template matStepLabel>Datos del Cliente</ng-template>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Código</mat-label>
+              <input matInput placeholder="Ej. C0001" formControlName="codigo" required>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Primer Nombre</mat-label>
-        <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Cédula</mat-label>
+              <input matInput placeholder="Ej. 0705114777" formControlName="ruc" required>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+              <mat-form-field class="col-md-6">
+              <mat-label>Primer Nombre</mat-label>
+              <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Segundo Nombre</mat-label>
-        <input matInput placeholder="Ej. Luis" formControlName="nombre2">
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Segundo Nombre</mat-label>
+              <input matInput placeholder="Ej. Luis" formControlName="nombre2">
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Primer Apellido</mat-label>
+              <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Primer Apellido</mat-label>
-        <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Segundo Apellido</mat-label>
+              <input matInput placeholder="Ej. Romero" formControlName="apellido2">
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Correo</mat-label>
+              <input matInput placeholder="Ej. ccerezo90@gmail.com" formControlName="correo">
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Segundo Apellido</mat-label>
-        <input matInput placeholder="Ej. Romero" formControlName="apellido2">
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Celular</mat-label>
+              <input matInput placeholder="Ej. 0994898989" formControlName="celular" required>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-xs-12 col-md-6" appearance="fill">
+              <mat-label>Fecha de Cumpleaños</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="cumple">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </div>
+            <div>
+              <button mat-button mat-raised-button matStepperNext>Siguiente</button>
+            </div>
+        </mat-step>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Correo</mat-label>
-        <input matInput placeholder="Ej. ccerezo90@gmail.com" formControlName="correo">
-      </mat-form-field>
+        <mat-step [stepControl]="direccionFormGroup" [formGroup]="direccionFormGroup" label="Dirección">
+          <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Provincia</mat-label>
+              <mat-select formControlName="fk_provincia">
+                <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Celular</mat-label>
-        <input matInput placeholder="Ej. 0994898989" formControlName="celular" required>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Ciudad</mat-label>
+              <mat-select formControlName="fk_canton">
+                <mat-option *ngFor="let c of ciudades"  [value]="c.id">{{c.canton}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Parroquia</mat-label>
+              <mat-select formControlName="fk_parroquia">
+                <mat-option *ngFor="let pa of parroquias"  [value]="pa.id">{{pa.parroquia}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Fecha de Cumpleaños</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="cumple">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Dirección domiciliaria</mat-label>
+              <input matInput placeholder="Ej. Cerezo" formControlName="direccion_domiciliaria" required>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+              <mat-form-field class="col-md-6">
+              <mat-label>Dirección Oficina</mat-label>
+              <input matInput placeholder="Ej. Romero" formControlName="direccion_oficina">
+            </mat-form-field>
 
-      <div>
-        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
-      </div>
-  </mat-step>
+            <mat-form-field class="col-md-6">
+              <mat-label>Teléfono</mat-label>
+              <input matInput placeholder="Ej. 09455454545" formControlName="telefono_convencional">
+            </mat-form-field>
+            </div>
+            <div>
+              <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+              <button mat-button mat-raised-button matStepperNext class="ml-2">Siguiente</button>
+            </div>
+        </mat-step>
 
-  <mat-step [stepControl]="direccionFormGroup" [formGroup]="direccionFormGroup" label="Dirección">
-      <mat-form-field class="example-full-width">
-        <mat-label>Provincia</mat-label>
-        <mat-select formControlName="fk_provincia">
-          <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-step [stepControl]="parentescoFormGroup" [formGroup]="parentescoFormGroup" label="Parentesco Familiar">
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Tipo Parentesco</mat-label>
+              <mat-select formControlName="tipo_parentesco">
+                <mat-option *ngFor="let tipo of tipos"  [value]="tipo">{{tipo}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Ciudad</mat-label>
-        <mat-select formControlName="fk_canton">
-          <mat-option *ngFor="let c of ciudades"  [value]="c.id">{{c.canton}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Primer Nombre</mat-label>
+              <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Segundo Nombre</mat-label>
+              <input matInput placeholder="Ej. Luis" formControlName="nombre2">
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Parroquia</mat-label>
-        <mat-select formControlName="fk_parroquia">
-          <mat-option *ngFor="let pa of parroquias"  [value]="pa.id">{{pa.parroquia}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Primer Apellido</mat-label>
+              <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
+            </mat-form-field>
+            </div>
+            <div class="form-row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Segundo Apellido</mat-label>
+              <input matInput placeholder="Ej. Romero" formControlName="apellido2">
+            </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Dirección domiciliaria</mat-label>
-        <input matInput placeholder="Ej. Cerezo" formControlName="direccion_domiciliaria" required>
-      </mat-form-field>
+            <mat-form-field class="col-md-6">
+              <mat-label>Celular</mat-label>
+              <input matInput placeholder="Ej. 09455454545" formControlName="celular" required>
+            </mat-form-field>
+            </div>
+            <!--<mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Fecha de Cumpleaños</mat-label>
+              <input matInput [matDatepicker]="picker_parentesco">
+              <mat-datepicker-toggle matSuffix [for]="picker_parentesco"></mat-datepicker-toggle>
+              <mat-datepicker #picker_parentesco></mat-datepicker>
+            </mat-form-field>-->
+            <div>
+              <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+              <button mat-button mat-raised-button matStepperNext class="ml-2">Siguiente</button>
+            </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Finalizar</ng-template>
+          <p>Estas listo para guardar los cambios.</p>
+          <div>
+            <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
+            <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
+            <button mat-raised-button color="primary" (click)="done()" class="ml-2" type="submit">GUARDAR</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+      </form>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Dirección Oficina</mat-label>
-        <input matInput placeholder="Ej. Romero" formControlName="direccion_oficina">
-      </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Teléfono</mat-label>
-        <input matInput placeholder="Ej. 09455454545" formControlName="telefono_convencional">
-      </mat-form-field>
-      <div>
-        <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
-        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
-      </div>
-  </mat-step>
-
-  <mat-step [stepControl]="parentescoFormGroup" [formGroup]="parentescoFormGroup" label="Parentesco Familiar">
-      <mat-form-field class="example-full-width">
-        <mat-label>Tipo Parentesco</mat-label>
-        <mat-select formControlName="tipo_parentesco">
-          <mat-option *ngFor="let tipo of tipos"  [value]="tipo">{{tipo}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Primer Nombre</mat-label>
-        <input matInput placeholder="Ej. Carlos" formControlName="nombre1" required>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Segundo Nombre</mat-label>
-        <input matInput placeholder="Ej. Luis" formControlName="nombre2">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Primer Apellido</mat-label>
-        <input matInput placeholder="Ej. Cerezo" formControlName="apellido1" required>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Segundo Apellido</mat-label>
-        <input matInput placeholder="Ej. Romero" formControlName="apellido2">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Celular</mat-label>
-        <input matInput placeholder="Ej. 09455454545" formControlName="celular" required>
-      </mat-form-field>
-
-      <!--<mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Fecha de Cumpleaños</mat-label>
-        <input matInput [matDatepicker]="picker_parentesco">
-        <mat-datepicker-toggle matSuffix [for]="picker_parentesco"></mat-datepicker-toggle>
-        <mat-datepicker #picker_parentesco></mat-datepicker>
-      </mat-form-field>-->
-      <div>
-        <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
-        <button mat-button mat-raised-button matStepperNext>Siguiente</button>
-      </div>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Finalizar</ng-template>
-    <p>Estas listo para guardar los cambios.</p>
-    <div>
-      <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
-      <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
-      <button mat-raised-button color="primary" (click)="done()" type="submit">GUARDAR</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
-</form>
-
+  </div>
+</div>

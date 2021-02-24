@@ -1,22 +1,31 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="accesorioFormGroup" novalidate>
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title *ngIf="accesorioFormGroup.get('id')?.value > 0">Editar Accesorio</mat-card-title>
-    <mat-card-title *ngIf="!accesorioFormGroup.get('id')?.value">Nuevo Accesorio</mat-card-title>
-  </mat-card-header>
-  <mat-form-field class="example-full-width">
-    <mat-label>Nombre de Accesorio</mat-label>
-    <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <mat-label>Descripción de Accesorio</mat-label>
-    <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
-  </mat-form-field>
-  <button routerLink="/accesorios/accesorio-lista" mat-raised-button>
-    Regresar
-  </button>
-  <button *ngIf="accesorioFormGroup.get('id')?.value > 0" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">ACTUALIZAR</button>
-  <button *ngIf="!accesorioFormGroup.get('id')?.value" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">GUARDAR</button>
-</mat-card>
-</form>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1  *ngIf="accesorioFormGroup.get('id')?.value > 0" class="h5 mb-0 text-gray-800">Editar Accesorio</h1>
+  <h1  *ngIf="!accesorioFormGroup.get('id')?.value" class="h5 mb-0 text-gray-800">Registar Accesorio</h1>
+</div>
+<div class="row">
+  <div class="col-xl-12 mb-4">
 
+    <form (ngSubmit)="onSubmit()" [formGroup]="accesorioFormGroup" novalidate>
+      <mat-card>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Nombre de Accesorio</mat-label>
+          <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
+        </mat-form-field>
+        </div>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Descripción de Accesorio</mat-label>
+          <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
+        </mat-form-field>
+        </div>
+        <button routerLink="/accesorios/accesorio-lista" mat-raised-button class="mr-2">
+          Regresar
+        </button>
+        <button *ngIf="accesorioFormGroup.get('id')?.value > 0" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">ACTUALIZAR</button>
+        <button *ngIf="!accesorioFormGroup.get('id')?.value" mat-raised-button color="primary" [disabled]="!accesorioFormGroup.valid" type="submit">GUARDAR</button>
+      </mat-card>
+      </form>
+
+  </div>
+</div>

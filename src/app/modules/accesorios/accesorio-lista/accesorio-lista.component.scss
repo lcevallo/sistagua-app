@@ -1,38 +1,5 @@
-table{
-  min-width: 400px;
-  max-width: 800px;
-  position: relative;
-  top: 85px;
-  margin: 0 auto;
-  width: 100%;
+.table td, .table th {
+  padding: .25rem;
+  vertical-align: middle;
+  border-top: 1px solid #e3e6f0;
 }
-mat-card{
-  min-width: 400px;
-  max-width: 800px;
-  position: relative;
-  top: 85px;
-  margin: 5px auto;
-  width: 100%;
-  padding: 10px 0px;
-}
-.buscar {
-  width: 75%;
-  margin-left: 10px;
-}
-.btn_nuevo{
-  margin-left: 20px;
-}
-.btn_acciones {
-  width: 30px !important;
-  padding: 0px !important;
-}
-mat-paginator{
-  min-width: 400px;
-  max-width: 800px;
-  position: relative;
-  top: 85px;
-  margin: 0px auto;
-  width: 100%;
-  padding: 10px 0px;
-}
-
