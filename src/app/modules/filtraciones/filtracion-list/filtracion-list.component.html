@@ -1,1 +1,63 @@
-<p>filtracion-list works!</p>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1 class="h5 mb-0 text-gray-800">Registro de Filtros</h1>
+  <a routerLink="/filtraciones/filtracion/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <i class="fas fa-plus-circle fa-sm text-white-50"></i> Nuevo Filtros
+  </a>
+</div>
+<div class="row">
+  <div class="col-xl-12 mb-4">
+
+    <mat-card>
+      <mat-form-field class="col-md-12">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="buscar(texto.value)" #texto>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="table">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre. </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <!--<button [routerLink]="['/clientes/cliente-natural/', element.cedula]" mat-stroked-button>Editar</button>-->
+            <button routerLink="/filtraciones/filtracion/{{element.id}}" mat-stroked-button>
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="ml-2" mat-stroked-button color="warn" (click)="borrar(element.id)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [length]="100"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10]">
+      </mat-paginator>
+    </div>
+
+  </div>
+</div>
+

@@ -32,7 +32,6 @@ export class AccesorioListaComponent implements OnInit {
           }
           else{
             console.log("Estoy en el else");
-            console.log(r.error);
           }
         });
   }

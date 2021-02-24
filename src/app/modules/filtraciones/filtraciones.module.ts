@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FiltracionesRoutingModule } from './filtraciones-routing.module';
+import { MaterialModule } from '@material/material.module';
 import {SharedModule} from '@shared/shared.module';
 import { FiltracionComponent } from './filtracion/filtracion.component';
 import { FiltracionListComponent } from './filtracion-list/filtracion-list.component';
@@ -12,6 +13,7 @@ import { FiltracionListComponent } from './filtracion-list/filtracion-list.compo
   imports: [
     CommonModule,
     SharedModule,
+    MaterialModule,
     FiltracionesRoutingModule
   ]
 })

@@ -10,6 +10,10 @@ const routes: Routes = [
     component: FiltracionListComponent
   },
   {
+    path: 'filtracion/:id',
+    component: FiltracionComponent
+  },
+  {
     path: 'filtracion',
     component: FiltracionComponent
   }

@@ -1,1 +1,32 @@
-<p>filtracion works!</p>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1  *ngIf="filtroFormGroup.get('id')?.value > 0" class="h5 mb-0 text-gray-800">Editar Filtro</h1>
+  <h1  *ngIf="!filtroFormGroup.get('id')?.value" class="h5 mb-0 text-gray-800">Registar Filtro</h1>
+</div>
+<div class="row">
+  <div class="col-xl-12 mb-4">
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="filtroFormGroup" novalidate>
+      <mat-card>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Nombre de Filtro</mat-label>
+          <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
+        </mat-form-field>
+        </div>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Descripción de Filtro</mat-label>
+          <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
+        </mat-form-field>
+        </div>
+        <button routerLink="/filtraciones/filtraciones-lista" mat-raised-button class="mr-2">
+          Regresar
+        </button>
+        <button *ngIf="filtroFormGroup.get('id')?.value > 0" mat-raised-button color="primary" [disabled]="!filtroFormGroup.valid" type="submit">ACTUALIZAR</button>
+        <button *ngIf="!filtroFormGroup.get('id')?.value" mat-raised-button color="primary" [disabled]="!filtroFormGroup.valid" type="submit">GUARDAR</button>
+      </mat-card>
+      </form>
+
+  </div>
+</div>
+
