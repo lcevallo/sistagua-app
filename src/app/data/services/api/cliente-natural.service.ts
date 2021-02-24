@@ -111,22 +111,16 @@ export class ClienteNaturalService extends ApiClass {
       );
   }
 
-  actualizarClienteNaturalParentescoDireccion(
-    clienteNaturalPyD: iClienteNaturalGuardar
-): Observable<{
-  error: boolean;
-  msg: string;
-  data: any
-}>{
-  const response = {error: true, msg: '', data: null as any};
-  return this.http.put<{respuesta: any}>(API_ROUTES.CLIENTE_NATURAL.STEPPER, clienteNaturalPyD)
-  .pipe(
-    map(r => {
-      response.data = r.respuesta;
-      return response;
-    }),
-    catchError(() => of(response))
-  );
-}
+  actualizar(clienteNaturalPyD: iClienteNaturalGuardar): Observable<{ error: boolean; msg: string; data: any }>{
+    const response = {error: true, msg: '', data: null as any};
+    return this.http.put<{respuesta: any}>(API_ROUTES.CLIENTE_NATURAL.STEPPER, clienteNaturalPyD)
+      .pipe(
+        map(r => {
+          response.data = r.respuesta;
+          return response;
+        }),
+        catchError(() => of(response))
+      );
+  }
 
 }

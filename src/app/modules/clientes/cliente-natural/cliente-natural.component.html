@@ -163,8 +163,11 @@
           <p>Estas listo para guardar los cambios.</p>
           <div>
             <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
-            <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
-            <button mat-raised-button color="primary" (click)="done()" class="ml-2" type="submit">GUARDAR</button>
+            <!--<button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-raised-button color="primary" (click)="done()" class="ml-2" type="submit">GUARDAR</button>-->
+
+            <button *ngIf="clienteFormGroup.get('id')?.value > 0" mat-raised-button color="primary" color="primary" (click)="done()" class="ml-2" type="submit">ACTUALIZAR</button>
+            <button *ngIf="!clienteFormGroup.get('id')?.value" mat-raised-button color="primary" color="primary" (click)="done()" class="ml-2" type="submit">GUARDAR</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>

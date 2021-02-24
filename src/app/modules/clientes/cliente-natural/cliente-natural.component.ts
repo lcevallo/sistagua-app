@@ -153,7 +153,7 @@ export class ClienteNaturalComponent implements OnInit {
       let mes = String(cumple.month()+1);
       let anio = String(cumple.year());
 
-      this.clienteNatural = [{
+      /*this.clienteNatural = [{
         codigo: this.clienteFormGroup.get('codigo')?.value,
         ruc: this.clienteFormGroup.get('cedula')?.value,
         apellido1: this.clienteFormGroup.get('primer_apellido')?.value,
@@ -184,35 +184,57 @@ export class ClienteNaturalComponent implements OnInit {
         direccion_oficina: this.direccionFormGroup.get('direccion_oficina')?.value,
         telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value
       }];
+      */
       this.clienteGuardar = {
-        cliente_natural: this.clienteNatural,
-        direcciones: this.direccionesCN,
-        parentesco: this.parentescoCN
+        cliente_natural: this.clienteFormGroup.getRawValue(),
+        direcciones: this.direccionFormGroup.getRawValue(),
+        parentesco: this.parentescoFormGroup.getRawValue()
       }
 
-
-      //console.log(this.clienteGuardar);
+      console.log(this.clienteGuardar);
     }
 
   }
 
-    done() {
+  done() {
+    if(!this.clienteFormGroup.get('id')?.value) {
       this.clienteNaturalServices.guardarClienteNaturalParentescoDireccion(this.clienteGuardar)
-        .subscribe( data => {
-          if (data.data > 0) {
-            swal.fire({
-              icon: 'success',
-              title: 'El registro se guardó con éxito',
-              confirmButtonText: 'Ok',
-            })
-          } else {
-            swal.fire({
-              icon: 'error',
-              title: 'Intente nuevamente!',
-              confirmButtonText: 'Cerrar',
-            })
+      .subscribe( data => {
+        if(!data.error){
+          this.alertRespuesta(data.data as number, 'El Registro se Actualizó con éxito')
+        }
+        else{
+          this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
+        }
+      });
+    } else {
+
+      this.clienteNaturalServices.actualizar(this.clienteGuardar)
+        .subscribe(data => {
+          if(!data.error){
+            this.alertRespuesta(data.data as number, 'El Registro se Actualizó con éxito')
           }
-        });
+          else{
+            this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
+          }
+        })
     }
+  }
+
+  alertRespuesta(id: number, message: string) {
+    if (id > 0) {
+      swal.fire({
+        icon: 'success',
+        title: `${message}`,
+        confirmButtonText: 'Ok',
+      })
+    } else {
+      swal.fire({
+        icon: 'error',
+        title: `${message}`,
+        confirmButtonText: 'Cerrar',
+      })
+    }
+  }
 
 }
