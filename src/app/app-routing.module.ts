@@ -34,6 +34,16 @@ const routes: Routes = [
         loadChildren: () => import('@modules/filtraciones/filtraciones.module').then( (m) => m.FiltracionesModule)
       }
     ]
+  },
+  {
+    path: 'ficha-tecnica',
+    component: SkeletonComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@modules/ficha-tecnica/ficha-tecnica.module').then( (m) => m.FichaTecnicaModule)
+      }
+    ]
   }
 ];
 
