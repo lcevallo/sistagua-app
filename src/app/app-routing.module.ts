@@ -24,6 +24,16 @@ const routes: Routes = [
         loadChildren: () => import('@modules/accesorios/accesorios.module').then( (m) => m.AccesoriosModule)
       }
     ]
+  },
+  {
+    path: 'filtraciones',
+    component: SkeletonComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@modules/filtraciones/filtraciones.module').then( (m) => m.FiltracionesModule)
+      }
+    ]
   }
 ];
 
