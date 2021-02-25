@@ -8,6 +8,7 @@ import { FiltracionesComponent } from './filtraciones/filtraciones.component';
 import { AccesoriosComponent } from './accesorios/accesorios.component';
 import {SharedModule} from '@shared/shared.module';
 import { ListaFichasComponent } from './lista-fichas/lista-fichas.component';
+import { MaterialModule } from '@material/material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ListaFichasComponent } from './lista-fichas/lista-fichas.component';
   imports: [
     CommonModule,
     SharedModule,
-    FichaTecnicaRoutingModule
+    FichaTecnicaRoutingModule,
+    MaterialModule
   ]
 })
 export class FichaTecnicaModule { }

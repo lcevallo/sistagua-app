@@ -116,6 +116,7 @@ export class ClienteNaturalService extends ApiClass {
     return this.http.put<{respuesta: any}>(API_ROUTES.CLIENTE_NATURAL.STEPPER, clienteNaturalPyD)
       .pipe(
         map(r => {
+          response.error = false;
           response.data = r.respuesta;
           return response;
         }),
