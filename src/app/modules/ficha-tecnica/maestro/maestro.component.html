@@ -9,7 +9,17 @@
         <div class="form-row">
           <mat-form-field class="col-md-6">
             <mat-label>Cliente</mat-label>
-            <input matInput placeholder="Ej. Carlo Cerezo" formControlName="fk_cliente" required>
+            <input type="text"
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   formControlName="fk_cliente"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <mat-form-field class="col-md-6">
             <mat-label>Tipo Cliente</mat-label>

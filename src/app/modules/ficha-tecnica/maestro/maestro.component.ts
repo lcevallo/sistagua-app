@@ -2,8 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IFichaTecnica } from '@data/interfaces/i-ficha-tecnica';
+import { IclienteNatural } from '@data/interfaces/icliente-natural';
+import { ClienteNaturalService } from '@data/services/api/cliente-natural.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import swal from 'sweetalert2';
 
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+};
 @Component({
   selector: 'app-maestro',
   templateUrl: './maestro.component.html',
@@ -13,16 +22,30 @@ export class MaestroComponent implements OnInit {
 
   fichaFormGroup!: FormGroup;
   fichaTecnica: IFichaTecnica;
-
+  clientes: IclienteNatural[] = [];
+  filteredOptions!: Observable<IclienteNatural[]>;
   constructor(private formBuilder: FormBuilder,
+              private clienteNaturalServices: ClienteNaturalService,
               private route: ActivatedRoute) {
 
-    this.fichaTecnica = { id: undefined, fk_cliente: undefined, tipo_cliente: '', codigo: '', tds: 0, ppm: 0,
-                          visitas: 0, fecha_comprado: '', created_at:'', updated_at:'', publish:true
+    this.fichaTecnica = { id: undefined, fk_cliente: undefined, tipo_cliente: '', codigo: '', tds: undefined, ppm: undefined,
+                          visitas: undefined, fecha_comprado: '', created_at:'', updated_at:'', publish:true
                       };
+    this.clienteNaturalServices.getAllClientesNaturales()
+      .subscribe( r => {
+        if (!r.error) {
+          this.clientes = r.data as IclienteNatural[];
+          console.log(this.clientes)
+        }
+      })
   }
 
   ngOnInit(): void {
+    this.filteredOptions = this.fichaFormGroup.get('fk_cliente')!.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filterGroup(value))
+      );
     this.fichaFormGroup = this.formBuilder.group({
       id: [this.fichaTecnica.id],
       fk_cliente: [this.fichaTecnica.fk_cliente, Validators.required],
@@ -37,6 +60,19 @@ export class MaestroComponent implements OnInit {
       updated_at: [this.fichaTecnica.updated_at],
     });
   }
+
+  private _filterGroup(value: string): IclienteNatural[] {
+    if (value) {
+      return this.clientes
+        .map(group => ({id: group.id, codigo: group.codigo, ruc: group.ruc, nombre1: _filter(group.nombre1, value), nombre2: group.nombre2,
+                     apellido1: group.apellido1, apellido2: group.apellido2, correo: group.correo, celular: group.celular,
+                     cumple: group.cumple, foto: group.foto, publish: group.publish}))
+        .filter(group => group.nombre1.length > 0);
+    }
+
+    return this.clientes;
+  }
+
 
   onSubmit(): void {
 
