@@ -30,7 +30,9 @@ export class ClienteNaturalService extends ApiClass {
     return this.http.get <{clientes: IclienteNatural[]} > (API_ROUTES.CLIENTE_NATURAL.LISTA)
       .pipe(
           map( r =>  {
+
             response.data = r.clientes;
+            r.clientes.map(cliente => cliente.tipo='DOMICILIO');
             return response;
           }),
         catchError((e) => of(response))

@@ -8,11 +8,6 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import swal from 'sweetalert2';
 
-export const _filter = (opt: string[], value: string): string[] => {
-  const filterValue = value.toLowerCase();
-
-  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
-};
 @Component({
   selector: 'app-maestro',
   templateUrl: './maestro.component.html',
@@ -41,11 +36,7 @@ export class MaestroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredOptions = this.fichaFormGroup.get('fk_cliente')!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterGroup(value))
-      );
+
     this.fichaFormGroup = this.formBuilder.group({
       id: [this.fichaTecnica.id],
       fk_cliente: [this.fichaTecnica.fk_cliente, Validators.required],
@@ -59,21 +50,32 @@ export class MaestroComponent implements OnInit {
       publish: [this.fichaTecnica.publish],
       updated_at: [this.fichaTecnica.updated_at],
     });
+
+    this.filteredOptions = this.fichaFormGroup.get('fk_cliente')!.valueChanges
+      .pipe(
+        startWith(''),
+        map(cliente => this.filterGroup(cliente))
+      );
   }
 
-  private _filterGroup(value: string): IclienteNatural[] {
-    if (value) {
-      return this.clientes
-        .map(group => ({id: group.id, codigo: group.codigo, ruc: group.ruc, nombre1: _filter(group.nombre1, value), nombre2: group.nombre2,
-                     apellido1: group.apellido1, apellido2: group.apellido2, correo: group.correo, celular: group.celular,
-                     cumple: group.cumple, foto: group.foto, publish: group.publish}))
-        .filter(group => group.nombre1.length > 0);
+  filterGroup(value: any) {
+    if(value != null && value.id > 0){
+      this.fichaFormGroup.get('tipo_cliente')?.setValue(value.tipo);
+      return this.clientes.filter(cliente =>
+        cliente.nombre1.toLowerCase().includes(value.nombre1.toLowerCase()) ||
+        cliente.apellido1.toLowerCase().includes(value.apellido1.toLowerCase()) ||
+        cliente.ruc.includes(value.ruc));
+    } else {
+      return this.clientes.filter(cliente =>
+        cliente.nombre1.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.apellido1.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.ruc.includes(value));
     }
-
-    return this.clientes;
   }
 
-
+  displayFn(cliente: IclienteNatural): string {
+    return cliente && cliente.nombre1 ? cliente.nombre1+' '+cliente.apellido1 : '';
+  }
   onSubmit(): void {
 
     /*if(!this.fichaFormGroup.get('id')?.value){

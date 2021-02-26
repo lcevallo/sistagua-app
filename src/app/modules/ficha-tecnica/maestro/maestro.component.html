@@ -10,14 +10,14 @@
           <mat-form-field class="col-md-6">
             <mat-label>Cliente</mat-label>
             <input type="text"
-                   placeholder="Pick one"
+                   placeholder="Nombre"
                    aria-label="Number"
                    matInput
                    formControlName="fk_cliente"
                    [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
+                {{option.apellido1}} {{option.nombre1}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
