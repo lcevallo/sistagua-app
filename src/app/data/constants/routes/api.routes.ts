@@ -8,6 +8,10 @@ export const API_ROUTES = {
         CLIENTE: `${ENV.baseUrl}cliente_natural`,
         STEPPER: `${ENV.baseUrl}cliente_natural_stepper`
     },
+    CLIENTE_EMPRESARIAL: {
+      LISTA: `${ENV.baseUrl}clientes_empresariales`,
+      CLIENTE: `${ENV.baseUrl}cliente_empresarial`
+    },
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`
     },

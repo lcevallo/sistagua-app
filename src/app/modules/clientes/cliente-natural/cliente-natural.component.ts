@@ -165,17 +165,7 @@ export class ClienteNaturalComponent implements OnInit {
         cumple: anio+"-"+mes+"-"+dia,
         foto: ""
       }];
-      this.parentescoCN = [{
-        tipo_parentesco: this.parentescoFormGroup.get('tipo_parentesco')?.value,
-        sexo: "",
-        nombre1: this.parentescoFormGroup.get('primer_nombre_parentesco')?.value,
-        nombre2: this.parentescoFormGroup.get('segundo_nombre_parentesco')?.value,
-        apellido1: this.parentescoFormGroup.get('primer_apellido_parentesco')?.value,
-        apellido2: this.parentescoFormGroup.get('segundo_apellido_parentesco')?.value,
-        celular: this.parentescoFormGroup.get('celular_parentesco')?.value,
-        correo: "",
-        cumple: this.parentescoFormGroup.get('picker_parentesco')?.value
-      }];
+
       this.direccionesCN = [{
         fk_provincia: this.direccionFormGroup.get('provincia_id')?.value,
         fk_canton: this.direccionFormGroup.get('ciudad_id')?.value,

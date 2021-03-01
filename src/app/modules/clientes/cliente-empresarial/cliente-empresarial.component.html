@@ -1,1 +1,32 @@
-<p>cliente-empresarial works!</p>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1 class="h5 mb-0 text-gray-800">Registar de Cliente Empresarial</h1>
+</div>
+<div class="row">
+  <div class="col-xl-12 mb-4">
+
+    <form (ngSubmit)="onSubmit()" novalidate>
+      <mat-card>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Nombre de Filtro</mat-label>
+          <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
+        </mat-form-field>
+        </div>
+        <div class="form-row">
+        <mat-form-field class="col-md-6">
+          <mat-label>Descripción de Filtro</mat-label>
+          <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
+        </mat-form-field>
+        </div>
+        <button routerLink="/filtraciones/filtraciones-lista" mat-raised-button class="mr-2">
+          Regresar
+        </button>
+        <button mat-raised-button color="primary" type="submit">GUARDAR</button>
+      </mat-card>
+      </form>
+
+  </div>
+</div>
+
+
+
