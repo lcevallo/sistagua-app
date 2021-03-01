@@ -36,6 +36,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'cargos',
+    component: SkeletonComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('@modules/cargos/cargos-routing.module').then( (m) => m.CargosRoutingModule)
+      }
+    ]
+  },
+  {
     path: 'ficha-tecnica',
     component: SkeletonComponent,
     children: [
