@@ -6,5 +6,5 @@ export interface IclienteEmpresarial {
   direccion: string;
   telefono: string;
   correo: string;
-  publish?: number
+  publish?: boolean
 }

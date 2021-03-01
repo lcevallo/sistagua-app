@@ -4,27 +4,57 @@
 <div class="row">
   <div class="col-xl-12 mb-4">
 
-    <form (ngSubmit)="onSubmit()" novalidate>
+    <form (ngSubmit)="onSubmit()" novalidate [formGroup]="clienteFormGroup">
       <mat-card>
         <div class="form-row">
-        <mat-form-field class="col-md-6">
-          <mat-label>Nombre de Filtro</mat-label>
-          <input matInput placeholder="Ej. Membrana" formControlName="nombre" required>
-        </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <mat-label>Còdigo</mat-label>
+            <input matInput placeholder="Ej. EMP0001" formControlName="codigo" required>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <mat-label>RUC</mat-label>
+            <input matInput placeholder="Ej. 099999999001" formControlName="ruc" required>
+          </mat-form-field>
         </div>
         <div class="form-row">
-        <mat-form-field class="col-md-6">
-          <mat-label>Descripción de Filtro</mat-label>
-          <input matInput placeholder="Ej. sirva para cambiar filtro" formControlName="descripcion">
-        </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <mat-label>Nombre de la Empresa</mat-label>
+            <input matInput placeholder="Ej. Sistagua" formControlName="nombres" required>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <mat-label>Dirección Principal</mat-label>
+            <input matInput placeholder="Ej. Pasaje" formControlName="direccion">
+          </mat-form-field>
         </div>
-        <button routerLink="/filtraciones/filtraciones-lista" mat-raised-button class="mr-2">
+        <div class="form-row">
+          <mat-form-field class="col-md-6">
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="Ej. 0994898148" formControlName="telefono" required>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <mat-label>Correo</mat-label>
+            <input matInput placeholder="Ej. empresa@gmail.com" formControlName="correo">
+          </mat-form-field>
+        </div>
+        <button routerLink="/clientes/clientes-empresarial-lista" mat-raised-button class="mr-2">
           Regresar
         </button>
-        <button mat-raised-button color="primary" type="submit">GUARDAR</button>
+        <button mat-raised-button color="primary" [disabled]="!clienteFormGroup.valid" type="submit">GUARDAR</button>
       </mat-card>
-      </form>
-
+    </form>
+    <button *ngIf="clienteFormGroup.get('id')?.value > 0" mat-raised-button color="primary">Agregar Dirección de Oficina</button>
+    <mat-card *ngIf="clienteFormGroup.get('id')?.value > 0" class="mt-2">
+      <mat-card-header>
+        <mat-card-title>Datos de la Empresa</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>CQ0001</p>
+        <p>RUC: 089999999</p>
+        <p>Sistagua EC</p>
+        <p>Pasaje - El Oro</p>
+        <p>Tlfn: 0994898148</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
