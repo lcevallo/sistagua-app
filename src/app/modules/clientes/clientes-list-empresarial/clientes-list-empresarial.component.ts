@@ -1,4 +1,6 @@
+import { IclienteEmpresarial } from '@data/interfaces/icliente-empresarial';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-clientes-list-empresarial',
@@ -7,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesListEmpresarialComponent implements OnInit {
 
+  displayedColumns: string[] = ['id','codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto','acciones'];
+  dataSource!: MatTableDataSource<IclienteEmpresarial>;
   constructor() { }
 
   ngOnInit(): void {

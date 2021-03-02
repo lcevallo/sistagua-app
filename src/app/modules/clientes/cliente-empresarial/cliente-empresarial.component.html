@@ -2,59 +2,118 @@
   <h1 class="h5 mb-0 text-gray-800">Registar de Cliente Empresarial</h1>
 </div>
 <div class="row">
-  <div class="col-xl-12 mb-4">
+  <div class="col-xl-3 mb-4">
+    <mat-card>
+      <mat-card-content>
+        DATOS REGISTRADOS
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-xl-9 mb-4">
 
-    <form (ngSubmit)="onSubmit()" novalidate [formGroup]="clienteFormGroup">
+    <form *ngIf="!id" (ngSubmit)="onSubmit()" novalidate [formGroup]="clienteFormGroup">
       <mat-card>
-        <div class="form-row">
-          <mat-form-field class="col-md-6">
-            <mat-label>Còdigo</mat-label>
-            <input matInput placeholder="Ej. EMP0001" formControlName="codigo" required>
-          </mat-form-field>
-          <mat-form-field class="col-md-6">
-            <mat-label>RUC</mat-label>
-            <input matInput placeholder="Ej. 099999999001" formControlName="ruc" required>
-          </mat-form-field>
-        </div>
-        <div class="form-row">
-          <mat-form-field class="col-md-6">
-            <mat-label>Nombre de la Empresa</mat-label>
-            <input matInput placeholder="Ej. Sistagua" formControlName="nombres" required>
-          </mat-form-field>
-          <mat-form-field class="col-md-6">
-            <mat-label>Dirección Principal</mat-label>
-            <input matInput placeholder="Ej. Pasaje" formControlName="direccion">
-          </mat-form-field>
-        </div>
-        <div class="form-row">
-          <mat-form-field class="col-md-6">
-            <mat-label>Teléfono</mat-label>
-            <input matInput placeholder="Ej. 0994898148" formControlName="telefono" required>
-          </mat-form-field>
-          <mat-form-field class="col-md-6">
-            <mat-label>Correo</mat-label>
-            <input matInput placeholder="Ej. empresa@gmail.com" formControlName="correo">
-          </mat-form-field>
-        </div>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              Datos de la Empresa
+            </mat-list-item>
+              <div class="form-row">
+                <mat-form-field class="col-md-4">
+                  <mat-label>Còdigo</mat-label>
+                  <input matInput placeholder="Ej. EMP0001" formControlName="codigo" required>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>RUC</mat-label>
+                  <input matInput placeholder="Ej. 099999999001" formControlName="ruc" required>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Nombre de la Empresa</mat-label>
+                  <input matInput placeholder="Ej. Sistagua" formControlName="nombres" required>
+                </mat-form-field>
+              </div>
+              <div class="form-row mb-4">
+                <mat-form-field class="col-md-4">
+                  <mat-label>Dirección Principal</mat-label>
+                  <input matInput placeholder="Ej. Pasaje" formControlName="direccion">
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput placeholder="Ej. 0994898148" formControlName="telefono" required>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Correo</mat-label>
+                  <input matInput placeholder="Ej. empresa@gmail.com" formControlName="correo">
+                </mat-form-field>
+              </div>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              Direcciones
+            </mat-list-item>
+            <div formGroupName="direccionFormGroup">
+              <div class="form-row mb-4">
+                <mat-form-field class="col-md-4">
+                  <mat-label>Provincia</mat-label>
+                  <mat-select formControlName="fk_provincia">
+                    <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Ciudad</mat-label>
+                  <mat-select formControlName="fk_canton">
+                    <mat-option *ngFor="let c of ciudades"  [value]="c.id">{{c.canton}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Parroquia</mat-label>
+                  <mat-select formControlName="fk_parroquia">
+                    <mat-option *ngFor="let pa of parroquias"  [value]="pa.id">{{pa.parroquia}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Sector</mat-label>
+                  <input matInput placeholder="Ej. Norte" formControlName="sector" required>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Dirección</mat-label>
+                  <input matInput placeholder="Ej. Machala" formControlName="direccion" required>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Telefóno</mat-label>
+                  <input matInput placeholder="Ej. 072973231" formControlName="telefono_convencional" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              Contáctos
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
         <button routerLink="/clientes/clientes-empresarial-lista" mat-raised-button class="mr-2">
           Regresar
         </button>
         <button mat-raised-button color="primary" [disabled]="!clienteFormGroup.valid" type="submit">GUARDAR</button>
       </mat-card>
     </form>
-    <button *ngIf="clienteFormGroup.get('id')?.value > 0" mat-raised-button color="primary">Agregar Dirección de Oficina</button>
-    <mat-card *ngIf="clienteFormGroup.get('id')?.value > 0" class="mt-2">
+    <mat-card *ngIf="id > 0">
       <mat-card-header>
         <mat-card-title>Datos de la Empresa</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>CQ0001</p>
-        <p>RUC: 089999999</p>
-        <p>Sistagua EC</p>
-        <p>Pasaje - El Oro</p>
-        <p>Tlfn: 0994898148</p>
+        <mat-list>
+          <mat-list-item>SIATAGUA</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>RUC: 0705114775</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Dirección: Pasaje</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Tlfn: 099489848</mat-list-item>
+        </mat-list>
       </mat-card-content>
+      <button class="mt-2" mat-raised-button color="primary" (click)="editarEmpresa()">Editar datos de la Empresa</button>
     </mat-card>
+    <button *ngIf="id > 0" class="mt-2" mat-raised-button color="primary">Agregar Dirección de Oficina</button>
   </div>
 </div>
 
