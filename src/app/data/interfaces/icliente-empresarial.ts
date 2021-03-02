@@ -19,3 +19,13 @@ export interface iDireccionEmpresarial {
   direccion: string;
   telefono_convencional: string
 }
+
+export interface iCargo {
+  id?: number;
+  fk_tipo_cargo?: number;
+  nombres: string;
+  apellidos: string;
+  celular: string;
+  correo: string;
+  publish: boolean
+}

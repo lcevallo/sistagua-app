@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ICiudades } from '@data/interfaces/i-ciudades';
 import { IParroquias } from '@data/interfaces/i-parroquias';
 import { IProvincias } from '@data/interfaces/i-provincias';
-import { IclienteEmpresarial, iDireccionEmpresarial } from '@data/interfaces/icliente-empresarial';
+import { iCargo, IclienteEmpresarial, iDireccionEmpresarial } from '@data/interfaces/icliente-empresarial';
 import { CiudadesService } from '@data/services/api/ciudades.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
@@ -20,6 +20,7 @@ export class ClienteEmpresarialComponent implements OnInit {
   clienteFormGroup!: FormGroup;
   clienteEmpresarial: IclienteEmpresarial;
   direccionEmpresarial: iDireccionEmpresarial[] = [];
+  cargoEmpresarial: iCargo[] = [];
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
   parroquias: IParroquias[] = [];
@@ -36,6 +37,9 @@ export class ClienteEmpresarialComponent implements OnInit {
 
     this.direccionEmpresarial = [{id: undefined, fk_cliente_empresarial: 0, fk_provincia: 0, fk_canton: 0,
                                 fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: ''}];
+
+    this.cargoEmpresarial = [{id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
+                              correo: '', publish: true}];
   }
 
   ngOnInit(): void {
@@ -57,6 +61,15 @@ export class ClienteEmpresarialComponent implements OnInit {
         sector: [this.direccionEmpresarial[0].sector, Validators.required],
         direccion: [this.direccionEmpresarial[0].direccion],
         telefono_convencional: [this.direccionEmpresarial[0].telefono_convencional]
+      }),
+      cargosFormGroup: this._formBuilder.group({
+        id: [this.cargoEmpresarial[0].id],
+        fk_tipo_cargo: [[this.cargoEmpresarial[0].fk_tipo_cargo], Validators.required],
+        nombres: [[this.cargoEmpresarial[0].nombres], Validators.required],
+        apellidos: [[this.cargoEmpresarial[0].apellidos], Validators.required],
+        celular: [[this.cargoEmpresarial[0].celular]],
+        correo: [[this.cargoEmpresarial[0].correo]],
+        publish: [[this.cargoEmpresarial[0].publish]]
       })
     });
     this.provinciaService.lista_provincias().subscribe(data => {
