@@ -37,7 +37,8 @@ export class ClienteEmpresarialComponent implements OnInit {
                             direccion: '', telefono: '', correo: '', publish: true};
 
     this.direccionEmpresarial = {id: undefined, fk_cliente_empresarial: 0, fk_provincia: 0, fk_canton: 0,
-                                fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: ''};
+                                fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: '',
+                                nombre_provincia: '', nombre_ciudad:'', nombre_parroquia:''};
 
     this.cargoEmpresarial = [{id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
                               correo: '', publish: true}];
@@ -61,7 +62,10 @@ export class ClienteEmpresarialComponent implements OnInit {
         fk_parroquia: [this.direccionEmpresarial.fk_parroquia],
         sector: [this.direccionEmpresarial.sector, Validators.required],
         direccion: [this.direccionEmpresarial.direccion],
-        telefono_convencional: [this.direccionEmpresarial.telefono_convencional]
+        telefono_convencional: [this.direccionEmpresarial.telefono_convencional],
+        nombre_provincia: [this.direccionEmpresarial.nombre_provincia],
+        nombre_ciudad: [this.direccionEmpresarial.nombre_ciudad],
+        nombre_parroquia: [this.direccionEmpresarial.nombre_parroquia]
       }),
       cargosFormGroup: this._formBuilder.group({
         id: [this.cargoEmpresarial[0].id],
@@ -81,11 +85,14 @@ export class ClienteEmpresarialComponent implements OnInit {
   }
 
   onChanges() {
-    this.clienteFormGroup.get('direccionFormGroup')?.valueChanges
-      .subscribe( direccion => {
-        console.log(direccion.fk_provincia)
-        //this.clienteFormGroup.get('fk_canton')?.reset();
-        this.getCiudad(direccion.fk_provincia);
+    this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.valueChanges
+      .subscribe( idProvincia => {
+        console.log(idProvincia);
+        const provincia = this.provincias.filter(p => p.id == idProvincia);
+        console.log(provincia);
+        this.clienteFormGroup.get('direccionFormGroup')?.get('nombre_provincia')?.setValue(provincia[0].provincia);
+
+        this.getCiudad(idProvincia);
       });
 
     this.clienteFormGroup.get('direccionFormGroup')?.valueChanges
@@ -101,12 +108,17 @@ export class ClienteEmpresarialComponent implements OnInit {
     this.direccionEmpresarialArray.push(this.clienteFormGroup.get('direccionFormGroup')?.value);
     console.log(this.direccionEmpresarialArray);
     //const provincia = Array.from(new Set(this.direccionEmpresarialArray.map(provincia => provincia.provincia )));
-    const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
+    //const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
     //const nombreProvincia = Array.from(new Set(provincia.map(p => p.provincia)));
-    const nombreProvincia = provincia.map(p => p.provincia);
-    console.log(nombreProvincia);
+    //const nombreProvincia = provincia.map(p => p.provincia);
+    //console.log(nombreProvincia);
   }
-
+  direccionTemporal() {
+    this.direccionEmpresarialArray.map(d => d.fk_provincia);
+    const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
+    const ciudad = this.ciudades.filter(c => c.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_canton')?.value);
+    return provincia[0].provincia+'/'+ciudad[0].canton;
+  }
   onSubmit() {
     if(!this.clienteFormGroup.get('id')?.value){
       this.id = 1;

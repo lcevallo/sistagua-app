@@ -46,7 +46,7 @@
 
               <mat-chip-list *ngIf="direccionEmpresarialArray.length > 0">
                 <mat-chip *ngFor="let item of direccionEmpresarialArray">
-                  {{ item.sector }} - {{ item.direccion }}
+                  {{ item.nombre_provincia }} - {{ item.direccion }}
                 </mat-chip>
               </mat-chip-list>
 
@@ -54,7 +54,7 @@
                 <mat-form-field class="col-md-4">
                   <mat-label>Provincia</mat-label>
                   <mat-select formControlName="fk_provincia">
-                    <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
+                    <mat-option *ngFor="let p of provincias" [value]="p.id">{{p.provincia}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-md-4">
@@ -80,6 +80,9 @@
                 <mat-form-field class="col-md-4">
                   <mat-label>Telefóno</mat-label>
                   <input matInput placeholder="Ej. 072973231" formControlName="telefono_convencional">
+                </mat-form-field>
+                <mat-form-field class="invisible">
+                  <input matInput type="hidden" formControlName="nombre_provincia">
                 </mat-form-field>
                 <div class="col-md-12 text-right">
                   <button type="button" mat-stroked-button color="primary" (click)="registarDirecciones()">Registrar Dirección</button>

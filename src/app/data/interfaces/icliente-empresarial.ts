@@ -17,7 +17,10 @@ export interface iDireccionEmpresarial {
   fk_parroquia: number;
   sector: string;
   direccion: string;
-  telefono_convencional: string
+  telefono_convencional: string,
+  nombre_provincia?: string,
+  nombre_ciudad?: string,
+  nombre_parroquia?: string
 }
 
 export interface iCargo {
