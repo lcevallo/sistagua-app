@@ -43,6 +43,13 @@
               Direcciones
             </mat-list-item>
             <div formGroupName="direccionFormGroup">
+
+              <mat-chip-list *ngIf="direccionEmpresarialArray.length > 0">
+                <mat-chip *ngFor="let item of direccionEmpresarialArray">
+                  {{ item.sector }} - {{ item.direccion }}
+                </mat-chip>
+              </mat-chip-list>
+
               <div class="form-row mb-2">
                 <mat-form-field class="col-md-4">
                   <mat-label>Provincia</mat-label>
@@ -72,10 +79,10 @@
                 </mat-form-field>
                 <mat-form-field class="col-md-4">
                   <mat-label>Telefóno</mat-label>
-                  <input matInput placeholder="Ej. 072973231" formControlName="telefono_convencional" required>
+                  <input matInput placeholder="Ej. 072973231" formControlName="telefono_convencional">
                 </mat-form-field>
                 <div class="col-md-12 text-right">
-                  <button mat-stroked-button color="primary">Registrar Dirección</button>
+                  <button type="button" mat-stroked-button color="primary" (click)="registarDirecciones()">Registrar Dirección</button>
                 </div>
               </div>
             </div>

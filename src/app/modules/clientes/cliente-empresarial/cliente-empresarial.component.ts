@@ -19,7 +19,8 @@ export class ClienteEmpresarialComponent implements OnInit {
 
   clienteFormGroup!: FormGroup;
   clienteEmpresarial: IclienteEmpresarial;
-  direccionEmpresarial: iDireccionEmpresarial[] = [];
+  direccionEmpresarialArray: iDireccionEmpresarial[] = [];
+  direccionEmpresarial!: iDireccionEmpresarial;
   cargoEmpresarial: iCargo[] = [];
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
@@ -35,8 +36,8 @@ export class ClienteEmpresarialComponent implements OnInit {
     this.clienteEmpresarial = {id: undefined, codigo: '', ruc: '', nombres: '',
                             direccion: '', telefono: '', correo: '', publish: true};
 
-    this.direccionEmpresarial = [{id: undefined, fk_cliente_empresarial: 0, fk_provincia: 0, fk_canton: 0,
-                                fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: ''}];
+    this.direccionEmpresarial = {id: undefined, fk_cliente_empresarial: 0, fk_provincia: 0, fk_canton: 0,
+                                fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: ''};
 
     this.cargoEmpresarial = [{id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
                               correo: '', publish: true}];
@@ -53,14 +54,14 @@ export class ClienteEmpresarialComponent implements OnInit {
       correo: [this.clienteEmpresarial.correo],
       publish: [this.clienteEmpresarial.publish],
       direccionFormGroup: this._formBuilder.group({
-        id: [this.direccionEmpresarial[0].id],
-        fk_cliente_empresarial: [this.direccionEmpresarial[0].fk_cliente_empresarial],
-        fk_provincia: [this.direccionEmpresarial[0].fk_provincia, Validators.required],
-        fk_canton: [this.direccionEmpresarial[0].fk_canton, Validators.required],
-        fk_parroquia: [this.direccionEmpresarial[0].fk_parroquia],
-        sector: [this.direccionEmpresarial[0].sector, Validators.required],
-        direccion: [this.direccionEmpresarial[0].direccion],
-        telefono_convencional: [this.direccionEmpresarial[0].telefono_convencional]
+        id: [this.direccionEmpresarial.id],
+        fk_cliente_empresarial: [this.direccionEmpresarial.fk_cliente_empresarial],
+        fk_provincia: [this.direccionEmpresarial.fk_provincia, Validators.required],
+        fk_canton: [this.direccionEmpresarial.fk_canton, Validators.required],
+        fk_parroquia: [this.direccionEmpresarial.fk_parroquia],
+        sector: [this.direccionEmpresarial.sector, Validators.required],
+        direccion: [this.direccionEmpresarial.direccion],
+        telefono_convencional: [this.direccionEmpresarial.telefono_convencional]
       }),
       cargosFormGroup: this._formBuilder.group({
         id: [this.cargoEmpresarial[0].id],
@@ -93,6 +94,17 @@ export class ClienteEmpresarialComponent implements OnInit {
         this.getParroquia(direccion.fk_canton);
       });
 
+  }
+
+  registarDirecciones() {
+    console.log(this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
+    this.direccionEmpresarialArray.push(this.clienteFormGroup.get('direccionFormGroup')?.value);
+    console.log(this.direccionEmpresarialArray);
+    //const provincia = Array.from(new Set(this.direccionEmpresarialArray.map(provincia => provincia.provincia )));
+    const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
+    //const nombreProvincia = Array.from(new Set(provincia.map(p => p.provincia)));
+    const nombreProvincia = provincia.map(p => p.provincia);
+    console.log(nombreProvincia);
   }
 
   onSubmit() {
