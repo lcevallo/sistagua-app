@@ -20,7 +20,7 @@ export class FiltracionComponent implements OnInit {
               private filtroService: FiltracionesServices) {
 
     this.id = this.route.snapshot.params.id;
-    this.filtro = { id: undefined, nombre: '',  descripcion: ''};
+    this.filtro = { id: undefined, nombre: '', codigo:'', descripcion: ''};
 
   }
 
@@ -28,6 +28,7 @@ export class FiltracionComponent implements OnInit {
     this.filtroFormGroup = this.formBuilder.group({
       id: [this.filtro.id],
       nombre: [this.filtro.nombre, Validators.required],
+      codigo: [this.filtro.codigo],
       descripcion: [this.filtro.descripcion],
       created_at: [this.filtro.created_at],
       publish: [this.filtro.publish],

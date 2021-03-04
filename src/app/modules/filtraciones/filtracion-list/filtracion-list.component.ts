@@ -12,7 +12,7 @@ import swal from 'sweetalert2';
 })
 export class FiltracionListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','nombre', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['id','nombre', 'codigo', 'descripcion', 'acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<IFiltraciones>;
 

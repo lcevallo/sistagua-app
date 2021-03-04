@@ -19,7 +19,7 @@ export class AccesorioComponent implements OnInit {
               private route: ActivatedRoute,
               private accesorioService: AccesoriosService) {
               this.id = this.route.snapshot.params.id;
-              this.accesorio = { id: undefined, nombre: '',  descripcion: ''};
+              this.accesorio = { id: undefined, nombre: '',  descripcion: '', codigo:''};
 
   }
 
@@ -28,6 +28,7 @@ export class AccesorioComponent implements OnInit {
       id: [this.accesorio.id],
       nombre: [this.accesorio.nombre, Validators.required],
       descripcion: [this.accesorio.descripcion],
+      codigo: [this.accesorio.codigo],
       created_at: [this.accesorio.created_at],
       publish: [this.accesorio.publish],
       updated_at: [this.accesorio.updated_at],

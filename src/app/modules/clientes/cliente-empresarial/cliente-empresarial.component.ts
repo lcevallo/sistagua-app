@@ -5,9 +5,11 @@ import { ICiudades } from '@data/interfaces/i-ciudades';
 import { IParroquias } from '@data/interfaces/i-parroquias';
 import { IProvincias } from '@data/interfaces/i-provincias';
 import { iCargo, IclienteEmpresarial, iDireccionEmpresarial } from '@data/interfaces/icliente-empresarial';
+import { ItipoCargo } from '@data/interfaces/itipo-cargo';
 import { CiudadesService } from '@data/services/api/ciudades.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
+import { TipoCargoService } from '@data/services/api/tipo-cargo.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -21,16 +23,19 @@ export class ClienteEmpresarialComponent implements OnInit {
   clienteEmpresarial: IclienteEmpresarial;
   direccionEmpresarialArray: iDireccionEmpresarial[] = [];
   direccionEmpresarial!: iDireccionEmpresarial;
-  cargoEmpresarial: iCargo[] = [];
+  cargoEmpresarialArray: iCargo[] = [];
+  cargoEmpresarial!: iCargo;
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
   parroquias: IParroquias[] = [];
+  tipoCargo: ItipoCargo[] = [];
   id: number = 0;
   constructor(private _formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private provinciaService: ProvinciasService,
               private ciudadesServices: CiudadesService,
-              private parroquiasServices: ParroquiasService) {
+              private parroquiasServices: ParroquiasService,
+              private tipoCargoServices: TipoCargoService) {
 
     this.id = this.route.snapshot.params.id;
     this.clienteEmpresarial = {id: undefined, codigo: '', ruc: '', nombres: '',
@@ -40,8 +45,8 @@ export class ClienteEmpresarialComponent implements OnInit {
                                 fk_parroquia: 0, sector: '', direccion: '', telefono_convencional: '',
                                 nombre_provincia: '', nombre_ciudad:'', nombre_parroquia:''};
 
-    this.cargoEmpresarial = [{id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
-                              correo: '', publish: true}];
+    this.cargoEmpresarial = {id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
+                              correo: '', publish: true, nombre_tipo_cargo: ''};
   }
 
   ngOnInit(): void {
@@ -68,18 +73,25 @@ export class ClienteEmpresarialComponent implements OnInit {
         nombre_parroquia: [this.direccionEmpresarial.nombre_parroquia]
       }),
       cargosFormGroup: this._formBuilder.group({
-        id: [this.cargoEmpresarial[0].id],
-        fk_tipo_cargo: [[this.cargoEmpresarial[0].fk_tipo_cargo], Validators.required],
-        nombres: [[this.cargoEmpresarial[0].nombres], Validators.required],
-        apellidos: [[this.cargoEmpresarial[0].apellidos], Validators.required],
-        celular: [[this.cargoEmpresarial[0].celular]],
-        correo: [[this.cargoEmpresarial[0].correo]],
-        publish: [[this.cargoEmpresarial[0].publish]]
+        id: [this.cargoEmpresarial.id],
+        fk_tipo_cargo: [[this.cargoEmpresarial.fk_tipo_cargo], Validators.required],
+        nombres: [[this.cargoEmpresarial.nombres], Validators.required],
+        apellidos: [[this.cargoEmpresarial.apellidos], Validators.required],
+        celular: [[this.cargoEmpresarial.celular]],
+        correo: [[this.cargoEmpresarial.correo]],
+        publish: [[this.cargoEmpresarial.publish]],
+        nombre_tipo_cargo: [[this.cargoEmpresarial.nombre_tipo_cargo]]
       })
     });
+
     this.provinciaService.lista_provincias().subscribe(data => {
       this.provincias = data['provincias'] as [];
     });
+
+    this.tipoCargoServices.listado()
+      .subscribe( data => {
+        this.tipoCargo = data['tipos_cargos'] as [];
+      })
 
     this.onChanges();
   }
@@ -89,35 +101,43 @@ export class ClienteEmpresarialComponent implements OnInit {
       .subscribe( idProvincia => {
         console.log(idProvincia);
         const provincia = this.provincias.filter(p => p.id == idProvincia);
-        console.log(provincia);
         this.clienteFormGroup.get('direccionFormGroup')?.get('nombre_provincia')?.setValue(provincia[0].provincia);
 
         this.getCiudad(idProvincia);
       });
 
-    this.clienteFormGroup.get('direccionFormGroup')?.valueChanges
-      .subscribe(direccion => {
-        //this.clienteFormGroup.get('fk_parroquia')?.reset();
-        this.getParroquia(direccion.fk_canton);
+    this.clienteFormGroup.get('direccionFormGroup')?.get('fk_canton')?.valueChanges
+      .subscribe(idCiudad => {
+        console.log(idCiudad);
+        const ciudad = this.ciudades.filter(c => c.id == idCiudad);
+        this.clienteFormGroup.get('direccionFormGroup')?.get('nombre_ciudad')?.setValue(ciudad[0].canton);
+        this.getParroquia(idCiudad);
+      });
+
+    this.clienteFormGroup.get('direccionFormGroup')?.get('fk_parroquia')?.valueChanges
+      .subscribe(idParroquia => {
+        console.log(idParroquia);
+        const parroquias = this.parroquias.filter(c => c.id == idParroquia);
+        this.clienteFormGroup.get('direccionFormGroup')?.get('nombre_parroquia')?.setValue(parroquias[0].parroquia);
+      });
+
+    this.clienteFormGroup.get('cargosFormGroup')?.get('fk_tipo_cargo')?.valueChanges
+      .subscribe(idCargo => {
+        console.log(idCargo);
+        const cargo = this.tipoCargo.filter(c => c.id == idCargo);
+        this.clienteFormGroup.get('cargosFormGroup')?.get('nombre_tipo_cargo')?.setValue(cargo[0].tipo);
       });
 
   }
 
   registarDirecciones() {
-    console.log(this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
     this.direccionEmpresarialArray.push(this.clienteFormGroup.get('direccionFormGroup')?.value);
     console.log(this.direccionEmpresarialArray);
-    //const provincia = Array.from(new Set(this.direccionEmpresarialArray.map(provincia => provincia.provincia )));
-    //const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
-    //const nombreProvincia = Array.from(new Set(provincia.map(p => p.provincia)));
-    //const nombreProvincia = provincia.map(p => p.provincia);
-    //console.log(nombreProvincia);
+
   }
-  direccionTemporal() {
-    this.direccionEmpresarialArray.map(d => d.fk_provincia);
-    const provincia = this.provincias.filter(p => p.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_provincia')?.value);
-    const ciudad = this.ciudades.filter(c => c.id === this.clienteFormGroup.get('direccionFormGroup')?.get('fk_canton')?.value);
-    return provincia[0].provincia+'/'+ciudad[0].canton;
+  registarContactos() {
+    this.cargoEmpresarialArray.push(this.clienteFormGroup.get('cargosFormGroup')?.value);
+    console.log(this.cargoEmpresarialArray);
   }
   onSubmit() {
     if(!this.clienteFormGroup.get('id')?.value){

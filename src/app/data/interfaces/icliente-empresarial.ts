@@ -30,5 +30,6 @@ export interface iCargo {
   apellidos: string;
   celular: string;
   correo: string;
-  publish: boolean
+  publish: boolean;
+  nombre_tipo_cargo?: string;
 }

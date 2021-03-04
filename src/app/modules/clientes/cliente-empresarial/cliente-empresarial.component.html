@@ -46,7 +46,7 @@
 
               <mat-chip-list *ngIf="direccionEmpresarialArray.length > 0">
                 <mat-chip *ngFor="let item of direccionEmpresarialArray">
-                  {{ item.nombre_provincia }} - {{ item.direccion }}
+                  {{ item.nombre_provincia }}/{{ item.nombre_ciudad }}/{{ item.nombre_parroquia }} - {{ item.direccion }}
                 </mat-chip>
               </mat-chip-list>
 
@@ -81,9 +81,6 @@
                   <mat-label>Telefóno</mat-label>
                   <input matInput placeholder="Ej. 072973231" formControlName="telefono_convencional">
                 </mat-form-field>
-                <mat-form-field class="invisible">
-                  <input matInput type="hidden" formControlName="nombre_provincia">
-                </mat-form-field>
                 <div class="col-md-12 text-right">
                   <button type="button" mat-stroked-button color="primary" (click)="registarDirecciones()">Registrar Dirección</button>
                 </div>
@@ -94,11 +91,16 @@
               Contáctos
             </mat-list-item>
             <div formGroupName="cargosFormGroup">
+              <mat-chip-list *ngIf="cargoEmpresarialArray.length > 0">
+                <mat-chip *ngFor="let item of cargoEmpresarialArray">
+                  {{ item.nombre_tipo_cargo }} - {{ item.nombres }} {{ item.apellidos }} - Cel: {{ item.celular }}
+                </mat-chip>
+              </mat-chip-list>
               <div class="form-row mb-2">
                 <mat-form-field class="col-md-4">
                   <mat-label>Cargo</mat-label>
                   <mat-select formControlName="fk_tipo_cargo">
-                    <mat-option *ngFor="let p of provincias"  [value]="p.id">{{p.provincia}}</mat-option>
+                    <mat-option *ngFor="let item of tipoCargo"  [value]="item.id">{{item.tipo}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-md-4">
@@ -118,7 +120,7 @@
                   <input matInput placeholder="Ej. correo@gmail.com" formControlName="correo">
                 </mat-form-field>
                 <div class="col-md-12 text-right">
-                  <button mat-stroked-button color="primary">Registrar Contácto</button>
+                  <button type="button" mat-stroked-button color="primary" (click)="registarContactos()">Registrar Contácto</button>
                 </div>
               </div>
             </div>
