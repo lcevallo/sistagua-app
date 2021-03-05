@@ -146,12 +146,12 @@ export class ClienteNaturalComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.clienteFormGroup.valid && this.direccionFormGroup.valid) {
+    if (this.clienteFormGroup.valid && this.direccionFormGroup.valid && this.parentescoFormGroup.valid) {
 
       let cumple = moment(this.clienteFormGroup.get('cumpleanos')?.value);
-      let dia = String(cumple.date());
-      let mes = String(cumple.month()+1);
-      let anio = String(cumple.year());
+      let dia = (cumple.date());
+      let mes = (cumple.month()+1);
+      let anio = (cumple.year());
 
       /*this.clienteNatural = [{
         codigo: this.clienteFormGroup.get('codigo')?.value,
@@ -166,14 +166,19 @@ export class ClienteNaturalComponent implements OnInit {
         foto: ""
       }];
 
+      this.clienteFormGroup.get('cumple')?.setValue(anio+"-"+mes+"-"+dia);
+      console.log(this.clienteFormGroup.get('cumple')?.value);
+
+      this.clienteNatural[0].cumple = anio+"-"+mes+"-"+dia;
       */
+      
       this.clienteGuardar = {
         cliente_natural: [this.clienteFormGroup.getRawValue()],
         direcciones: [this.direccionFormGroup.getRawValue()],
         parentesco: [this.parentescoFormGroup.getRawValue()]
       }
 
-      console.log(this.clienteGuardar);
+
     }
 
   }
