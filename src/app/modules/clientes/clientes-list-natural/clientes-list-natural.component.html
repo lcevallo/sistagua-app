@@ -10,7 +10,7 @@
     <mat-card>
       <mat-form-field class="col-md-12">
         <mat-label>Buscar</mat-label>
-        <input matInput #texto>
+        <input matInput (keyup)="buscar(texto.value)" #texto>
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </mat-card>

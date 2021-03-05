@@ -166,14 +166,6 @@ export class ClienteNaturalComponent implements OnInit {
         foto: ""
       }];
 
-      this.direccionesCN = [{
-        fk_provincia: this.direccionFormGroup.get('provincia_id')?.value,
-        fk_canton: this.direccionFormGroup.get('ciudad_id')?.value,
-        fk_parroquia: this.direccionFormGroup.get('parroquia_id')?.value,
-        direccion_domiciliaria: this.direccionFormGroup.get('direccion_domiciliaria')?.value,
-        direccion_oficina: this.direccionFormGroup.get('direccion_oficina')?.value,
-        telefono_convencional: this.direccionFormGroup.get('telefono_convencional')?.value
-      }];
       */
       this.clienteGuardar = {
         cliente_natural: [this.clienteFormGroup.getRawValue()],

@@ -24,20 +24,9 @@ export class ClientesListNaturalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-    // this.clienteNaturalService.getClientesNaturalesForStepperByIdCliente(1).subscribe(
-    //   r => {
-    //     if (!r.error) {
-    //       console.log(r.data);
-    //     }
-    //     else{
-    //       console.log("Estoy en el else");
-    //       console.log(r.error);
-    //     }
-    //   }
-    // )
-
+    this.listar();
+  }
+  listar() {
     this.clienteNaturalService.getAllClientesNaturales().subscribe(
       r => {
         if (!r.error) {
@@ -47,12 +36,26 @@ export class ClientesListNaturalComponent implements OnInit {
         }
         else{
         }
-      }
-    );
+      });
   }
-
-  nuevoCliente() {
-
+  buscar(buscar:string) {
+    if(buscar.length > 1) {
+      const regex = /^[0-9]*$/;
+      const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
+      numeros ? buscar = `ruc=${buscar}` : buscar = `apellido1=${buscar}`
+      this.clienteNaturalService.getClienteByCedula(buscar)
+      .subscribe(  r => {
+        if (!r.error) {
+          this.clientes_naturales_list = r.data;
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
+        }
+          else{
+        }
+      });
+    } else {
+      this.listar();
+    }
   }
 
 }

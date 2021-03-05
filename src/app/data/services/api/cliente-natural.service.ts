@@ -61,12 +61,17 @@ export class ClienteNaturalService extends ApiClass {
   getClienteByCedula(cedula: string): Observable<{
     error: boolean,
     msg: string,
-    data: IclienteNatural
+    data: IclienteNatural[]
   }>{
-    const response = {error: false, msg: '', data: null as any};
-    return this.http.get<IclienteNatural>(`${API_ROUTES.CLIENTE_NATURAL.LISTA}?ruc=${cedula}`).pipe(
+    //const response = {error: false, msg: '', data: null as any};
+    const response = {error: false, msg: '', data: [] as  IclienteNatural[]};
+    //return this.http.get<IclienteNatural>(`${API_ROUTES.CLIENTE_NATURAL.LISTA}?ruc=${cedula}`).pipe(
+    return this.http.get <{clientes: IclienteNatural[]} > (`${API_ROUTES.CLIENTE_NATURAL.LISTA}?${cedula}`).pipe(
       map(r => {
-          response.data = r;
+          /*response.data = r;
+          return response;*/
+          response.data = r.clientes;
+          r.clientes.map(cliente => cliente.tipo='DOMICILIO');
           return response;
         }
       ),
