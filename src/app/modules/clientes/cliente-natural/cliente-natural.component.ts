@@ -97,6 +97,7 @@ export class ClienteNaturalComponent implements OnInit {
         .subscribe(data => {
           console.log(data.data);
           this.clienteNatural = JSON.parse(data.data.cliente_natural) as iClienteNaturalSend[];
+          console.log(this.clienteNatural);
           this.clienteFormGroup.setValue(this.clienteNatural);
 
           this.direccionesCN = JSON.parse(data.data.direcciones) as iDireccionCNSend[];
