@@ -171,7 +171,7 @@ export class ClienteNaturalComponent implements OnInit {
 
       this.clienteNatural[0].cumple = anio+"-"+mes+"-"+dia;
       */
-      
+
       this.clienteGuardar = {
         cliente_natural: [this.clienteFormGroup.getRawValue()],
         direcciones: [this.direccionFormGroup.getRawValue()],
@@ -188,7 +188,10 @@ export class ClienteNaturalComponent implements OnInit {
       this.clienteNaturalServices.guardarClienteNaturalParentescoDireccion(this.clienteGuardar)
       .subscribe( data => {
         if(!data.error){
-          this.alertRespuesta(data.data as number, 'El Registro se Actualizó con éxito')
+          console.log(data.data);
+          console.log(data.data.id_cliente_natural);
+
+          this.alertRespuesta(data.data.id_cliente_natural as number, 'El Registro se Actualizó con éxito')
         }
         else{
           this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');

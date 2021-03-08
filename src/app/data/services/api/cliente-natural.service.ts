@@ -84,12 +84,13 @@ export class ClienteNaturalService extends ApiClass {
   ): Observable<{
     error: boolean;
     msg: string;
-    data: number
+    data: any
   }>{
     const response = {error: true, msg: '', data: null as any};
-    return this.http.post<{cliente: number}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE, clienteNaturalPyD)
+    return this.http.post<{cliente: any}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE, clienteNaturalPyD)
     .pipe(
       map(r => {
+        response.error = false;
         response.data = r.cliente;
         return response;
       }),
