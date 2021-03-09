@@ -147,12 +147,12 @@
               <input matInput placeholder="Ej. 09455454545" formControlName="celular" required>
             </mat-form-field>
             </div>
-            <!--<mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Fecha de Cumpleaños</mat-label>
-              <input matInput [matDatepicker]="picker_parentesco">
+              <input matInput [matDatepicker]="picker_parentesco" formControlName="cumple">
               <mat-datepicker-toggle matSuffix [for]="picker_parentesco"></mat-datepicker-toggle>
               <mat-datepicker #picker_parentesco></mat-datepicker>
-            </mat-form-field>-->
+            </mat-form-field>
             <div>
               <button mat-button mat-raised-button matStepperPrevious>Regresar</button>
               <button mat-button mat-raised-button matStepperNext class="ml-2">Siguiente</button>
