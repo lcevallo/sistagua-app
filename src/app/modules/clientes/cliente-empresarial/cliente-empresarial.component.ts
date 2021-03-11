@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ICiudades } from '@data/interfaces/i-ciudades';
 import { IParroquias } from '@data/interfaces/i-parroquias';
 import { IProvincias } from '@data/interfaces/i-provincias';
-import { iCargo, IclienteEmpresarial, iDireccionEmpresarial } from '@data/interfaces/icliente-empresarial';
+import { iCargo, IclienteEmpresarial, iClienteEmpresarialSend, iDireccionEmpresarial } from '@data/interfaces/icliente-empresarial';
 import { ItipoCargo } from '@data/interfaces/itipo-cargo';
 import { CiudadesService } from '@data/services/api/ciudades.service';
+import { ClienteEmpresarialService } from '@data/services/api/cliente-empresarial.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
 import { TipoCargoService } from '@data/services/api/tipo-cargo.service';
@@ -21,6 +22,7 @@ export class ClienteEmpresarialComponent implements OnInit {
 
   clienteFormGroup!: FormGroup;
   clienteEmpresarial: IclienteEmpresarial;
+  clienteEmpresarialGuardar!: iClienteEmpresarialSend;
   direccionEmpresarialArray: iDireccionEmpresarial[] = [];
   direccionEmpresarial!: iDireccionEmpresarial;
   cargoEmpresarialArray: iCargo[] = [];
@@ -35,7 +37,8 @@ export class ClienteEmpresarialComponent implements OnInit {
               private provinciaService: ProvinciasService,
               private ciudadesServices: CiudadesService,
               private parroquiasServices: ParroquiasService,
-              private tipoCargoServices: TipoCargoService) {
+              private tipoCargoServices: TipoCargoService,
+              private clienteEmpresarialServices: ClienteEmpresarialService) {
 
     this.id = this.route.snapshot.params.id;
     this.clienteEmpresarial = {id: undefined, codigo: '', ruc: '', nombres: '',
@@ -77,10 +80,10 @@ export class ClienteEmpresarialComponent implements OnInit {
         fk_tipo_cargo: [[this.cargoEmpresarial.fk_tipo_cargo], Validators.required],
         nombres: [[this.cargoEmpresarial.nombres], Validators.required],
         apellidos: [[this.cargoEmpresarial.apellidos], Validators.required],
-        celular: [[this.cargoEmpresarial.celular]],
-        correo: [[this.cargoEmpresarial.correo]],
-        publish: [[this.cargoEmpresarial.publish]],
-        nombre_tipo_cargo: [[this.cargoEmpresarial.nombre_tipo_cargo]]
+        celular: [this.cargoEmpresarial.celular],
+        correo: [this.cargoEmpresarial.correo],
+        publish: [this.cargoEmpresarial.publish],
+        nombre_tipo_cargo: [this.cargoEmpresarial.nombre_tipo_cargo]
       })
     });
 
@@ -141,17 +144,22 @@ export class ClienteEmpresarialComponent implements OnInit {
   }
   onSubmit() {
     if(!this.clienteFormGroup.get('id')?.value){
-      this.id = 1;
-      /*this.filtroService.guardar(this.clienteEmpresarial.getRawValue())
+      this.clienteEmpresarialGuardar = {
+        cliente_empresarial: this.clienteFormGroup.getRawValue(),
+        contactos: this.cargoEmpresarialArray,
+        oficinas: this.direccionEmpresarialArray
+      }
+      console.log(this.clienteFormGroup);
+      this.clienteEmpresarialServices.guardar(this.clienteEmpresarialGuardar)
       .subscribe(data => {
-        console.log(data);
+        console.log(data.data);
         if(!data.error){
-          this.alertRespuesta(data.data.id as number, 'El Registro se Guardó con éxito');
+          this.alertRespuesta(data.data as number, 'El Registro se Guardó con éxito');
         }
         else{
           this.alertRespuesta(0, 'Ocurrió un error intente mas tarde');
         }
-      });*/
+      });
     } else {
 
       /*this.filtroService.actualizar(this.filtroFormGroup.getRawValue())

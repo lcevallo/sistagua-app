@@ -33,3 +33,9 @@ export interface iCargo {
   publish: boolean;
   nombre_tipo_cargo?: string;
 }
+
+export interface iClienteEmpresarialSend {
+  cliente_empresarial: IclienteEmpresarial,
+  contactos: iCargo[],
+  oficinas: iDireccionEmpresarial[]
+}

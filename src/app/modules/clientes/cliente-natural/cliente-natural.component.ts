@@ -202,9 +202,11 @@ export class ClienteNaturalComponent implements OnInit {
 
       this.clienteNaturalServices.actualizar(this.clienteGuardar)
         .subscribe(data => {
-          const respuesta:any = JSON.parse(data.data);
+          //const respuesta:any = JSON.parse(data.data);
+          console.log(data.data.id_cliente_natural);
+
           if(!data.error){
-            this.alertRespuesta(respuesta[0].id_cliente[0] as number, 'El Registro se Actualizó con éxito')
+            this.alertRespuesta(data.data.id_cliente_natural as number, 'El Registro se Actualizó con éxito')
           }
           else{
             this.alertRespuesta(0, 'Ocurrió un error al actualizar intente mas tarde');
