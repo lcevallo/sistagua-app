@@ -49,7 +49,7 @@ export class ClienteEmpresarialComponent implements OnInit {
                                 nombre_provincia: '', nombre_ciudad:'', nombre_parroquia:''};
 
     this.cargoEmpresarial = {id: undefined, fk_tipo_cargo: 0, nombres:'', apellidos: '', celular:'',
-                              correo: '', publish: true, nombre_tipo_cargo: ''};
+                              correo: '', cumple:'', publish: true, nombre_tipo_cargo: ''};
   }
 
   ngOnInit(): void {
@@ -82,6 +82,7 @@ export class ClienteEmpresarialComponent implements OnInit {
         apellidos: [[this.cargoEmpresarial.apellidos], Validators.required],
         celular: [this.cargoEmpresarial.celular],
         correo: [this.cargoEmpresarial.correo],
+        cumple: [this.cargoEmpresarial.cumple],
         publish: [this.cargoEmpresarial.publish],
         nombre_tipo_cargo: [this.cargoEmpresarial.nombre_tipo_cargo]
       })
