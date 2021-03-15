@@ -10,7 +10,7 @@ export const API_ROUTES = {
     },
     CLIENTE_EMPRESARIAL: {
       LISTA: `${ENV.baseUrl}clientes_empresariales`,
-      CLIENTE: `${ENV.baseUrl}cliente_empresarial`
+      CLIENTE: `${ENV.baseUrl}master-detail-ce`
     },
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`

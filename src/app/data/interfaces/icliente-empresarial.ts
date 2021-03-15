@@ -7,6 +7,7 @@ export interface IclienteEmpresarial {
   telefono: string;
   correo: string;
   publish?: boolean
+  tipo?: string
 }
 
 export interface iDireccionEmpresarial {

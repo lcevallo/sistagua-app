@@ -1,6 +1,8 @@
 import { IclienteEmpresarial } from '@data/interfaces/icliente-empresarial';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ClienteEmpresarialService } from '@data/services/api/cliente-empresarial.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-clientes-list-empresarial',
@@ -9,11 +11,44 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ClientesListEmpresarialComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','codigo', 'ruc', 'cliente', 'correo','celular','cumple','foto','acciones'];
+  displayedColumns: string[] = ['id','codigo', 'ruc', 'nombres', 'direccion','telefono','correo','acciones'];
   dataSource!: MatTableDataSource<IclienteEmpresarial>;
-  constructor() { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(private clienteEmpresarialServices: ClienteEmpresarialService ) { }
 
   ngOnInit(): void {
+    this.listar();
   }
 
+  listar() {
+    this.clienteEmpresarialServices.getAllClientesEmpresarial().subscribe(
+      r => {
+        if (!r.error) {
+          console.log(r.data);
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
+        }
+        else{
+        }
+      });
+  }
+
+  buscar(buscar:string) {
+    if(buscar.length > 1) {
+      const regex = /^[0-9]*$/;
+      const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
+      numeros ? buscar = `ruc=${buscar}` : buscar = `nombres=${buscar}`
+      this.clienteEmpresarialServices.getClienteByRuc(buscar)
+      .subscribe(  r => {
+        if (!r.error) {
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
+        }
+          else{
+        }
+      });
+    } else {
+      this.listar();
+    }
+  }
 }

@@ -119,6 +119,12 @@
                   <mat-label>Correo</mat-label>
                   <input matInput placeholder="Ej. correo@gmail.com" formControlName="correo">
                 </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <mat-label>Fecha de Cumpleaños</mat-label>
+                  <input matInput [matDatepicker]="picker_cumple" formControlName="cumple">
+                  <mat-datepicker-toggle matSuffix [for]="picker_cumple"></mat-datepicker-toggle>
+                  <mat-datepicker #picker_cumple></mat-datepicker>
+                </mat-form-field>
                 <div class="col-md-12 text-right">
                   <button type="button" mat-stroked-button color="primary" (click)="registarContactos()">Registrar Contácto</button>
                 </div>

@@ -1,16 +1,16 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-3">
   <h1 class="h5 mb-0 text-gray-800">Clientes Empresarial</h1>
-  <a routerLink="/clientes/cliente-empresarial/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+  <a routerLink="/clientes/master-detail-ce/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
     <i class="fas fa-plus-circle fa-sm text-white-50"></i> Nuevo Cliente Empresarial
   </a>
 </div>
 <div class="row">
-  <div class="col-xl-12 col-md-6 mb-4">
+  <div class="col-xl-12 col-md-12 mb-4">
 
     <mat-card>
       <mat-form-field class="col-md-12">
         <mat-label>Buscar</mat-label>
-        <input matInput #texto>
+        <input matInput (keyup)="buscar(texto.value)" #texto>
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </mat-card>
@@ -39,9 +39,14 @@
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="cliente">
-        <th mat-header-cell *matHeaderCellDef> Cliente </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre1}} {{element.apellido1}} </td>
+      <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef> Empresa </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombres}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="direccion">
+        <th mat-header-cell *matHeaderCellDef> Direccion </th>
+        <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
       </ng-container>
 
       <ng-container matColumnDef="correo">
@@ -49,21 +54,9 @@
         <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="celular">
-        <th mat-header-cell *matHeaderCellDef> Celular </th>
-        <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="cumple">
-        <th mat-header-cell *matHeaderCellDef> Cumpleaños </th>
-        <td mat-cell *matCellDef="let element"> {{element.cumple}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="foto">
-        <th mat-header-cell *matHeaderCellDef> Foto </th>
-        <td mat-cell *matCellDef="let element">
-          <img class="rounded-circle" [src]="element.foto" height="32px">
-        </td>
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">

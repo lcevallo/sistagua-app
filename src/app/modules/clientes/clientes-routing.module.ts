@@ -21,7 +21,7 @@ const routes: Routes = [
     component: ClientesListNaturalComponent
   },
   {
-    path: 'cliente-empresarial',
+    path: 'master-detail-ce',
     component: ClienteEmpresarialComponent
   },
   {

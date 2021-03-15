@@ -145,12 +145,15 @@ export class ClienteEmpresarialComponent implements OnInit {
   }
   onSubmit() {
     if(!this.clienteFormGroup.get('id')?.value){
+      this.cargoEmpresarialArray.length == 0 ? this.registarContactos() : {} ;
+      this.direccionEmpresarialArray.length == 0 ? this.registarDirecciones() : {} ;
+
       this.clienteEmpresarialGuardar = {
         cliente_empresarial: this.clienteFormGroup.getRawValue(),
         contactos: this.cargoEmpresarialArray,
         oficinas: this.direccionEmpresarialArray
       }
-      console.log(this.clienteFormGroup);
+
       this.clienteEmpresarialServices.guardar(this.clienteEmpresarialGuardar)
       .subscribe(data => {
         console.log(data.data);
