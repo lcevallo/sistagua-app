@@ -5,7 +5,7 @@
   </a>
 </div>
 <div class="row">
-  <div class="col-xl-12 col-md-6 mb-4">
+  <div class="col-xl-12 col-md-12 mb-4">
 
     <mat-card>
       <mat-form-field class="col-md-12">
@@ -73,6 +73,12 @@
           <button routerLink="/clientes/cliente-natural/{{element.id}}" mat-stroked-button>
             <i class="fas fa-user-edit"></i>
           </button>
+          <a *ngIf="element.publish==0" (click)="estadoCliente(element.id)" class="ml-2" title="Cliente Inactivo" mat-stroked-button>
+            <i class="fas fa-user-slash"></i>
+          </a>
+          <a *ngIf="element.publish==1" (click)="estadoCliente(element.id)" class="ml-2" title="Cliente Activo" mat-stroked-button>
+            <i class="fas fa-user-check"></i>
+          </a>
         </td>
       </ng-container>
 

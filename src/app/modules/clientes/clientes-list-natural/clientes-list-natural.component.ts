@@ -31,6 +31,7 @@ export class ClientesListNaturalComponent implements OnInit {
       r => {
         if (!r.error) {
           this.clientes_naturales_list = r.data;
+          console.log(r.data)
           this.dataSource = new MatTableDataSource(r.data);
           this.dataSource.paginator = this.paginator;
         }
@@ -57,5 +58,12 @@ export class ClientesListNaturalComponent implements OnInit {
       this.listar();
     }
   }
-
+  estadoCliente(id: number) {
+    this.clienteNaturalService.estado(id)
+      .subscribe(data => {
+        if (!data.error) {
+          this.listar();
+        }
+      })
+  }
 }

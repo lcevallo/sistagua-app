@@ -132,4 +132,17 @@ export class ClienteNaturalService extends ApiClass {
       );
   }
 
+  estado(id: number): Observable<{ error: boolean; msg: string; data: any }>{
+    const response = {error: true, msg: '', data: null as any};
+    return this.http.delete<{mensaje: any}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE+'?id='+id)
+      .pipe(
+        map(r => {
+          response.error = false;
+          response.data = r.mensaje;
+          return response;
+        }),
+        catchError(() => of(response))
+      );
+  }
+
 }
