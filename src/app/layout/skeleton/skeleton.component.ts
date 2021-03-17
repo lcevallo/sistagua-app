@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SkeletonComponent implements OnInit {
 
+  public isToogle = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  changeToogle(){
+    this.isToogle=!this.isToogle;
+
   }
 
 }
