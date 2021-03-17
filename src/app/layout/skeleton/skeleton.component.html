@@ -1,6 +1,15 @@
 <div id="wrapper">
   <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <ul 
+  [ngClass]="{
+    'navbar-nav':true,
+    'bg-gradient-primary':true,
+    'sidebar': true,
+    'sidebar-dark': true,
+    'accordion': true,
+    'toggled ': isToogle
+  }"
+   id="accordionSidebar" (click)="changeToogle()">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
       <div class="sidebar-brand-icon rotate-n-15">
