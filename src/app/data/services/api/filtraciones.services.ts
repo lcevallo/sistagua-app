@@ -47,7 +47,7 @@ export class FiltracionesServices extends ApiClass{
 
     const response = {error: false, msg: '', data: [] as  IFiltraciones[] };
 
-    return this.http.get<{filtraciones: IFiltraciones[]}> (API_ROUTES.FILTRACION.LISTA+'?nombre='+nombre)
+    return this.http.get<{filtraciones: IFiltraciones[]}> (`${API_ROUTES.FILTRACION.LISTA}?${nombre}`)
       .pipe(
           map( r =>  {
             response.data = r.filtraciones;

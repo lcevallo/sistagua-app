@@ -134,7 +134,7 @@ export class ClienteNaturalService extends ApiClass {
 
   estado(id: number): Observable<{ error: boolean; msg: string; data: any }>{
     const response = {error: true, msg: '', data: null as any};
-    return this.http.delete<{mensaje: any}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE+'?id='+id)
+    return this.http.put<{mensaje: any}>(API_ROUTES.CLIENTE_NATURAL.CLIENTE_ESTADO+'?id='+id, '')
       .pipe(
         map(r => {
           response.error = false;

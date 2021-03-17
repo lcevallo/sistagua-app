@@ -12,7 +12,7 @@ import swal from 'sweetalert2';
 })
 export class AccesorioListaComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','nombre', 'codigo', 'descripcion', 'acciones'];
+  displayedColumns: string[] = ['nombre', 'codigo', 'descripcion', 'acciones'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource!: MatTableDataSource<IAccesorios>;
 
@@ -37,6 +37,9 @@ export class AccesorioListaComponent implements OnInit {
   }
   buscar(buscar:string) {
     if(buscar.length > 1) {
+      const regex = /^[0-9]*$/;
+      const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
+      numeros ? buscar = `codigo=${buscar}` : buscar = `nombre=${buscar}`
       this.accesorioServices.getByNombre(buscar)
       .subscribe(  r => {
         if (!r.error) {

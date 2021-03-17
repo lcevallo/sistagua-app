@@ -46,7 +46,7 @@ export class ClienteNaturalComponent implements OnInit {
                           apellido2: '', celular: '', correo: '', cumple: ''}];
     this.direccionesCN = [{id: undefined, fk_cliente: 0, fk_provincia: 0, fk_canton: 0, fk_parroquia: 0, direccion_domiciliaria: '',
                           direccion_oficina: '', telefono_convencional: '', publish: true}]
-    this.tipos = ['Esposo', 'esposa', 'Papá', 'Mamá', 'hijo'];
+    this.tipos = ['Esposo', 'Esposa', 'Papá', 'Mamá', 'Hijo/a', 'Hermano/a'];
   }
 
   ngOnInit(): void {

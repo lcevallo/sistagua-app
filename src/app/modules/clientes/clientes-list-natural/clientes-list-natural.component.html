@@ -17,15 +17,6 @@
     <div class="table-responsive">
     <table mat-table [dataSource]="dataSource" class="table">
 
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Position Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> Id. </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-
       <!-- Position Column -->
       <ng-container matColumnDef="codigo">
         <th mat-header-cell *matHeaderCellDef> Código. </th>
@@ -59,10 +50,19 @@
         <td mat-cell *matCellDef="let element"> {{element.cumple}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="foto">
-        <th mat-header-cell *matHeaderCellDef> Foto </th>
+      <ng-container matColumnDef="publish">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
         <td mat-cell *matCellDef="let element">
-          <img class="rounded-circle" [src]="element.foto" height="32px">
+          <mat-slide-toggle *ngIf="element.publish" (click)="estadoCliente(element.id)"
+            color="primary"
+            checked=true>
+            Activo
+          </mat-slide-toggle>
+          <mat-slide-toggle *ngIf="element.publish == 0" (click)="estadoCliente(element.id)"
+            color="primary"
+            checked=false>
+            Inactivo
+          </mat-slide-toggle>
         </td>
       </ng-container>
 
@@ -70,15 +70,11 @@
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
           <!--<button [routerLink]="['/clientes/cliente-natural/', element.cedula]" mat-stroked-button>Editar</button>-->
-          <button routerLink="/clientes/cliente-natural/{{element.id}}" mat-stroked-button>
+          <button class="mr-2" mat-stroked-button color="primary" (click)="openDialog(element)">Ver</button>
+          <button routerLink="/clientes/cliente-natural/{{element.id}}" mat-stroked-button color="primary">
             <i class="fas fa-user-edit"></i>
           </button>
-          <a *ngIf="element.publish==0" (click)="estadoCliente(element.id)" class="ml-2" title="Cliente Inactivo" mat-stroked-button>
-            <i class="fas fa-user-slash"></i>
-          </a>
-          <a *ngIf="element.publish==1" (click)="estadoCliente(element.id)" class="ml-2" title="Cliente Activo" mat-stroked-button>
-            <i class="fas fa-user-check"></i>
-          </a>
+
         </td>
       </ng-container>
 
@@ -87,7 +83,7 @@
     </table>
     <mat-paginator [length]="100"
                   [pageSize]="10"
-                  [pageSizeOptions]="[5, 10]">
+                  [pageSizeOptions]="[5, 10, 50]">
     </mat-paginator>
   </div>
 

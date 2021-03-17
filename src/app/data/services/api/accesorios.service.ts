@@ -53,7 +53,7 @@ export class AccesoriosService extends ApiClass{
 
     const response = {error: false, msg: '', data: [] as  IAccesorios[] };
 
-    return this.http.get<{accesorios: IAccesorios[]}> (API_ROUTES.ACCESORIO.LISTA+'?nombre='+nombre)
+    return this.http.get<{accesorios: IAccesorios[]}> (`${API_ROUTES.ACCESORIO.LISTA}?${nombre}`)
       .pipe(
           map( r =>  {
             response.data = r.accesorios;
