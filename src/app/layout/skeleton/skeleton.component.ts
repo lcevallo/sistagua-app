@@ -16,7 +16,15 @@ export class SkeletonComponent implements OnInit {
 
 
   changeToogle(){
+    const bodyElement = document.body
     this.isToogle=!this.isToogle;
+
+    if(this.isToogle){
+      bodyElement.classList.add('sidebar-toggled');
+    }
+    else{
+      bodyElement.classList.remove('sidebar-toggled');
+    }
 
   }
 
