@@ -55,16 +55,28 @@ export class FiltracionListComponent implements OnInit {
   }
 
   borrar(id: number) {
-    this.filtracionServices.eliminar(id)
-      .subscribe(r => {
-        if (!r.error) {
-          this.alertRespuesta(id, 'El Registro se Eliminó con éxito')
-          this.listar();
-        }
-        else{
-          this.alertRespuesta(0, 'El Registro se No fue Eliminado')
-        }
-      });
+    swal.fire({
+      title: 'Está seguro de eliminar el registro?',
+      text: "El registro será eliminado!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#4e73df',
+      cancelButtonColor: '#f44336',
+      confirmButtonText: 'Si, estoy seguro!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.filtracionServices.eliminar(id)
+          .subscribe(r => {
+            if (!r.error) {
+              this.alertRespuesta(id, 'El Registro se Eliminó con éxito')
+              this.listar();
+            }
+            else{
+              this.alertRespuesta(0, 'El Registro se No fue Eliminado')
+            }
+          });
+      }
+    })
   }
   alertRespuesta(id: number, message: string) {
     if (id > 0) {

@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteEmpresarialService } from '@data/services/api/cliente-empresarial.service';
 import { MatPaginator } from '@angular/material/paginator';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clientes-list-empresarial',
@@ -50,5 +51,18 @@ export class ClientesListEmpresarialComponent implements OnInit {
     } else {
       this.listar();
     }
+  }
+  ver() {
+    swal.fire({
+      title: '<strong>Cliente Empresarial</strong>',
+      html:
+        'Empresa <br>' +
+        'Direccion <br>' +
+        'Teléfono',
+      showCloseButton: true,
+      showCancelButton: true,
+      showConfirmButton: false,
+      cancelButtonText:'Cerrar'
+    })
   }
 }
