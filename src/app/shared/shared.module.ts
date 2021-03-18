@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import * as fromComponents from './components';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MaterialModule} from "@material/material.module";
 
 @NgModule({
 
@@ -15,7 +16,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     CommonModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MaterialModule
   ],
   declarations: [...fromComponents.components],
   exports: [
@@ -24,7 +26,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     CommonModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MaterialModule,
+    ...fromComponents.components
   ]
 })
 export class SharedModule { }

@@ -11,7 +11,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalConfirmacionComponent } from './modulo/modal-confirmacion/modal-confirmacion.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { ModalConfirmacionComponent } from './modulo/modal-confirmacion/modal-co
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    ModalConfirmacionComponent
   ],
   imports: [
     BrowserModule,

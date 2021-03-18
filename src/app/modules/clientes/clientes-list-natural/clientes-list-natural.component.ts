@@ -88,7 +88,7 @@ export class ClientesListNaturalComponent implements OnInit {
 
           this.parentescoCN = JSON.parse(data.data.parentesco) as iParentescoCNSend[];
 
-          this.dialog.open(ModalClienteNatural, {
+          this.dialog.open(ModalClienteNaturalComponent, {
             data: {
               cliente: this.clienteNatural,
               direccion: this.direccionesCN,
@@ -99,11 +99,12 @@ export class ClientesListNaturalComponent implements OnInit {
   }
 }
 
+
 @Component({
   selector: 'modal-cliente-natural',
   templateUrl: './modal-cliente-natural.html',
 })
-export class ModalClienteNatural {
+export class ModalClienteNaturalComponent {
 
   ciudades: ICiudades[] = [];
   nombreCiudad: string = '';
