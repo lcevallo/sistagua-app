@@ -9,12 +9,14 @@ import {
   ModalClienteNaturalComponent
 } from '@modules/clientes/clientes-list-natural/clientes-list-natural.component';
 import {ClientesListEmpresarialComponent} from '@modules/clientes/clientes-list-empresarial/clientes-list-empresarial.component';
+import { ClienteEmpresarialListOficinaComponent } from './cliente-empresarial-list-oficina/cliente-empresarial-list-oficina.component';
 
 
 @NgModule({
   declarations: [ClienteNaturalComponent, ClienteEmpresarialComponent,
     ClientesListNaturalComponent, ClientesListEmpresarialComponent,
-    ModalClienteNaturalComponent],
+    ModalClienteNaturalComponent,
+    ClienteEmpresarialListOficinaComponent],
   imports: [
     SharedModule,
     ClientesRoutingModule,

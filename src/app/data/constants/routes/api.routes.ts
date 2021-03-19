@@ -1,5 +1,4 @@
 import  {environment as ENV} from 'environments/environment';
-// import  {environment as ENVDEV} from 'environments/environment.dev';
 
 
 export const API_ROUTES = {
@@ -11,7 +10,8 @@ export const API_ROUTES = {
     },
     CLIENTE_EMPRESARIAL: {
       LISTA: `${ENV.baseUrl}clientes_empresariales`,
-      CLIENTE: `${ENV.baseUrl}master-detail-ce`
+      CLIENTE: `${ENV.baseUrl}master-detail-ce`,
+      OFICINAS: `${ENV.baseUrl}oficina-ce`
     },
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`
