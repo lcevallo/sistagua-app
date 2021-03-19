@@ -59,7 +59,7 @@ export class ClienteEmpresarialComponent implements OnInit {
       ruc: [this.clienteEmpresarial.ruc, Validators.required],
       nombres: [this.clienteEmpresarial.nombres, Validators.required],
       direccion: [this.clienteEmpresarial.direccion],
-      telefono: [this.clienteEmpresarial.telefono, Validators.required],
+      telefono: [this.clienteEmpresarial.telefono],
       correo: [this.clienteEmpresarial.correo],
       publish: [this.clienteEmpresarial.publish],
       direccionFormGroup: this._formBuilder.group({
