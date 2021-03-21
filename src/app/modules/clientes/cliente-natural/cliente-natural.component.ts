@@ -54,7 +54,7 @@ export class ClienteNaturalComponent implements OnInit {
     this.clienteFormGroup = this._formBuilder.group({
       id: [this.clienteNatural[0].id],
       codigo: [this.clienteNatural[0].codigo, Validators.required],
-      ruc: [this.clienteNatural[0].ruc, Validators.required],
+      ruc: [this.clienteNatural[0].ruc],
       nombre1: [this.clienteNatural[0].nombre1, Validators.required],
       nombre2: [this.clienteNatural[0].nombre2],
       apellido1: [this.clienteNatural[0].apellido1, Validators.required],
