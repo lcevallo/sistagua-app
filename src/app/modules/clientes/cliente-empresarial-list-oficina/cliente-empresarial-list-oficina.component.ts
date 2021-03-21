@@ -46,8 +46,8 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   recordSubmit(fg: FormGroup) {
 
-    console.log(fg);
-    
+    console.log(fg.value);
+
     this.oficinasCeService.guardar(fg.value).subscribe(
       (res: any) =>{
         fg.patchValue({id: res.data.id})
