@@ -56,6 +56,27 @@ export class ClienteEmpresarialService extends ApiClass{
     );
   }
 
+  getById(id: number): Observable<{
+    error: boolean,
+    msg: string,
+    data: IclienteEmpresarial[]
+  }>{
+    //const response = {error: false, msg: '', data: null as any};
+    const response = {error: false, msg: '', data: [] as  IclienteEmpresarial[]};
+    //return this.http.get<clientes: IclienteEmpresarial[]>(`${API_ROUTES.CLIENTE_NATURAL.LISTA}?id=${id}`).pipe(
+    return this.http.get <{clientes: IclienteEmpresarial[]} > (`${API_ROUTES.CLIENTE_EMPRESARIAL.LISTA}?id=${id}`).pipe(
+      map(r => {
+          /*response.data = r;
+          return response;*/
+          response.data = r.clientes;
+          r.clientes.map(cliente => cliente.tipo='EMPRESARIAL');
+          return response;
+        }
+      ),
+      catchError(() => of(response))
+    );
+  }
+
   guardar( clienteEmpresarial: iClienteEmpresarialSend ): Observable<{
     error: boolean; msg: string; data: number}> {
     const response = {error: true, msg: '', data: null as any};

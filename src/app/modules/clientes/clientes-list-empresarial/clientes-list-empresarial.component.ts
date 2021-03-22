@@ -52,7 +52,26 @@ export class ClientesListEmpresarialComponent implements OnInit {
       this.listar();
     }
   }
-  ver() {
+
+  ver(id: number) {
+    this.clienteEmpresarialServices.getById(id)
+        .subscribe(data => {
+          console.log(data.data);
+          // this.clienteNatural = JSON.parse(data.data.cliente_natural) as iClienteNaturalSend[];
+          // console.log(this.clienteNatural);
+
+          // this.direccionesCN = JSON.parse(data.data.direcciones) as iDireccionCNSend[];
+
+          // this.parentescoCN = JSON.parse(data.data.parentesco) as iParentescoCNSend[];
+
+          // this.dialog.open(ModalClienteNaturalComponent, {
+          //   data: {
+          //     cliente: this.clienteNatural,
+          //     direccion: this.direccionesCN,
+          //     parentesco: this.parentescoCN
+          //   }
+          // });
+        })
     swal.fire({
       title: '<strong>Cliente Empresarial</strong>',
       html:
