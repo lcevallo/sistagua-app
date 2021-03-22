@@ -14,7 +14,7 @@ import {IOficinas} from '@data/interfaces/i-oficinas';
 export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   oficinasForms: FormArray = this.fb.array([]);
-  oficinasFormGroup!: FormGroup;
+  oficinasFormGroup: FormGroup[] = [];
 
   provincias: IProvincias[] = [];
 
@@ -22,10 +22,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
               private provinciaService: ProvinciasService,
               private oficinasCeService: OficinasCeService
     ) {
-    this.oficinasFormGroup = this.fb.group({
-                                                        oficinas: this.fb.array([])
-                                            }
-                                            );
+
   }
 
   ngOnInit(): void {
@@ -35,17 +32,18 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
       this.oficinasCeService.obtener(6).subscribe(
       res => {
-        if (res.data === []){
+
+        if (res.data.length == 0){
           // Si es que no hay ningun elemento me toca crear con la funcion addOficinasForm uno vacio
           this.addOficinasForm();
         }
         else{
           // Aqui me trae ya un array lleno
           // generate formarray as per the data received from Oficinas
-          (res.data as []).forEach( (oficina: IOficinas) =>
+          this.oficinasFormGroup = [];
+          (res.data as []).forEach( (oficina: IOficinas, index) =>
                                                             {
-                                                              console.log(oficina);
-                                                              this.oficinasCe().push(
+                                                              this.oficinasForms.push(
                                                                 this.fb.group(
                                                                   {
                                                                     id: [oficina.id],
@@ -59,6 +57,21 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
                                                                   }
                                                                 )
                                                               );
+
+                                                              this.oficinasFormGroup.push( this.fb.group(
+                                                                {
+                                                                  id: [oficina.id],
+                                                                  fkClienteEmpresa: [oficina.fk_cliente_empresarial],
+                                                                  fkProvincia: [oficina.fk_provincia, Validators.min(1)],
+                                                                  fkCanton: [oficina.fk_canton],
+                                                                  fkParroquia: [oficina.fk_parroquia],
+                                                                  sector: [oficina.sector],
+                                                                  direccion: [oficina.direccion, Validators.required],
+                                                                  telefono_convencional: [oficina.telefono_convencional]
+                                                                }
+                                                              )
+                                                              );
+
                                                             }
 
                                 );
@@ -67,31 +80,46 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     );
   }
 
-  oficinasCe(): FormArray{
-    return this.oficinasFormGroup.get('oficinas') as FormArray;
-  }
-
 
   addOficinasForm(){
-    this.oficinasCe().push(this.newOficina());
+
+    let n = 0;
+    if(this.oficinasFormGroup.length>0){
+      n=this.oficinasFormGroup.length+1
+    }
+
+    this.oficinasForms.push(
+      this.fb.group(
+        {
+          id: [0],
+          fkClienteEmpresa: [1],
+          fkProvincia: [0, Validators.min(1)],
+          fkCanton: [0],
+          fkParroquia: [0],
+          sector: [''],
+          direccion: ['', Validators.required],
+          telefono_convencional: ['']
+        }
+      )
+    );
+
+    this.oficinasFormGroup[n] = this.fb.group(
+      {
+        id: [0],
+        fkClienteEmpresa: [1],
+        fkProvincia: [0, Validators.min(1)],
+        fkCanton: [0],
+        fkParroquia: [0],
+        sector: [''],
+        direccion: ['', Validators.required],
+        telefono_convencional: ['']
+      }
+    );
+
+
+
   }
 
-  /**
-   *  Create row para la oficina
-   * @private
-   */
-  private newOficina(): FormGroup  {
-    return this.fb.group({
-      id: [0],
-      fkClienteEmpresa: [0],
-      fkProvincia: [0, Validators.min(1)],
-      fkCanton: [0],
-      fkParroquia: [0],
-      sector: [''],
-      direccion: ['', Validators.required],
-      telefono_convencional: ['']
-    });
-  }
 
   recordSubmit(fg: FormGroup) {
     this.oficinasCeService.guardar(fg.value).subscribe(
