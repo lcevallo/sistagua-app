@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {API_ROUTES} from "@data/constants/routes";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
+import { IOficinas } from '@data/interfaces/i-oficinas';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class OficinasCeService {
     >
   {
     const response = {error: true, msg: '', data: null as any};
-    return this.http.post<{oficina_ce: any}>(API_ROUTES.CLIENTE_EMPRESARIAL.OFICINAS, formData)
+    return this.http.post<{oficina_ce: any}>(API_ROUTES.CLIENTE_EMPRESARIAL.OFICINA, formData)
       .pipe(
         map(r => {
           response.error = false;
@@ -28,4 +29,25 @@ export class OficinasCeService {
         catchError(() => of(response))
       );
   }
+
+  obtener(fk_cliente: number): Observable<
+  {
+    error: boolean,
+    msg: string,
+    data: IOficinas[]
+  }
+  >{
+
+    const response = {error: false, msg: '', data: [] as  IOficinas[] };
+    return this.http.get<{oficinas: IOficinas[]}>(API_ROUTES.CLIENTE_EMPRESARIAL.OFICINAS+`/${fk_cliente}`)
+    .pipe(
+      map( r =>  {
+        response.data = r.oficinas;
+        return response;
+      }),
+    catchError((e) => of(response))
+  );
+  }
+
+
 }
