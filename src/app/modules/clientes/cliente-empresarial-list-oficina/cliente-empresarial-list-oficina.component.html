@@ -16,7 +16,7 @@
             <div class="td">Direccion</div>
             <div class="td">Telf Conv</div>
             <div class="td">
-              <button class="btn btn-outline-success">
+              <button class="btn btn-outline-success" (click)="addOficinaForm()">
                 <i class="fa fa-plus">Nueva Oficina</i>
               </button>
             </div>
@@ -24,7 +24,8 @@
     </div>
     <div class="tbody">
 
-            <form class="tr" [formGroup]="oficinasFormGroup[i]" autocomplete="off" *ngFor="let fg of oficinasForms.controls; let i = index">
+            <form class="tr" *ngFor="let fg of oficinas(); let i=index" [formGroup]="fg"
+            (submit)="recordSubmit(fg)">
 
             <div class="td">
                     <input formControlName="fkClienteEmpresa" class="form-control">
@@ -52,7 +53,7 @@
                 </div>
                 <div class="td">
                 <button type="submit" class="btn btn-success"
-                    [disabled]="oficinasFormGroup[i].invalid">
+                    [disabled]="fg.invalid">
                 <i class="far fa-save fa-lg"></i>Guardar</button>
 
                 </div>
