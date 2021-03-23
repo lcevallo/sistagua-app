@@ -92,10 +92,28 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
 
   recordSubmit(fg: FormGroup) {
-    this.oficinasCeService.guardar(fg.value).subscribe(
-      (res: any) => {
-        fg.patchValue({id: res.data.id});
-      }
-    );
+    if(fg.value.id==0){
+      this.oficinasCeService.guardar(fg.value).subscribe(
+        (res: any) => {
+          fg.patchValue({id: res.data.id});
+        }
+      );
+    }
+    else{
+      this.oficinasCeService.actualizar(fg.value).subscribe(
+        (res: any) => {
+          
+        }
+      );
+    }
+  }
+
+
+  onDelete(oficinasID:number, i: number){
+      this.oficinasCeService.deleteOficina(oficinasID).subscribe(
+        res => {
+          this.oficinasForms.removeAt(i);
+        }
+      );
   }
 }

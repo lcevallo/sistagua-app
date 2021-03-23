@@ -30,6 +30,26 @@ export class OficinasCeService {
       );
   }
 
+
+  actualizar(formData: any): Observable<{
+    error: boolean;
+    msg: string;
+    data: any }
+      >
+      {
+      const response = {error: true, msg: '', data: null as any};
+      return this.http.put<{respuesta: any}>(API_ROUTES.CLIENTE_EMPRESARIAL.
+        OFICINA, formData)
+      .pipe(
+                map(r => {
+                            response.error = false;
+                            response.data = r.respuesta;
+                            return response;
+                          }),
+                catchError(() => of(response))
+            );
+      }
+
   obtener(fk_cliente: number): Observable<
   {
     error: boolean,
