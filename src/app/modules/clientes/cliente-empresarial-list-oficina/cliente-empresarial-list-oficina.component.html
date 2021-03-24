@@ -1,9 +1,6 @@
-<blockquote class="blockquote ml-5">
-    <h2>Direcciones del cliente</h2>
-    <footer class="blockquote-footer">
-        Using inline table editing with <i>Angular 8</i> and <i>Asp.Net Core</i>
-    </footer>
-</blockquote>
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <h1 class="h5 mb-0 text-gray-800">Registar de Cliente Empresarial</h1>
+</div>
 
 <div class="grid-table">
     <div class="thead">
@@ -31,13 +28,21 @@
 
             <form class="tr" *ngFor="let fg of oficinas(); let i=index" [formGroup]="fg" >
                 <div class="td">
-                    <select formControlName="fkProvincia" class="form-control">
-                        <option value="0">Seleccione</option>
-                        <option *ngFor="let item of provincias" value="{{item.id}}">{{item.provincia}}</option>
-                    </select>
+                    <mat-form-field>
+                      <mat-label>Provincia</mat-label>
+                      <mat-select formControlName="fkProvincia">
+                        <mat-option *ngFor="let item of provincias"  [value]="item.id">{{item.provincia}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="td">
-                    <input formControlName="fkCanton" class="form-control">
+                    <!-- <input formControlName="fkCanton" class="form-control"> -->
+                    <mat-form-field>
+                      <mat-label>Ciudad</mat-label>
+                      <mat-select formControlName="fkCanton">
+                        <mat-option *ngFor="let c of ciudades" [value]="c.id">{{c.canton}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="td">
                     <input formControlName="fkParroquia" class="form-control">

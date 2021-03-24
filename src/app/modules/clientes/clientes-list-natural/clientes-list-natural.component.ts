@@ -53,7 +53,7 @@ export class ClientesListNaturalComponent implements OnInit {
     if(buscar.length > 1) {
       const regex = /^[0-9]*$/;
       const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
-      numeros ? buscar = `ruc=${buscar}` : buscar = `apellido1=${buscar}`
+      numeros ? buscar = `ruc=${buscar}` : buscar = `nombre1=${buscar}`
       this.clienteNaturalService.getClienteByCedula(buscar)
       .subscribe(  r => {
         if (!r.error) {

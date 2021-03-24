@@ -6,6 +6,8 @@ import {OficinasCeService} from '@data/services/api/oficinas-ce.service';
 import {IOficinas} from '@data/interfaces/i-oficinas';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 import {ActivatedRoute} from "@angular/router";
+import { CiudadesService } from '@data/services/api/ciudades.service';
+import { ICiudades } from '@data/interfaces/i-ciudades';
 
 
 @Component({
@@ -23,9 +25,11 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
 
   provincias: IProvincias[] = [];
+  ciudades: ICiudades[] = [];
 
   constructor(private fb: FormBuilder,
               private provinciaService: ProvinciasService,
+              private ciudadesServices: CiudadesService,
               private oficinasCeService: OficinasCeService,
               private route: ActivatedRoute,
               private snackBar: MatSnackBar
@@ -37,6 +41,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
       this.provinciaService.lista_provincias().subscribe(data => {
         this.provincias = data.provincias as [];
       });
+
 
       this.oficinasCeService.obtener(this.id).subscribe(
           res => {
@@ -65,15 +70,32 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
                                                                           )
                                                                         );
 
-
+                                                                      this.getCiudad(oficina.fk_provincia);
                                                                       }
 
                                           );
                           }
                   }
     );
+    this.onChanges();
+
   }
 
+  getCiudad(provinciaSeleccionada: number) {
+    this.ciudadesServices.lista_ciudades(provinciaSeleccionada)
+      .subscribe( data => {
+        this.ciudades = data['cantones'] as [];
+      });
+  }
+
+  onChanges() {
+    this.oficinasForms.get('fkProvincia')?.valueChanges
+      .subscribe(provinciaSeleccionada => {
+        this.oficinasForms.get('fkCanton')?.reset();
+        this.getCiudad(provinciaSeleccionada);
+      });
+
+  }
 
   oficinas() : FormGroup[] {
     return this.oficinasForms.controls as FormGroup[];
