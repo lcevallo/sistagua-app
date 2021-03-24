@@ -30,7 +30,7 @@ const routes: Routes = [
     component: ClientesListEmpresarialComponent
   },
   {
-    path: 'clientes-empresarial-oficina',
+    path: 'clientes-empresarial-oficina/:id',
     component: ClienteEmpresarialListOficinaComponent
   }
 

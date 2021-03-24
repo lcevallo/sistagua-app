@@ -5,6 +5,7 @@ import {IProvincias} from '@data/interfaces/i-provincias';
 import {OficinasCeService} from '@data/services/api/oficinas-ce.service';
 import {IOficinas} from '@data/interfaces/i-oficinas';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   notification: any= null;
+  public id: number;
 
 
   provincias: IProvincias[] = [];
@@ -25,9 +27,10 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private provinciaService: ProvinciasService,
               private oficinasCeService: OficinasCeService,
+              private route: ActivatedRoute,
               private snackBar: MatSnackBar
     ) {
-
+    this.id = +this.route.snapshot.params.id;
   }
 
   ngOnInit(): void {
@@ -35,7 +38,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
         this.provincias = data.provincias as [];
       });
 
-      this.oficinasCeService.obtener(6).subscribe(
+      this.oficinasCeService.obtener(this.id).subscribe(
           res => {
 
                   if (res.data.length == 0){
@@ -80,7 +83,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     return this.fb.group(
       {
         id: [''],
-        fkClienteEmpresa: [6],
+        fkClienteEmpresa: [this.id],
         fkProvincia: ['', Validators.min(1)],
         fkCanton: [''],
         fkParroquia: [''],
