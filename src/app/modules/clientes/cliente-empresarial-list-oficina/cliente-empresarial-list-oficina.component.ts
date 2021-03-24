@@ -4,6 +4,7 @@ import {ProvinciasService} from '@data/services/api/provincias.service';
 import {IProvincias} from '@data/interfaces/i-provincias';
 import {OficinasCeService} from '@data/services/api/oficinas-ce.service';
 import {IOficinas} from '@data/interfaces/i-oficinas';
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,13 +15,17 @@ import {IOficinas} from '@data/interfaces/i-oficinas';
 export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   oficinasForms: FormArray = this.fb.array([]);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  notification: any= null;
 
 
   provincias: IProvincias[] = [];
 
   constructor(private fb: FormBuilder,
               private provinciaService: ProvinciasService,
-              private oficinasCeService: OficinasCeService
+              private oficinasCeService: OficinasCeService,
+              private snackBar: MatSnackBar
     ) {
 
   }
@@ -30,7 +35,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
         this.provincias = data.provincias as [];
       });
 
-      this.oficinasCeService.obtener(1).subscribe(
+      this.oficinasCeService.obtener(6).subscribe(
           res => {
 
                   if (res.data.length == 0){
@@ -75,7 +80,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     return this.fb.group(
       {
         id: [''],
-        fkClienteEmpresa: [''],
+        fkClienteEmpresa: [6],
         fkProvincia: ['', Validators.min(1)],
         fkCanton: [''],
         fkParroquia: [''],
@@ -95,14 +100,17 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     if(fg.value.id==0){
       this.oficinasCeService.guardar(fg.value).subscribe(
         (res: any) => {
+          // this.openSnackBar('Oficina guardada con exito');
           fg.patchValue({id: res.data.id});
+          this.showNotification('insert');
         }
       );
     }
     else{
       this.oficinasCeService.actualizar(fg.value).subscribe(
         (res: any) => {
-          
+          // this.openSnackBar('Oficina actualizada con exito');
+          this.showNotification('update');
         }
       );
     }
@@ -110,10 +118,50 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
 
   onDelete(oficinasID:number, i: number){
+
+    if (oficinasID == 0){
+      this.oficinasForms.removeAt(i);
+    }
+    else if(confirm('Esta seguro de borrar esta oficina?')){
       this.oficinasCeService.deleteOficina(oficinasID).subscribe(
         res => {
-          this.oficinasForms.removeAt(i);
+          if(res.data == ''){
+            // this.openSnackBar('Oficina eliminada con exito');
+            this.showNotification('delete');
+            this.oficinasForms.removeAt(i);
+          } else{
+            this.openSnackBar(res.data);
+          }
         }
       );
+    }
   }
+
+
+  openSnackBar(mensaje: string) {
+    this.snackBar.open(`${mensaje}`, 'Finalizado', {
+      duration: 500,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  showNotification(category: string): void{
+    switch(category){
+      case 'insert':
+        this.notification = {class: 'text-success', message: 'guardado!' };
+        break;
+      case 'update':
+        this.notification = {class: 'text-primary', message: 'updated!' };
+        break;
+      case 'delete':
+        this.notification = {class: 'text-danger', message: 'deleted!!' };
+        break;
+    }
+    setTimeout(() => {
+      this.notification=null;
+    }, 3000);
+  }
+
+
 }

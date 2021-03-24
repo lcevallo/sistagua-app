@@ -19,7 +19,7 @@ import { ClienteEmpresarialListOficinaComponent } from './cliente-empresarial-li
     ClienteEmpresarialListOficinaComponent],
   imports: [
     SharedModule,
-    ClientesRoutingModule,
+    ClientesRoutingModule
 
   ]
 })
