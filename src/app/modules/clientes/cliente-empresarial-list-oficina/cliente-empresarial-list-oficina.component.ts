@@ -55,6 +55,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
                     // generate formarray as per the data received from Oficinas
                     (res.data as []).forEach( (oficina: IOficinas, index) =>
                                                                       {
+                                                                        this.getCiudad(oficina.fk_provincia);
                                                                         this.oficinasForms.push(
                                                                           this.fb.group(
                                                                             {
@@ -70,7 +71,6 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
                                                                           )
                                                                         );
 
-                                                                      this.getCiudad(oficina.fk_provincia);
                                                                       }
 
                                           );
