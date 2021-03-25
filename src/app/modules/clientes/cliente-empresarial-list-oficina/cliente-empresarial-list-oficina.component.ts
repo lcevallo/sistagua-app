@@ -53,7 +53,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
               // Aqui me trae ya un array lleno
               // generate formarray as per the data received from Oficinas
               (res.data as []).forEach(async(oficina: IOficinas, index) => {
-                  await this.getCiudad2(oficina.fk_provincia);
+                  //await this.getCiudad2(oficina.fk_provincia);
                   this.oficinasForms.push(
                     this.fb.group(
                       {
@@ -106,7 +106,11 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
   onChangesProvincia(id: number, fg: FormGroup){
     this.ciudadesServices.lista_ciudades(id)
     .subscribe( data => {
-      fg.controls.fkCanton.patchValue(data['cantones'] as [])
+      console.log(data);
+    (data['cantones'] as []).forEach(ciudad => {
+      fg.controls.fkCanton.patchValue(ciudad);
+    })
+
   });
   }
 
