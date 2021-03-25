@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_ROUTES } from '@data/constants/routes';
-import { IclienteEmpresarial, iClienteEmpresarialSend } from '@data/interfaces/icliente-empresarial';
+import { IOficinas } from '@data/interfaces/i-oficinas';
+import { iCargo, IclienteEmpresarial, iClienteEmpresarialSend } from '@data/interfaces/icliente-empresarial';
 import { ApiClass } from '@data/schema/ApiClass.class';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -59,17 +60,23 @@ export class ClienteEmpresarialService extends ApiClass{
   getById(id: number): Observable<{
     error: boolean,
     msg: string,
-    data: IclienteEmpresarial[]
+    data: any
   }>{
     //const response = {error: false, msg: '', data: null as any};
-    const response = {error: false, msg: '', data: [] as  IclienteEmpresarial[]};
+    const response = {error: false, msg: '', data: {
+      cliente_empresarial: [] as  IclienteEmpresarial[],
+      oficinas: [] as  IOficinas[],
+      cargos: [] as iCargo[]
+    } };
     //return this.http.get<clientes: IclienteEmpresarial[]>(`${API_ROUTES.CLIENTE_NATURAL.LISTA}?id=${id}`).pipe(
-    return this.http.get <{clientes: IclienteEmpresarial[]} > (`${API_ROUTES.CLIENTE_EMPRESARIAL.LISTA}?id=${id}`).pipe(
+    return this.http.get <{data: any} > (`${API_ROUTES.CLIENTE_EMPRESARIAL.INFO}?id=${id}`).pipe(
       map(r => {
           /*response.data = r;
           return response;*/
-          response.data = r.clientes;
-          r.clientes.map(cliente => cliente.tipo='EMPRESARIAL');
+          response.data.cliente_empresarial = r.data.cliente_empresarial;
+          response.data.oficinas = r.data.oficinas;
+          response.data.cargos = r.data.cargos;
+
           return response;
         }
       ),

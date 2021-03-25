@@ -14,6 +14,7 @@ export class ClientesListEmpresarialComponent implements OnInit {
 
   displayedColumns: string[] = ['id','codigo', 'ruc', 'nombres', 'direccion','telefono','correo','acciones'];
   dataSource!: MatTableDataSource<IclienteEmpresarial>;
+  texto_html: string = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private clienteEmpresarialServices: ClienteEmpresarialService ) { }
 
@@ -54,34 +55,28 @@ export class ClientesListEmpresarialComponent implements OnInit {
   }
 
   ver(id: number) {
+    this.texto_html = '';
     this.clienteEmpresarialServices.getById(id)
         .subscribe(data => {
-          console.log(data.data);
-          // this.clienteNatural = JSON.parse(data.data.cliente_natural) as iClienteNaturalSend[];
-          // console.log(this.clienteNatural);
+          console.log(data.data.cliente_empresarial);
+          for (let key in data.data.cliente_empresarial) {
+            let empresarial = data.data.cliente_empresarial[key];
+            this.texto_html +='<ul><li>'+ empresarial.nombres +'</li>';
+            this.texto_html +='<li>'+ empresarial.ruc +'</li></ul>';
+            // Use `key` and `value`
+          }
 
-          // this.direccionesCN = JSON.parse(data.data.direcciones) as iDireccionCNSend[];
+          swal.fire({
+            title: '<strong>Cliente Empresarial</strong>',
+            html: this.texto_html,
+            showCloseButton: true,
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonText:'Cerrar'
+          })
 
-          // this.parentescoCN = JSON.parse(data.data.parentesco) as iParentescoCNSend[];
 
-          // this.dialog.open(ModalClienteNaturalComponent, {
-          //   data: {
-          //     cliente: this.clienteNatural,
-          //     direccion: this.direccionesCN,
-          //     parentesco: this.parentescoCN
-          //   }
-          // });
         })
-    swal.fire({
-      title: '<strong>Cliente Empresarial</strong>',
-      html:
-        'Empresa <br>' +
-        'Direccion <br>' +
-        'Teléfono',
-      showCloseButton: true,
-      showCancelButton: true,
-      showConfirmButton: false,
-      cancelButtonText:'Cerrar'
-    })
+
   }
 }
