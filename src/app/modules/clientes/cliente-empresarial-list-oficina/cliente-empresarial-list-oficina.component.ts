@@ -25,7 +25,8 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
 
   provincias: IProvincias[] = [];
-  ciudades: ICiudades[] = [];
+  ciudades: ICiudades[][] = [];
+
   l_ciudad: any;
 
   constructor(private fb: FormBuilder,
@@ -53,7 +54,6 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
               // Aqui me trae ya un array lleno
               // generate formarray as per the data received from Oficinas
               (res.data as []).forEach(async(oficina: IOficinas, index) => {
-                  //await this.getCiudad2(oficina.fk_provincia);
                   this.oficinasForms.push(
                     this.fb.group(
                       {
@@ -68,50 +68,24 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
                       }
                     )
                   );
-              console.log('1 a 1')
+
               });
            }
           }
     );
-    //this.onChanges();
 
   }
 
-  getCiudad(provinciaSeleccionada: number) {
+  getCiudad(provinciaSeleccionada: number, fila: number) {
     this.ciudadesServices.lista_ciudades(provinciaSeleccionada)
       .subscribe( data => {
-        this.ciudades = data['cantones'] as [];
+        this.ciudades[fila] = data['cantones'] as []
     });
-    // this.ciudadesServices.lista_ciudades(provinciaSeleccionada).toPromise().then(data => {
-    //   this.ciudades = data['cantones'] as [];
-    //   console.log('Promise resolved.')
-    // });
-    // console.log('valio la promesa')
   }
-  async getCiudad2(provinciaSeleccionada: number) {
-    let data = await this.ciudadesServices.lista_ciudades(provinciaSeleccionada).toPromise();
-    this.ciudades = data['cantones'] as [];
-    //return data['cantones'] as [];
-    console.log('termino el primer listado de ciudades');
-  }
-  // onChanges() {
-  //   this.oficinasForms.get('fkProvincia')?.valueChanges
-  //     .subscribe(provinciaSeleccionada => {
-  //       this.oficinasForms.get('fkCanton')?.reset();
-  //       this.getCiudad(provinciaSeleccionada);
-  //     });
 
-  // }
 
-  onChangesProvincia(id: number, fg: FormGroup){
-    this.ciudadesServices.lista_ciudades(id)
-    .subscribe( data => {
-      console.log(data);
-    (data['cantones'] as []).forEach(ciudad => {
-      fg.controls.fkCanton.patchValue(ciudad);
-    })
-
-  });
+  onChangesProvincia(id: number, fg: FormGroup, index: number){
+    this.getCiudad(id,index);
   }
 
   oficinas() : FormGroup[] {

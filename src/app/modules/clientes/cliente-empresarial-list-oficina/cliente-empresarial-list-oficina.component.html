@@ -30,7 +30,7 @@
                 <div class="td">
                     <mat-form-field>
                       <mat-label>Provincia</mat-label>
-                      <mat-select formControlName="fkProvincia" (selectionChange)="onChangesProvincia($event.value,fg)">
+                      <mat-select formControlName="fkProvincia" (selectionChange)="onChangesProvincia($event.value,fg,i)">
                         <mat-option *ngFor="let item of provincias"  [value]="item.id">{{item.provincia}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -39,8 +39,8 @@
                     <!-- <input formControlName="fkCanton" class="form-control"> -->
                     <mat-form-field>
                       <mat-label>Ciudad</mat-label>
-                      <mat-select formControlName="fkCanton">
-                        <mat-option *ngFor="let c of ciudades" [value]="c.id">{{c.canton}}</mat-option>
+                      <mat-select formControlName="fkCanton" [id]="'select_canton_'+i">
+                        <mat-option *ngFor="let c of ciudades[i]" [value]="c.id">{{c.canton}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                 </div>
