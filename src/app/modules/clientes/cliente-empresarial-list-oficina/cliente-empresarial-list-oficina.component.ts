@@ -104,7 +104,10 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
   // }
 
   onChangesProvincia(id: number, fg: FormGroup){
-    console.log(id, fg.get('fkCanton'))
+    this.ciudadesServices.lista_ciudades(id)
+    .subscribe( data => {
+      fg.controls.fkCanton.patchValue(data['cantones'] as [])
+  });
   }
 
   oficinas() : FormGroup[] {
