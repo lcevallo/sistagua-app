@@ -26,6 +26,7 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   provincias: IProvincias[] = [];
   ciudades: ICiudades[] = [];
+  l_ciudad: any;
 
   constructor(private fb: FormBuilder,
               private provinciaService: ProvinciasService,
@@ -42,42 +43,37 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
         this.provincias = data.provincias as [];
       });
 
-
       this.oficinasCeService.obtener(this.id).subscribe(
           res => {
-
-                  if (res.data.length == 0){
-                    // Si es que no hay ningun elemento me toca crear con la funcion addOficinasForm uno vacio
-                    this.addOficinaForm();
-                  }
-                  else{
-                    // Aqui me trae ya un array lleno
-                    // generate formarray as per the data received from Oficinas
-                    (res.data as []).forEach( (oficina: IOficinas, index) =>
-                                                                      {
-                                                                        this.getCiudad(oficina.fk_provincia);
-                                                                        this.oficinasForms.push(
-                                                                          this.fb.group(
-                                                                            {
-                                                                              id: [oficina.id],
-                                                                              fkClienteEmpresa: [oficina.fk_cliente_empresarial],
-                                                                              fkProvincia: [oficina.fk_provincia, Validators.min(1)],
-                                                                              fkCanton: [oficina.fk_canton],
-                                                                              fkParroquia: [oficina.fk_parroquia],
-                                                                              sector: [oficina.sector],
-                                                                              direccion: [oficina.direccion, Validators.required],
-                                                                              telefono_convencional: [oficina.telefono_convencional]
-                                                                            }
-                                                                          )
-                                                                        );
-
-                                                                      }
-
-                                          );
-                          }
-                  }
+            if (res.data.length == 0){
+              // Si es que no hay ningun elemento me toca crear con la funcion addOficinasForm uno vacio
+              this.addOficinaForm();
+            }
+            else{
+              // Aqui me trae ya un array lleno
+              // generate formarray as per the data received from Oficinas
+              (res.data as []).forEach(async(oficina: IOficinas, index) => {
+                  await this.getCiudad2(oficina.fk_provincia);
+                  this.oficinasForms.push(
+                    this.fb.group(
+                      {
+                        id: [oficina.id],
+                        fkClienteEmpresa: [oficina.fk_cliente_empresarial],
+                        fkProvincia: [oficina.fk_provincia, Validators.min(1)],
+                        fkCanton: [oficina.fk_canton],
+                        fkParroquia: [oficina.fk_parroquia],
+                        sector: [oficina.sector],
+                        direccion: [oficina.direccion, Validators.required],
+                        telefono_convencional: [oficina.telefono_convencional]
+                      }
+                    )
+                  );
+              console.log('1 a 1')
+              });
+           }
+          }
     );
-    this.onChanges();
+    //this.onChanges();
 
   }
 
@@ -85,16 +81,30 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     this.ciudadesServices.lista_ciudades(provinciaSeleccionada)
       .subscribe( data => {
         this.ciudades = data['cantones'] as [];
-      });
+    });
+    // this.ciudadesServices.lista_ciudades(provinciaSeleccionada).toPromise().then(data => {
+    //   this.ciudades = data['cantones'] as [];
+    //   console.log('Promise resolved.')
+    // });
+    // console.log('valio la promesa')
   }
+  async getCiudad2(provinciaSeleccionada: number) {
+    let data = await this.ciudadesServices.lista_ciudades(provinciaSeleccionada).toPromise();
+    this.ciudades = data['cantones'] as [];
+    //return data['cantones'] as [];
+    console.log('termino el primer listado de ciudades');
+  }
+  // onChanges() {
+  //   this.oficinasForms.get('fkProvincia')?.valueChanges
+  //     .subscribe(provinciaSeleccionada => {
+  //       this.oficinasForms.get('fkCanton')?.reset();
+  //       this.getCiudad(provinciaSeleccionada);
+  //     });
 
-  onChanges() {
-    this.oficinasForms.get('fkProvincia')?.valueChanges
-      .subscribe(provinciaSeleccionada => {
-        this.oficinasForms.get('fkCanton')?.reset();
-        this.getCiudad(provinciaSeleccionada);
-      });
+  // }
 
+  onChangesProvincia(id: number, fg: FormGroup){
+    console.log(id, fg.get('fkCanton'))
   }
 
   oficinas() : FormGroup[] {

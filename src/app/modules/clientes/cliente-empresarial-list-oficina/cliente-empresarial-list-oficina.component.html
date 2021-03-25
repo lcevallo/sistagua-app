@@ -30,7 +30,7 @@
                 <div class="td">
                     <mat-form-field>
                       <mat-label>Provincia</mat-label>
-                      <mat-select formControlName="fkProvincia">
+                      <mat-select formControlName="fkProvincia" (selectionChange)="onChangesProvincia($event.value,fg)">
                         <mat-option *ngFor="let item of provincias"  [value]="item.id">{{item.provincia}}</mat-option>
                       </mat-select>
                     </mat-form-field>

@@ -18,5 +18,8 @@ export class CiudadesService {
     return this.http.get<any>(url)
       .pipe(map( data => data)
       );
+    // let data = await this.http.get<any>(url).toPromise();
+
+    // return data;
   }
 }
