@@ -10,13 +10,15 @@ import {
 } from '@modules/clientes/clientes-list-natural/clientes-list-natural.component';
 import {ClientesListEmpresarialComponent} from '@modules/clientes/clientes-list-empresarial/clientes-list-empresarial.component';
 import { ClienteEmpresarialListOficinaComponent } from './cliente-empresarial-list-oficina/cliente-empresarial-list-oficina.component';
+import { ClienteEmpresarialListCargosComponent } from './cliente-empresarial-list-cargos/cliente-empresarial-list-cargos.component';
 
 
 @NgModule({
   declarations: [ClienteNaturalComponent, ClienteEmpresarialComponent,
     ClientesListNaturalComponent, ClientesListEmpresarialComponent,
     ModalClienteNaturalComponent,
-    ClienteEmpresarialListOficinaComponent],
+    ClienteEmpresarialListOficinaComponent,
+    ClienteEmpresarialListCargosComponent],
   imports: [
     SharedModule,
     ClientesRoutingModule

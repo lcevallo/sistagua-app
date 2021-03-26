@@ -5,6 +5,7 @@ import {ClientesListNaturalComponent} from '@modules/clientes/clientes-list-natu
 import { ClienteEmpresarialComponent } from './cliente-empresarial/cliente-empresarial.component';
 import { ClientesListEmpresarialComponent } from './clientes-list-empresarial/clientes-list-empresarial.component';
 import {ClienteEmpresarialListOficinaComponent} from "@modules/clientes/cliente-empresarial-list-oficina/cliente-empresarial-list-oficina.component";
+import {ClienteEmpresarialListCargosComponent} from "@modules/clientes/cliente-empresarial-list-cargos/cliente-empresarial-list-cargos.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'clientes-natural-lista', pathMatch: 'full'},
@@ -32,7 +33,12 @@ const routes: Routes = [
   {
     path: 'clientes-empresarial-oficina/:id',
     component: ClienteEmpresarialListOficinaComponent
+  },
+  {
+    path: 'clientes-empresarial-contactos/:id',
+    component: ClienteEmpresarialListCargosComponent
   }
+
 
 ];
 
