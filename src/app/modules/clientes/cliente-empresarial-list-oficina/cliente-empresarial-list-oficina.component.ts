@@ -1,3 +1,5 @@
+import { ParroquiasService } from './../../../data/services/api/parroquias.service';
+import { IParroquias } from './../../../data/interfaces/i-parroquias';
 import { Component, OnInit } from '@angular/core';
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProvinciasService} from '@data/services/api/provincias.service';
@@ -26,12 +28,14 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   provincias: IProvincias[] = [];
   ciudades: ICiudades[][] = [];
+  parroquias: IParroquias[][] = [];
 
   l_ciudad: any;
 
   constructor(private fb: FormBuilder,
               private provinciaService: ProvinciasService,
               private ciudadesServices: CiudadesService,
+              private parroquiasServices: ParroquiasService,
               private oficinasCeService: OficinasCeService,
               private route: ActivatedRoute,
               private snackBar: MatSnackBar
@@ -54,6 +58,8 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
               // Aqui me trae ya un array lleno
               // generate formarray as per the data received from Oficinas
               (res.data as []).forEach(async(oficina: IOficinas, index) => {
+                this.getCiudad(oficina.fk_provincia,index);
+                this.getParroquia(oficina.fk_canton,index);
                   this.oficinasForms.push(
                     this.fb.group(
                       {
@@ -83,9 +89,19 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
     });
   }
 
+  getParroquia(ciuadadSeleccionada: number, fila: number) {
+    this.parroquiasServices.lista_parroquias(ciuadadSeleccionada)
+      .subscribe( data => {
+        this.parroquias[fila] = data['parroquias'] as [];
+      });
+  }
+
 
   onChangesProvincia(id: number, fg: FormGroup, index: number){
     this.getCiudad(id,index);
+  }
+  onChangesCiudad(id: number, fg: FormGroup, index: number){
+    this.getParroquia(id,index);
   }
 
   oficinas() : FormGroup[] {
@@ -165,13 +181,13 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
   showNotification(category: string): void{
     switch(category){
       case 'insert':
-        this.notification = {class: 'text-success', message: 'guardado!' };
+        this.notification = {class: 'text-success font-weight-bold', message: 'Guardado!' };
         break;
       case 'update':
-        this.notification = {class: 'text-primary', message: 'updated!' };
+        this.notification = {class: 'text-primary font-weight-bold h5', message: 'Actualizado!' };
         break;
       case 'delete':
-        this.notification = {class: 'text-danger', message: 'deleted!!' };
+        this.notification = {class: 'text-danger font-weight-bold', message: 'Eliminado!!' };
         break;
     }
     setTimeout(() => {

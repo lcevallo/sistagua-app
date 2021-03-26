@@ -1,16 +1,24 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-3">
-  <h1 class="h5 mb-0 text-gray-800">Registar de Cliente Empresarial</h1>
+  <h1 class="h5 mb-0 text-gray-800">Direciones/Oficinas De cliente Empresarial
+    <span *ngIf="notification" class="elementToFadeInAndOut">
+      <i class="fas fa-check-circle {{notification.class}}"></i>
+      {{notification.message}}
+    </span>
+  </h1>
+  <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" (click)="addOficinaForm()">
+    <i class="fas fa-plus-circle fa-sm text-white-50"></i> Nueva Dirección
+  </button>
 </div>
 
-<div class="grid-table">
+<!-- <div class="grid-table ">
     <div class="thead">
         <div class="tr">
-            <div class="td">Provincia</div>
-            <div class="td">Canton</div>
-            <div class="td">Parroquia</div>
-            <div class="td">Sector</div>
-            <div class="td">Direccion</div>
-            <div class="td">Telf Conv</div>
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td"></div>
+            <div class="td"></div>
             <div class="td">
               <button class="btn btn-outline-success" (click)="addOficinaForm()">
                 <i class="fa fa-plus">Nueva Oficina</i>
@@ -36,32 +44,45 @@
                     </mat-form-field>
                 </div>
                 <div class="td">
-                    <!-- <input formControlName="fkCanton" class="form-control"> -->
                     <mat-form-field>
                       <mat-label>Ciudad</mat-label>
-                      <mat-select formControlName="fkCanton" [id]="'select_canton_'+i">
+                      <mat-select formControlName="fkCanton" [id]="'select_canton_'+i" (selectionChange)="onChangesCiudad($event.value,fg,i)">
                         <mat-option *ngFor="let c of ciudades[i]" [value]="c.id">{{c.canton}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="td">
-                    <input formControlName="fkParroquia" class="form-control">
+                    <mat-form-field>
+                      <mat-label>Parroquia</mat-label>
+                      <mat-select formControlName="fkParroquia" [id]="'select_parroquia_'+i">
+                        <mat-option *ngFor="let p of parroquias[i]" [value]="p.id">{{p.parroquia}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="td">
-                    <input formControlName="sector" class="form-control">
+                  <mat-form-field>
+                    <mat-label>Sector</mat-label>
+                    <input matInput placeholder="Ej. Carlos" formControlName="sector">
+                  </mat-form-field>
                 </div>
                 <div class="td">
-                    <input formControlName="direccion" class="form-control">
+                    <mat-form-field>
+                      <mat-label>Direccion</mat-label>
+                      <input matInput placeholder="Ej. Carlos" formControlName="direccion">
+                    </mat-form-field>
                 </div>
                 <div class="td">
-                    <input formControlName="telefono_convencional" class="form-control">
+                    <mat-form-field>
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput placeholder="Ej. 045236548" formControlName="telefono_convencional">
+                    </mat-form-field>
                 </div>
                 <div class="td">
-                <button class="btn"
+                <button class="btn btn-light"
                     [disabled]="fg.invalid" (click)="recordSubmit(fg)"
-                    [ngClass]="(fg.get('id')?.value == 0) ? 'btn-success': 'btn-outline-dark'"
+                    [ngClass]="(fg.get('id')?.value == 0) ? 'text-success': 'text-info'"
                     >
-                    <i class="far fa-save fa-lg"></i>
+                    <i class="far fa-edit fa-lg"></i>
                     {{fg.get('id')?.value == 0 ? 'Guardar': 'Actualizar'}}
                 </button>
 
@@ -74,4 +95,66 @@
 
     </div>
 
+</div> -->
+
+
+
+<div class="row">
+  <form class="col-md-4 mt-3" *ngFor="let fg of oficinas(); let i=index" [formGroup]="fg">
+    <mat-card>
+        <mat-form-field class="example-full-width">
+          <mat-label>Provincia</mat-label>
+          <mat-select formControlName="fkProvincia" (selectionChange)="onChangesProvincia($event.value,fg,i)">
+            <mat-option *ngFor="let item of provincias"  [value]="item.id">{{item.provincia}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Ciudad</mat-label>
+          <mat-select formControlName="fkCanton" [id]="'select_canton_'+i" (selectionChange)="onChangesCiudad($event.value,fg,i)">
+            <mat-option *ngFor="let c of ciudades[i]" [value]="c.id">{{c.canton}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Parroquia</mat-label>
+          <mat-select formControlName="fkParroquia" [id]="'select_parroquia_'+i">
+            <mat-option *ngFor="let p of parroquias[i]" [value]="p.id">{{p.parroquia}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Sector</mat-label>
+          <input matInput placeholder="Ej. Carlos" formControlName="sector">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Direccion</mat-label>
+          <input matInput placeholder="Ej. Carlos" formControlName="direccion">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput placeholder="Ej. 045236548" formControlName="telefono_convencional">
+        </mat-form-field>
+
+        <div class="example-full-width">
+          <button class="btn btn-light"
+              [disabled]="fg.invalid" (click)="recordSubmit(fg)"
+              [ngClass]="(fg.get('id')?.value == 0) ? 'text-success': 'text-info'"
+              >
+              <i *ngIf="fg.get('id')?.value == 0" class="far fa-save fa-lg"></i>
+              <i *ngIf="fg.get('id')?.value > 0" class="far fa-edit fa-lg"></i>
+          </button>
+
+          <button class="btn btn-light ml-1" (click)="onDelete(fg.get('id')?.value,i)">
+                <i class="far fa-trash-alt fa-lg text-danger"></i>
+          </button>
+        </div>
+    </mat-card>
+  </form>
 </div>
+
+<button routerLink="/clientes/clientes-empresarial-lista" mat-raised-button class="mt-3 mr-2 pr-4 pl-4">
+  Regresar
+</button>

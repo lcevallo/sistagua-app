@@ -45,8 +45,11 @@
             <div formGroupName="direccionFormGroup">
 
               <mat-chip-list *ngIf="direccionEmpresarialArray.length > 0">
-                <mat-chip *ngFor="let item of direccionEmpresarialArray">
+                <mat-chip *ngFor="let item of direccionEmpresarialArray"
+                  [removable]="removable"
+                  (removed)="remove(item.fk_canton)">
                   {{ item.nombre_provincia }}/{{ item.nombre_ciudad }}/{{ item.nombre_parroquia }} - {{ item.direccion }}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
               </mat-chip-list>
 
@@ -92,8 +95,11 @@
             </mat-list-item>
             <div formGroupName="cargosFormGroup">
               <mat-chip-list *ngIf="cargoEmpresarialArray.length > 0">
-                <mat-chip *ngFor="let item of cargoEmpresarialArray">
+                <mat-chip *ngFor="let item of cargoEmpresarialArray"
+                [removable]="removableCargo"
+                (removed)="removeCargo(item?.fk_tipo_cargo)">
                   {{ item.nombre_tipo_cargo }} - {{ item.nombres }} {{ item.apellidos }} - Cel: {{ item.celular }}
+                  <mat-icon matChipRemove *ngIf="removableCargo">cancel</mat-icon>
                 </mat-chip>
               </mat-chip-list>
               <div class="form-row mb-2">
@@ -148,10 +154,7 @@
           <mat-list-item>SIATAGUA</mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>RUC: 0705114775</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Dirección: Pasaje</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Tlfn: 099489848</mat-list-item>
+
         </mat-list>
       </mat-card-content>
       <button class="mt-2" mat-raised-button color="primary" (click)="editarEmpresa()">Editar datos de la Empresa</button>

@@ -12,7 +12,7 @@ import swal from 'sweetalert2';
 })
 export class ClientesListEmpresarialComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','codigo', 'ruc', 'nombres', 'direccion','telefono','correo','acciones'];
+  displayedColumns: string[] = ['codigo', 'ruc', 'nombres', 'direccion','telefono','correo','acciones'];
   dataSource!: MatTableDataSource<IclienteEmpresarial>;
   texto_html: string = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -56,18 +56,44 @@ export class ClientesListEmpresarialComponent implements OnInit {
 
   ver(id: number) {
     this.texto_html = '';
+    let nombre_empresa='';
     this.clienteEmpresarialServices.getById(id)
         .subscribe(data => {
-          console.log(data.data.cliente_empresarial);
+          console.log(data.data);
           for (let key in data.data.cliente_empresarial) {
             let empresarial = data.data.cliente_empresarial[key];
-            this.texto_html +='<ul><li>'+ empresarial.nombres +'</li>';
-            this.texto_html +='<li>'+ empresarial.ruc +'</li></ul>';
+            nombre_empresa = empresarial.nombres;
+            this.texto_html +='<p style="text-align:left;margin:0">RUC: '+ empresarial.ruc +'</p>';
+            this.texto_html +='<p style="text-align:left;margin:0">Código: '+ empresarial.codigo +'</p>';
+            if(empresarial.telefono)
+              this.texto_html +='<p style="text-align:left;margin:0">Teléfono: '+ empresarial.telefono +'</p>';
             // Use `key` and `value`
           }
 
+          this.texto_html +='<h3 style="text-align:left;margin-top:15px;margin-left:0px;border-bottom:1px solid #c7c7c7;">Contáctos:</h3>';
+          this.texto_html +='<ul>';
+          for (let key in data.data.cargos) {
+            let cargo = data.data.cargos[key];
+            this.texto_html +='<li><p style="text-align:left;margin:0">'+ cargo.nombres +' '+cargo.apellidos +'</p>';
+            this.texto_html +='<p style="text-align:left;margin:0">Cargo: '+ cargo.tipo +'</p>';
+            if(cargo.celular)
+              this.texto_html +='<p style="text-align:left;margin:0">Celular: '+ cargo.celular +'</p></li>';
+            // Use `key` and `value`
+          }
+          this.texto_html +='</ul>';
+          this.texto_html +='<h3 style="text-align:left;margin-top:15px;margin-left:0px;border-bottom:1px solid #c7c7c7;">Direcciones:</h3>';
+          this.texto_html +='<ul>';
+          for (let key in data.data.oficinas) {
+            let oficina = data.data.oficinas[key];
+            this.texto_html +='<li><p style="text-align:left;margin:0">Ciudad: '+ oficina.canton +' - Parroquia: '+oficina.parroquia +'</p>';
+            this.texto_html +='<p style="text-align:left;margin:0">Sector: '+ oficina.sector +'</p>';
+            this.texto_html +='<p style="text-align:left;margin:0">Direción: '+ oficina.direccion +'</p></li>';
+          }
+          this.texto_html +='</ul>';
+
+
           swal.fire({
-            title: '<strong>Cliente Empresarial</strong>',
+            title: '<strong>Empresa: '+nombre_empresa+'</strong>',
             html: this.texto_html,
             showCloseButton: true,
             showCancelButton: true,

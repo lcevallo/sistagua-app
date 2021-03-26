@@ -50,6 +50,7 @@ export class ClientesListNaturalComponent implements OnInit {
       });
   }
   buscar(buscar:string) {
+    let tmp = buscar;
     if(buscar.length > 1) {
       const regex = /^[0-9]*$/;
       const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
@@ -57,11 +58,33 @@ export class ClientesListNaturalComponent implements OnInit {
       this.clienteNaturalService.getClienteByCedula(buscar)
       .subscribe(  r => {
         if (!r.error) {
+          console.log(r.data);
+          if(r.data.length == 0){
+            buscar = `codigo=${tmp}`;
+            this.buscar2(buscar);
+          }
           this.clientes_naturales_list = r.data;
           this.dataSource = new MatTableDataSource(r.data);
           this.dataSource.paginator = this.paginator;
         }
           else{
+        }
+      });
+    } else {
+      this.listar();
+      this.buscar2('a');
+    }
+  }
+  buscar2(buscar:string) {
+    if(buscar.length > 1) {
+
+      this.clienteNaturalService.getClienteByCedula(buscar)
+      .subscribe(  r => {
+        if (!r.error) {
+
+          this.clientes_naturales_list = r.data;
+          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource.paginator = this.paginator;
         }
       });
     } else {

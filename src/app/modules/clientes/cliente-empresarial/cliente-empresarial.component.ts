@@ -32,6 +32,8 @@ export class ClienteEmpresarialComponent implements OnInit {
   parroquias: IParroquias[] = [];
   tipoCargo: ItipoCargo[] = [];
   id: number = 0;
+  removable = true;
+  removableCargo = true;
   constructor(private _formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private provinciaService: ProvinciasService,
@@ -193,6 +195,25 @@ export class ClienteEmpresarialComponent implements OnInit {
       .subscribe( data => {
         this.parroquias = data['parroquias'] as [];
       });
+  }
+  remove(canton_id: number): void {
+    if(this.direccionEmpresarialArray.length>0){
+      const index = this.direccionEmpresarialArray.indexOf((this.direccionEmpresarialArray.filter(x => x.fk_canton == canton_id))[0]);
+
+      if (index >= 0) {
+        this.direccionEmpresarialArray.splice(index, 1);
+      }
+    }
+  }
+
+  removeCargo(cargo_id: any): void {
+    if(this.cargoEmpresarialArray.length>0){
+      const index = this.cargoEmpresarialArray.indexOf((this.cargoEmpresarialArray.filter(x => x.fk_tipo_cargo == cargo_id))[0]);
+
+      if (index >= 0) {
+        this.cargoEmpresarialArray.splice(index, 1);
+      }
+    }
   }
 
   alertRespuesta(id: number, message: string) {
