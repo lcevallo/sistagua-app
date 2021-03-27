@@ -82,10 +82,10 @@ export class ClienteEmpresarialListOficinaComponent implements OnInit {
 
   }
 
-  getCiudad(provinciaSeleccionada: number, fila: number) {
+  getCiudad(provinciaSeleccionada: number, fila: number): void {
     this.ciudadesServices.lista_ciudades(provinciaSeleccionada)
       .subscribe( data => {
-        this.ciudades[fila] = data['cantones'] as []
+        this.ciudades[fila] = data['cantones'] as [];
     });
   }
 

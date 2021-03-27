@@ -80,25 +80,32 @@ export class ClienteEmpresarialListCargosComponent implements OnInit {
     return this.cargosForms.controls as FormGroup[];
   }
 
-  nuevoContacto() {
+  nuevoContacto(): FormGroup {
     return this.fb.group(
       {
         id: [0],
         fkClienteEmpresa: [this.id],
-        fkCargo:[0],
+        fkCargo: [0],
         fkTipoCargo: ['', Validators.min(1)],
-        apellidos: ['',Validators.required],
-        nombres: ['',Validators.required],
-        celular: ['',Validators.required],
+        apellidos: ['', Validators.required],
+        nombres: ['', Validators.required],
+        celular: ['', Validators.required],
         correo: [''],
         cumple: ['']
       }
     );
   }
 
-  recordSubmit(fg: FormGroup) {
-    if(fg.value.id==0){
-
+  recordSubmit(fg: FormGroup): void {
+    if (fg.value.id == 0 ) {
+      this.contactosCeService.guardar(fg.value).subscribe(
+        (res: any) => {
+          // this.openSnackBar('Oficina guardada con exito');
+          fg.patchValue({id: res.data.id});
+          fg.patchValue({fkCargo: res.data.fk_cargo});
+          this.showNotification('insert');
+        }
+      );
 
     }
     else{

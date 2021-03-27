@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class TipoCargoService {
 
-  private readonly PATH_TIPO_CARGO = '/tipos-cargos';
+  private readonly PATH_TIPO_CARGO = 'tipos-cargos';
 
   constructor(private http: HttpClient) { }
 

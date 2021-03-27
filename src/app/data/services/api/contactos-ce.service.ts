@@ -70,4 +70,24 @@ export class ContactosCeService {
       );
 
   }
+
+  guardar(formData: any):
+    Observable<{
+      error: boolean;
+      msg: string;
+      data: any }
+      >
+     {
+       const response = {error: true, msg: '', data: null as any};
+       return this.http.post<{contacto_ce: any}>(API_ROUTES.CLIENTE_EMPRESARIAL.CARGO, formData)
+         .pipe(
+           map(r => {
+             response.error = false;
+             response.data = r.contacto_ce;
+             return response;
+           }),
+           catchError(() => of(response))
+         );
+
+     }
 }
