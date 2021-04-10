@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FichaTecnicaRoutingModule } from './ficha-tecnica-routing.module';
-import { MaestroComponent } from './maestro/maestro.component';
-import { DetalleComponent } from './detalle/detalle.component';
+import { MaestroComponent } from './lista-fichas/maestro/maestro.component';
+import { DetalleComponent } from './lista-fichas/detalle/detalle.component';
 import { FiltracionesComponent } from './filtraciones/filtraciones.component';
 import { AccesoriosComponent } from './accesorios/accesorios.component';
 import {SharedModule} from '@shared/shared.module';
 import { ListaFichasComponent } from './lista-fichas/lista-fichas.component';
-import { MaterialModule } from '@material/material.module';
+
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { MaterialModule } from '@material/material.module';
     CommonModule,
     SharedModule,
     FichaTecnicaRoutingModule,
-    MaterialModule
+
   ]
 })
 export class FichaTecnicaModule { }
