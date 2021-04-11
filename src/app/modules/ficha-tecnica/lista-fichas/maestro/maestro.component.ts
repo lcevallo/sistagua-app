@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { IFichaTecnica } from '@data/interfaces/i-ficha-tecnica';
-import { IclienteNatural } from '@data/interfaces/icliente-natural';
-import { ClienteNaturalService } from '@data/services/api/cliente-natural.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import swal from 'sweetalert2';
+import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
+import {NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-maestro',
@@ -14,11 +9,40 @@ import swal from 'sweetalert2';
   styleUrls: ['./maestro.component.scss']
 })
 export class MaestroComponent implements OnInit {
-  constructor() {
+
+  isValid = true;
+
+  constructor(
+              public service: FichaTecnicaService) {
   }
 
   ngOnInit(): void {
 
+    this.resetForm();
+
   }
 
+  resetForm(form?: NgForm): void {
+
+    if (form = null) {
+      form.resetForm();
+    }
+
+    this.service.formData = {
+      codigo: '',
+      created_at: '',
+      fecha_comprado: '',
+      fk_cliente: 0,
+      id: 0,
+      ppm: 0,
+      publish: false,
+      tds: 0,
+      tipo_cliente: '',
+      updated_at: '',
+      visitas: 0
+
+    };
+
+    this.service.fichaTecnicaItems = [];
+  }
 }

@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 import * as fromComponents from './components';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MaterialModule} from "@material/material.module";
 
 @NgModule({
@@ -16,7 +15,6 @@ import {MaterialModule} from "@material/material.module";
     HttpClientModule,
     CommonModule,
     RouterModule,
-    FontAwesomeModule,
     MaterialModule
   ],
   declarations: [...fromComponents.components],
@@ -26,7 +24,6 @@ import {MaterialModule} from "@material/material.module";
     HttpClientModule,
     CommonModule,
     RouterModule,
-    FontAwesomeModule,
     MaterialModule,
     ...fromComponents.components
   ]
