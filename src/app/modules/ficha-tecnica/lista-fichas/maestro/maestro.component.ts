@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
 import {NgForm} from '@angular/forms';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {DetalleComponent} from '@modules/ficha-tecnica/lista-fichas/detalle/detalle.component';
 
 
 @Component({
@@ -13,12 +15,35 @@ export class MaestroComponent implements OnInit {
   isValid = true;
 
   constructor(
+              private dialog: MatDialog,
               public service: FichaTecnicaService) {
   }
 
   ngOnInit(): void {
 
     this.resetForm();
+
+  }
+
+
+  AddOrEditFichaTecnicaDetalle(detalleItemIndex: number, fichaTecnicaId: number): void{
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '50%';
+    /**
+     * Estos valores los pasare al componente Dialog: DetalleComponent
+     */
+    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+    /**
+     * Despues de cerrar el dialogo que servira para seleccionar el item de comida actualizare el Grand Total
+     */
+    this.dialog.open(DetalleComponent, dialogConfig).afterClosed().subscribe(
+      res => {
+        this.accionAntesDeCerrar();
+      }
+    );
 
   }
 
@@ -44,5 +69,9 @@ export class MaestroComponent implements OnInit {
     };
 
     this.service.fichaTecnicaItems = [];
+  }
+
+  private accionAntesDeCerrar(): void {
+
   }
 }

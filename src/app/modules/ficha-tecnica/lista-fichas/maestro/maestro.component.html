@@ -55,6 +55,7 @@
 
   </mat-card>
 
+  <div class="table-responsive">
   <!-- Table Ficha Tecnica Detalles  -->
   <table class="table table-borderless">
     <thead class="thead-light">
@@ -68,14 +69,14 @@
     <th>Persona Mant</th>
     <th>Cedula Pers Mant</th>
     <th>
-      <a class="btn btn-sm btn-success text-white" ><i class="fa fa-plus"></i>Agregar Detalle</a>
+      <a class="btn btn-sm btn-success text-white" (click)="AddOrEditFichaTecnicaDetalle(null, service.formData.id)" ><i class="fa fa-plus"></i>Agregar Detalle</a>
     </th>
     </thead>
     <tbody>
     <tr *ngIf="service.fichaTecnicaItems?.length==0"
         [class.text-danger]="!isValid && service.fichaTecnicaItems.length==0"
     >
-      <td class="font-italic text-center" colspan="5">
+      <td class="font-italic text-center" colspan="10">
         Ningun detalle se ha seleccionado para esta ficha tecnica
       </td>
     </tr>
@@ -97,7 +98,13 @@
 
 
   </table>
+  </div>
   <!-- Fin de la tabla -->
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/ficha-tecnica/fichas-tecnicas" ><i class="fa fa-table"></i> Ver Fichas Tecnicas</a>
+  </div>
 </form>
   </div>
 </div>
