@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FichaTecnicaItems} from '@data/schema/ficha-tecnica-items.model';
 import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-detalle',
@@ -43,8 +44,12 @@ export class DetalleComponent implements OnInit {
     }
   }
 
-  onSubmit(form): void{
-      this.dialogRef.close();
+  onSubmit(form: NgForm): void{
+    if ( this.data.detalleItemIndex === 0 ) {
+      this.service.fichaTecnicaItems.push(form.value);
+    }
+
+    this.dialogRef.close();
   }
 
 }

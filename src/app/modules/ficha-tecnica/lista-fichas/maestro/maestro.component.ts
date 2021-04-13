@@ -3,6 +3,8 @@ import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
 import {NgForm} from '@angular/forms';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DetalleComponent} from '@modules/ficha-tecnica/lista-fichas/detalle/detalle.component';
+import {AccesoriosComponent} from '@modules/ficha-tecnica/lista-fichas/accesorios/accesorios.component';
+import {FiltracionesComponent} from '@modules/ficha-tecnica/lista-fichas/filtraciones/filtraciones.component';
 
 
 @Component({
@@ -16,6 +18,8 @@ export class MaestroComponent implements OnInit {
 
   constructor(
               private dialog: MatDialog,
+              private dialogAccesorio: MatDialog,
+              private dialogFiltracion: MatDialog,
               public service: FichaTecnicaService) {
   }
 
@@ -47,9 +51,41 @@ export class MaestroComponent implements OnInit {
 
   }
 
+  AddOrEditAccesorios(detalleItemIndex: number, fichaTecnicaId: number):void{
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '50%';
+
+    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+
+
+    this.dialogAccesorio.open(AccesoriosComponent, dialogConfig).afterClosed().subscribe(
+      res => {
+        this.accionAntesDeCerrar();
+      }
+    );
+
+  }
+
+
+  AddOrEditFiltraciones(detalleItemIndex: number, fichaTecnicaId: number):void{
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width = '50%';
+    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+
+    this.dialogFiltracion.open(FiltracionesComponent, dialogConfig).afterClosed().subscribe(
+      res => {
+        this.accionAntesDeCerrar();
+      }
+    );
+  }
+
   resetForm(form?: NgForm): void {
 
-    if (form = null) {
+    if (form) {
       form.resetForm();
     }
 
