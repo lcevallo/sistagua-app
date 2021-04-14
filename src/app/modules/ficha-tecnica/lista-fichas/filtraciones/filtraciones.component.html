@@ -1,1 +1,30 @@
-<p>filtraciones works!</p>
+<div class="jumbotron py-3">
+    <h1 class="display-4 text-center">Informacion de Filtracion</h1>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <app-filtracion-detail-form></app-filtracion-detail-form>
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+             <thead class="thead-ligth">
+                 <tr>
+                     <th>Filtracion</th>
+                     <th>Descripcion</th>
+                     <th>Valor</th>
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr *ngFor="let fd of service.list">
+                     <td (click)="populateForm(fd)">{{fd.fk_filtracion}}</td>
+                     <td (click)="populateForm(fd)">{{fd.descripcion}}</td>
+                     <td (click)="populateForm(fd)">{{fd.valor_filtracion}}</td>
+                     <td>
+                         <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(fd.id)" ></i>
+                     </td>
+                 </tr>
+             </tbody>
+        </table>
+    </div>
+</div>

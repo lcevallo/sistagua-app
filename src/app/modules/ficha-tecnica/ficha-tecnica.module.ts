@@ -8,11 +8,13 @@ import { FiltracionesComponent } from './lista-fichas/filtraciones/filtraciones.
 import { AccesoriosComponent } from './lista-fichas/accesorios/accesorios.component';
 import {SharedModule} from '@shared/shared.module';
 import { ListaFichasComponent } from './lista-fichas/lista-fichas.component';
+import { FiltracionDetailFormComponent } from './lista-fichas/filtraciones/filtracion-detail-form/filtracion-detail-form.component';
+import { AccesoriosDetailFormComponent } from './lista-fichas/accesorios/accesorios-detail-form/accesorios-detail-form.component';
 
 
 
 @NgModule({
-  declarations: [MaestroComponent, DetalleComponent, FiltracionesComponent, AccesoriosComponent, ListaFichasComponent],
+  declarations: [MaestroComponent, DetalleComponent, FiltracionesComponent, AccesoriosComponent, ListaFichasComponent, FiltracionDetailFormComponent, AccesoriosDetailFormComponent],
   imports: [
     CommonModule,
     SharedModule,

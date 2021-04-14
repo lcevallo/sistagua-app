@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
+import { FiltracionDetailService } from '@data/services/api/filtracion-detail.service';
 
 @Component({
   selector: 'app-filtraciones',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiltracionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: FiltracionDetailService) { }
 
   ngOnInit(): void {
+    this.service.refreshList();
+  }
+
+  populateForm(selectedRecord: FiltracionDetail){
+    this.service.formData = Object.assign({},selectedRecord);
   }
 
 }

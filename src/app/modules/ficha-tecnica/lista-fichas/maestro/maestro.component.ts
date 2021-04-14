@@ -59,7 +59,6 @@ export class MaestroComponent implements OnInit {
 
     dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
 
-
     this.dialogAccesorio.open(AccesoriosComponent, dialogConfig).afterClosed().subscribe(
       res => {
         this.accionAntesDeCerrar();
