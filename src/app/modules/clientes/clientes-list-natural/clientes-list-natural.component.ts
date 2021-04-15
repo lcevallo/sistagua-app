@@ -21,13 +21,12 @@ export class ClientesListNaturalComponent implements OnInit {
   displayedColumns: string[] = ['codigo', 'ruc', 'cliente', 'correo','celular','cumple', 'publish', 'acciones'];
   // tslint:disable-next-line:variable-name
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  public clientes_naturales_list: IclienteNatural[] = [];
+  public lista: IclienteNatural[] = [];
   dataSource!: MatTableDataSource<IclienteNatural>;
 
   clienteNatural: iClienteNaturalSend[] = [];
   direccionesCN: iDireccionCNSend[] = [];
   parentescoCN: iParentescoCNSend[] = [];
-
   constructor(private clienteNaturalService: ClienteNaturalService,
               public dialog: MatDialog) {
 
@@ -40,16 +39,33 @@ export class ClientesListNaturalComponent implements OnInit {
     this.clienteNaturalService.getAllClientesNaturales().subscribe(
       r => {
         if (!r.error) {
-          this.clientes_naturales_list = r.data;
+          this.lista = r.data;
           console.log(r.data)
-          this.dataSource = new MatTableDataSource(r.data);
+          this.dataSource = new MatTableDataSource(this.lista);
           this.dataSource.paginator = this.paginator;
         }
         else{
         }
       });
   }
-  buscar(buscar:string) {
+  buscar(value:string){
+    if(value.length > 1) {
+      let filtrado = this.lista.filter( cliente =>
+        cliente.nombre1.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.nombre2?.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.apellido1.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.apellido2?.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.codigo.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.correo?.toLowerCase().includes(value.toLowerCase()) ||
+        cliente.ruc.includes(value));
+
+        this.dataSource = new MatTableDataSource(filtrado);
+        this.dataSource.paginator = this.paginator;
+    }else {
+      this.listar();
+    }
+  }
+  buscar3(buscar:string) {
     let tmp = buscar;
     if(buscar.length > 1) {
       const regex = /^[0-9]*$/;
@@ -61,9 +77,8 @@ export class ClientesListNaturalComponent implements OnInit {
           console.log(r.data);
           if(r.data.length == 0){
             buscar = `codigo=${tmp}`;
-            this.buscar2(buscar);
           }
-          this.clientes_naturales_list = r.data;
+          this.lista = r.data;
           this.dataSource = new MatTableDataSource(r.data);
           this.dataSource.paginator = this.paginator;
         }
@@ -72,25 +87,9 @@ export class ClientesListNaturalComponent implements OnInit {
       });
     } else {
       this.listar();
-      this.buscar2('a');
     }
   }
-  buscar2(buscar:string) {
-    if(buscar.length > 1) {
 
-      this.clienteNaturalService.getClienteByCedula(buscar)
-      .subscribe(  r => {
-        if (!r.error) {
-
-          this.clientes_naturales_list = r.data;
-          this.dataSource = new MatTableDataSource(r.data);
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-    } else {
-      this.listar();
-    }
-  }
   estadoCliente(id: number) {
     this.clienteNaturalService.estado(id)
       .subscribe(data => {

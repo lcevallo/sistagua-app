@@ -16,6 +16,7 @@ export class ClientesListEmpresarialComponent implements OnInit {
   dataSource!: MatTableDataSource<IclienteEmpresarial>;
   texto_html: string = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  lista: IclienteEmpresarial[] = [];
   constructor(private clienteEmpresarialServices: ClienteEmpresarialService ) { }
 
   ngOnInit(): void {
@@ -27,15 +28,29 @@ export class ClientesListEmpresarialComponent implements OnInit {
       r => {
         if (!r.error) {
           console.log(r.data);
-          this.dataSource = new MatTableDataSource(r.data);
+          this.lista = r.data;
+          this.dataSource = new MatTableDataSource(this.lista);
           this.dataSource.paginator = this.paginator;
         }
         else{
         }
       });
   }
+  buscar(value:string){
+    if(value.length > 1) {
+      let filtrado = this.lista.filter( empresa =>
+        empresa.nombres.toLowerCase().includes(value.toLowerCase()) ||
+        empresa.correo.toLowerCase().includes(value.toLowerCase()) ||
+        empresa.codigo.toLowerCase().includes(value.toLowerCase()) ||
+        empresa.ruc.includes(value));
 
-  buscar(buscar:string) {
+        this.dataSource = new MatTableDataSource(filtrado);
+        this.dataSource.paginator = this.paginator;
+    }else {
+      this.listar();
+    }
+  }
+  buscar2(buscar:string) {
     if(buscar.length > 1) {
       const regex = /^[0-9]*$/;
       const numeros = regex.test(buscar); // true, en casa de ser false, quiere decir que busca por nombre
