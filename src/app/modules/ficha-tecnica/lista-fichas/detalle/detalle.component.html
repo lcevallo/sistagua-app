@@ -1,4 +1,4 @@
-<form autocomplete="false" #detalleFTF = "ngForm" (submit)="onSubmit(detalleFTF)" novalidate>
+<form autocomplete="off" #detalleFTF = "ngForm" (submit)="onSubmit(detalleFTF)" novalidate>
   <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id">
   <input type="hidden" name="fk_ficha_tecnica" #fk_ficha_tecnica="ngModel" [(ngModel)]="formData.fk_ficha_tecnica">
 

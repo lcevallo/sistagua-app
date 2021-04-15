@@ -19,4 +19,9 @@ export class FiltracionesComponent implements OnInit {
     this.service.formData = Object.assign({},selectedRecord);
   }
 
+  onDelete(id: number){
+
+    
+  }
+
 }

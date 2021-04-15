@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xl-12 mb-4">
 
-<form #orderF="ngForm" *ngIf="service.formData" autocomplete="off">
+<form autocomplete="off" #orderF="ngForm" *ngIf="service.formData">
   <mat-card>
 
     <div class="form-row">
@@ -69,7 +69,9 @@
     <th>Ced. Receptor</th>
     <th>Pers. Mant</th>
     <th>Ced. Pers Mant</th>
-    <th colspan="3">
+    <th>Accesorio</th>
+    <th>Filtracion</th>
+    <th colspan="2">
       <a class="btn btn-sm btn-success text-white" (click)="AddOrEditFichaTecnicaDetalle(0, service.formData.id)"><i class="fa fa-plus"></i>Agregar Detalle</a>
     </th>
     </thead>
@@ -93,20 +95,20 @@
       <td>{{item.cedula_receptor}}</td>
       <td>{{item.persona_dio_mantenimiento}}</td>
       <td>{{item.cedula_dio_mantenimiento}}</td>
-      <td colspan="3">
+      <td>
+        <a class="btn btn-sm btn-info text-white" data-toggle="tooltip" data-placement="bottom" title="Agregar Accesorio" (click)="AddOrEditAccesorios(i,service.formData.id)">
+          <i class="fa fa-cog"></i></a>
+      </td>
+      <td>
+        <a class="btn btn-sm btn-info text-white"  data-toggle="tooltip" data-placement="top" title="Agregar Filtracion" (click)="AddOrEditFiltraciones(i,service.formData.id)">
+          <i class="fas fa-cloud-rain"></i> </a>   
+      </td>
+      <td>
         <a class="btn btn-sm btn-info text-white" data-toggle="tooltip" data-placement="top" title="Editar" (click)="AddOrEditFichaTecnicaDetalle(i,service.formData.id)">
           <i class="fa fa-pencil"></i></a>
-
-        <a class="btn btn-sm btn-info text-white ml-1" data-toggle="tooltip" data-placement="bottom" title="Agregar Accesorio" (click)="AddOrEditAccesorios(i,service.formData.id)">
-          <i class="fa fa-cog"></i></a>
-          
-        <a class="btn btn-sm btn-info text-white ml-1"  data-toggle="tooltip" data-placement="top" title="Agregar Filtracion" (click)="AddOrEditFiltraciones(i,service.formData.id)">
-          <i class="fas fa-cloud-rain"></i> </a>          
-
       </td>
     </tr>
     </tbody>
-
 
   </table>
   </div>

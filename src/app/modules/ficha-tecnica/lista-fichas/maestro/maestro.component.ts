@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DetalleComponent} from '@modules/ficha-tecnica/lista-fichas/detalle/detalle.component';
 import {AccesoriosComponent} from '@modules/ficha-tecnica/lista-fichas/accesorios/accesorios.component';
 import {FiltracionesComponent} from '@modules/ficha-tecnica/lista-fichas/filtraciones/filtraciones.component';
+import { FichaTecnica } from '@data/schema/ficha-tecnica.model';
 
 
 @Component({
@@ -85,23 +86,10 @@ export class MaestroComponent implements OnInit {
   resetForm(form?: NgForm): void {
 
     if (form) {
-      form.resetForm();
+      form.form.reset();
     }
 
-    this.service.formData = {
-      codigo: '',
-      created_at: '',
-      fecha_comprado: '',
-      fk_cliente: 0,
-      id: 0,
-      ppm: 0,
-      publish: false,
-      tds: 0,
-      tipo_cliente: '',
-      updated_at: '',
-      visitas: 0
-
-    };
+    this.service.formData = new FichaTecnica();
 
     this.service.fichaTecnicaItems = [];
   }
