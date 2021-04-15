@@ -6,6 +6,8 @@ import {DetalleComponent} from '@modules/ficha-tecnica/lista-fichas/detalle/deta
 import {AccesoriosComponent} from '@modules/ficha-tecnica/lista-fichas/accesorios/accesorios.component';
 import {FiltracionesComponent} from '@modules/ficha-tecnica/lista-fichas/filtraciones/filtraciones.component';
 import { FichaTecnica } from '@data/schema/ficha-tecnica.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +23,12 @@ export class MaestroComponent implements OnInit {
               private dialog: MatDialog,
               private dialogAccesorio: MatDialog,
               private dialogFiltracion: MatDialog,
-              public service: FichaTecnicaService) {
+              public service: FichaTecnicaService,
+              private toaster: ToastrService,
+              private router: Router,
+              private  currentRoute: ActivatedRoute
+              
+              ) {
   }
 
   ngOnInit(): void {
@@ -29,6 +36,31 @@ export class MaestroComponent implements OnInit {
     this.resetForm();
 
   }
+
+  validateForm(): boolean {
+    this.isValid = true;
+    if (this.service.formData.codigo.length == 0)
+      {
+        this.isValid = false;
+      }
+    // else if (this.service.fichaTecnicaItems.length == 0)
+    //   {
+    //     this.isValid = false;
+    //   }
+    return this.isValid;
+  }
+
+
+  onSubmit(form: NgForm): void {
+    if (this.validateForm()) {
+        this.service.saveOrUpdateFichaTecnica().subscribe(res => {
+                  this.resetForm();
+                  this.toaster.success('Guardado exitoso!', 'Restaurant-APP');
+                  this.router.navigate(['/ficha-tecnica/fichas-tecnicas']);
+             }
+        );
+    }
+}
 
 
   AddOrEditFichaTecnicaDetalle(detalleItemIndex: number, fichaTecnicaId: number): void{
@@ -81,6 +113,18 @@ export class MaestroComponent implements OnInit {
         this.accionAntesDeCerrar();
       }
     );
+  }
+
+
+  onDeleteFichaDetalle(IdFichaTecnicaDetalle: number, i:number):void{
+    if(IdFichaTecnicaDetalle != 0) {
+      console.log(IdFichaTecnicaDetalle);
+      // TODO: LLamar al servicio que debe de borrar solo el detalle Item de la ficha tecnica
+
+
+    }
+
+    this.service.fichaTecnicaItems.splice(i,1);    
   }
 
   resetForm(form?: NgForm): void {

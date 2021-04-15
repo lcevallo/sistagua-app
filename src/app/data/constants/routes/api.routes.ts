@@ -20,6 +20,11 @@ export const API_ROUTES = {
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`
     },
+    FICHA_TECNICA: {
+        MASTER_DETAILS:`${ENV.baseUrl}fichas_tecnica`,
+        MASTER_DETAIL:`${ENV.baseUrl}ficha_tecnica`
+
+    },
     FILTRACION: {
         LISTA: `${ENV.baseUrl}filtraciones`,
         FILTRACION_DETAIL: `${ENV.baseUrl}filtracion`

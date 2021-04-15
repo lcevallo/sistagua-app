@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xl-12 mb-4">
 
-<form autocomplete="off" #orderF="ngForm" *ngIf="service.formData">
+<form autocomplete="off" #orderF="ngForm" *ngIf="service.formData" (submit)="onSubmit(orderF)" >
   <mat-card>
 
     <div class="form-row">
@@ -106,6 +106,9 @@
       <td>
         <a class="btn btn-sm btn-info text-white" data-toggle="tooltip" data-placement="top" title="Editar" (click)="AddOrEditFichaTecnicaDetalle(i,service.formData.id)">
           <i class="fa fa-pencil"></i></a>
+         <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteFichaDetalle(item.id,i)">
+            <i class="fa fa-trash"></i>
+          </a>  
       </td>
     </tr>
     </tbody>
