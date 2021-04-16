@@ -25,7 +25,7 @@ export class ListaHojasComponent implements OnInit {
   refreshList(): void {
     this.service.getHojasControlList().then( res => {
       console.log(res);
-      this.hojaDetalleList = res['fichas_tecnicas'];
+      this.hojaDetalleList = res['hojas_control'];
     });
   }
 

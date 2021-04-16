@@ -30,7 +30,18 @@ export class MaestroComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.resetForm();
+    const hojaControlId = this.currentRoute.snapshot.paramMap.get('id');
+
+    if (hojaControlId == null) {
+      this.resetForm();
+    }
+    else {
+      // this.service.getHojaControl(+hojaControlId).subscribe()
+      console.log(hojaControlId);
+
+
+    }
+
 
   }
 

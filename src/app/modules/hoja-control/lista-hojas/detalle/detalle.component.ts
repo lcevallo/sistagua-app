@@ -26,20 +26,22 @@ export class DetalleComponent implements OnInit {
 
     if (this.data.detalleItemIndex == null) {
       this.formData = {
+        cedula_autoriza: '',
         cedula_dio_mantenimiento: '',
-        cedula_receptor: '',
         created_at: '',
         descripcion: '',
         factura: '',
         fecha_mantenimiento: '',
-        ficha_tecnica: '',
         firma_url: '',
-        fk_ficha_tecnica: 0,
+        fk_hoja_control: 0,
+        hoja_control: '',
         id: 0,
+        persona_autoriza: '',
         persona_dio_mantenimiento: '',
-        persona_recepta: '',
-        publish: true,
+        ppm: 0,
+        publish: false,
         recibo: '',
+        tds: 0,
         updated_at: ''
       };
     }

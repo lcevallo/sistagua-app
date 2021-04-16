@@ -21,8 +21,8 @@ export const API_ROUTES = {
       LISTA: `${ENV.baseUrl}direcciones_cliente`
     },
     HOJA_CONTROL: {
-        LISTA:`${ENV.baseUrl}fichas_tecnicas`,
-        MASTER_DETAIL:`${ENV.baseUrl}ficha_tecnica`
+        LISTA:`${ENV.baseUrl}hojas-control`,
+        MASTER_DETAIL:`${ENV.baseUrl}hoja-control`
 
     },
     FILTRACION: {

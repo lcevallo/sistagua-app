@@ -10,6 +10,7 @@ import {HojaControlItems} from '@data/schema/hoja-control-items.model';
   providedIn: 'root'
 })
 export class HojaControlService {
+ 
 
   formData: HojaControl = new HojaControl();
   hojaControlItems: HojaControlItems[] = [];
@@ -43,5 +44,26 @@ export class HojaControlService {
 
   getHojasControlList() {
     return this.http.get(API_ROUTES.HOJA_CONTROL.LISTA).toPromise();
+  }
+
+
+  getHojaControl(hojaControlId: number) : Observable<
+  {
+    error: boolean, msg: string, formData: HojaControl, itemDetalle: HojaControlItems[]
+  }
+  > {
+
+    const response = {error: false, msg: '', formData: null as any, itemDetalle: [] as HojaControlItems[] };
+
+    return this.http.get<{hoja_control:HojaControl ,itemDetale: HojaControlItems[]}>(API_ROUTES.HOJA_CONTROL.MASTER_DETAIL+`/${hojaControlId}`)
+      .pipe(
+        map( r =>  {
+          response.formData = r.hoja_control,
+          response.itemDetalle = r.itemDetale;
+          return response;
+        }),
+        catchError((e) => of(response))
+      );
+    
   }
 }
