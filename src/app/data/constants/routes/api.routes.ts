@@ -20,8 +20,8 @@ export const API_ROUTES = {
     DIRECCION: {
       LISTA: `${ENV.baseUrl}direcciones_cliente`
     },
-    FICHA_TECNICA: {
-        MASTER_DETAILS:`${ENV.baseUrl}fichas_tecnica`,
+    HOJA_CONTROL: {
+        LISTA:`${ENV.baseUrl}fichas_tecnicas`,
         MASTER_DETAIL:`${ENV.baseUrl}ficha_tecnica`
 
     },

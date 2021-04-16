@@ -1,4 +1,4 @@
-export class FichaTecnicaItems {
+export class HojaControlItems {
   id : number = 0;
   fk_ficha_tecnica: number = 0;
   factura: string = '';
@@ -11,6 +11,8 @@ export class FichaTecnicaItems {
   cedula_receptor:string = '';
   persona_dio_mantenimiento:string = '';
   cedula_dio_mantenimiento:string = '';
+  ppm?:number;
+  tds?:number;
   created_at:string = '';
   updated_at:string = '';
   publish:boolean = true;

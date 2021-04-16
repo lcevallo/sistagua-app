@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
-import { FiltracionDetailService } from '@data/services/api/filtracion-detail.service';
+import {FiltracionDetail} from '@data/schema/filtracion-detail.model';
+import {FiltracionDetailService} from '@data/services/api/filtracion-detail.service';
 
 @Component({
   selector: 'app-filtraciones',
@@ -15,13 +15,13 @@ export class FiltracionesComponent implements OnInit {
     this.service.refreshList();
   }
 
-  populateForm(selectedRecord: FiltracionDetail){
-    this.service.formData = Object.assign({},selectedRecord);
+  populateForm(selectedRecord: FiltracionDetail): void  {
+    this.service.formData = Object.assign({}, selectedRecord);
   }
 
   onDelete(id: number){
 
-    
+
   }
 
 }

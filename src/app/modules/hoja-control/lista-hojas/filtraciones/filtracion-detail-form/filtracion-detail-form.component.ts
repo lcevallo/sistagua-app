@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltracionDetailService } from '@data/services/api/filtracion-detail.service';
-import { NgForm } from '@angular/forms';
-import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
-import { ToastrService } from 'ngx-toastr';
+import {FiltracionDetail} from '@data/schema/filtracion-detail.model';
+import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {FiltracionDetailService} from '@data/services/api/filtracion-detail.service';
 
 @Component({
   selector: 'app-filtracion-detail-form',
@@ -12,13 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 export class FiltracionDetailFormComponent implements OnInit {
 
   constructor(public service: FiltracionDetailService,
-    private toastr:ToastrService) { }
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form: NgForm){
-    if(this.service.formData.id == 0){
+    if(this.service.formData.id === 0){
       this.insertRecord(form);
     }
     else{
@@ -27,18 +27,18 @@ export class FiltracionDetailFormComponent implements OnInit {
 
   }
 
-  insertRecord(form: NgForm){
+  insertRecord(form: NgForm): void{
 
 
   }
 
-  
+
   updateRecord(form: NgForm) {
 
   }
 
 
-  resetForm(form: NgForm){
+  resetForm(form: NgForm): void {
 
     form.form.reset();
     this.service.formData = new FiltracionDetail();

@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
+import {HojaControlItems} from '@data/schema/hoja-control-items.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FichaTecnicaItems} from '@data/schema/ficha-tecnica-items.model';
-import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
-import { NgForm } from '@angular/forms';
+import {HojaControlService} from '@data/services/api/hoja-control.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-detalle',
@@ -11,17 +11,18 @@ import { NgForm } from '@angular/forms';
 })
 export class DetalleComponent implements OnInit {
 
-  formData: FichaTecnicaItems = new FichaTecnicaItems();
+  formData: HojaControlItems = new HojaControlItems();
   isValid = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DetalleComponent>,
-    public service: FichaTecnicaService
-  ) { }
+    public service: HojaControlService)
+  {
+
+  }
 
   ngOnInit(): void {
-
 
     if (this.data.detalleItemIndex == null) {
       this.formData = {
@@ -46,7 +47,7 @@ export class DetalleComponent implements OnInit {
 
   onSubmit(form: NgForm): void{
     if ( this.data.detalleItemIndex === 0 ) {
-      this.service.fichaTecnicaItems.push(form.value);
+      this.service.hojaControlItems.push(form.value);
     }
 
     this.dialogRef.close();

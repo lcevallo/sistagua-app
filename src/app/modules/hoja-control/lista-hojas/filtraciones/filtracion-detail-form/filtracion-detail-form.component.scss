@@ -1,0 +1,17 @@
+
+input .invalid{
+    border-color: red;
+  }
+
+.form-group label {
+color: grey;
+}
+
+.form-group input {
+font-weight: 500;
+}
+
+.form-group input::placeholder {
+color: #c0bdbd;
+font-weight: 300;
+}  

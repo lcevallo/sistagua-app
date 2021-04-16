@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FichaTecnicaService} from '@data/services/api/ficha-tecnica.service';
-import {NgForm} from '@angular/forms';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {DetalleComponent} from '@modules/ficha-tecnica/lista-fichas/detalle/detalle.component';
-import {AccesoriosComponent} from '@modules/ficha-tecnica/lista-fichas/accesorios/accesorios.component';
-import {FiltracionesComponent} from '@modules/ficha-tecnica/lista-fichas/filtraciones/filtraciones.component';
-import { FichaTecnica } from '@data/schema/ficha-tecnica.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-
+import {ToastrService} from 'ngx-toastr';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HojaControlService} from '@data/services/api/hoja-control.service';
+import {NgForm} from '@angular/forms';
+import {DetalleComponent} from '@modules/hoja-control/lista-hojas/detalle/detalle.component';
+import {AccesoriosComponent} from '@modules/hoja-control/lista-hojas/accesorios/accesorios.component';
+import {FiltracionesComponent} from '@modules/hoja-control/lista-hojas/filtraciones/filtraciones.component';
+import {HojaControl} from '@data/schema/hoja-control.model';
 
 @Component({
   selector: 'app-maestro',
@@ -20,16 +19,14 @@ export class MaestroComponent implements OnInit {
   isValid = true;
 
   constructor(
-              private dialog: MatDialog,
-              private dialogAccesorio: MatDialog,
-              private dialogFiltracion: MatDialog,
-              public service: FichaTecnicaService,
-              private toaster: ToastrService,
-              private router: Router,
-              private  currentRoute: ActivatedRoute
-              
-              ) {
-  }
+    private dialog: MatDialog,
+    private dialogAccesorio: MatDialog,
+    private dialogFiltracion: MatDialog,
+    private toaster: ToastrService,
+    private router: Router,
+    private  currentRoute: ActivatedRoute,
+    public service: HojaControlService
+  ) { }
 
   ngOnInit(): void {
 
@@ -39,10 +36,10 @@ export class MaestroComponent implements OnInit {
 
   validateForm(): boolean {
     this.isValid = true;
-    if (this.service.formData.codigo.length == 0)
-      {
-        this.isValid = false;
-      }
+    if (this.service.formData.codigo.length === 0)
+    {
+      this.isValid = false;
+    }
     // else if (this.service.fichaTecnicaItems.length == 0)
     //   {
     //     this.isValid = false;
@@ -53,18 +50,17 @@ export class MaestroComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (this.validateForm()) {
-        this.service.saveOrUpdateFichaTecnica().subscribe(res => {
-                  this.resetForm();
-                  this.toaster.success('Guardado exitoso!', 'Restaurant-APP');
-                  this.router.navigate(['/ficha-tecnica/fichas-tecnicas']);
-             }
-        );
+      this.service.saveOrUpdateHojaControl().subscribe(res => {
+          this.resetForm();
+          this.toaster.success('Guardado exitoso!', 'Hoja de Control');
+          this.router.navigate(['/hoja-de-control/hojas-control']);
+        }
+      );
     }
-}
+  }
 
 
-  AddOrEditFichaTecnicaDetalle(detalleItemIndex: number, fichaTecnicaId: number): void{
-
+  AddOrEditHojaControlDetalle(detalleItemIndex: number, hojaControlId: number): void{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
@@ -72,7 +68,7 @@ export class MaestroComponent implements OnInit {
     /**
      * Estos valores los pasare al componente Dialog: DetalleComponent
      */
-    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+    dialogConfig.data = {detalleItemIndex, hojaControlId};
     /**
      * Despues de cerrar el dialogo que servira para seleccionar el item de comida actualizare el Grand Total
      */
@@ -84,7 +80,7 @@ export class MaestroComponent implements OnInit {
 
   }
 
-  AddOrEditAccesorios(detalleItemIndex: number, fichaTecnicaId: number):void{
+  AddOrEditAccesorios(detalleItemIndex: number, fichaTecnicaId: number): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
@@ -101,7 +97,7 @@ export class MaestroComponent implements OnInit {
   }
 
 
-  AddOrEditFiltraciones(detalleItemIndex: number, fichaTecnicaId: number):void{
+  AddOrEditFiltraciones(detalleItemIndex: number, fichaTecnicaId: number): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
@@ -116,15 +112,15 @@ export class MaestroComponent implements OnInit {
   }
 
 
-  onDeleteFichaDetalle(IdFichaTecnicaDetalle: number, i:number):void{
-    if(IdFichaTecnicaDetalle != 0) {
+  onDeleteHojaControlDetalle(IdFichaTecnicaDetalle: number, i: number): void {
+    if (IdFichaTecnicaDetalle !== 0) {
       console.log(IdFichaTecnicaDetalle);
       // TODO: LLamar al servicio que debe de borrar solo el detalle Item de la ficha tecnica
 
 
     }
 
-    this.service.fichaTecnicaItems.splice(i,1);    
+    this.service.hojaControlItems.splice(i, 1);
   }
 
   resetForm(form?: NgForm): void {
@@ -133,12 +129,13 @@ export class MaestroComponent implements OnInit {
       form.form.reset();
     }
 
-    this.service.formData = new FichaTecnica();
+    this.service.formData = new HojaControl();
 
-    this.service.fichaTecnicaItems = [];
+    this.service.hojaControlItems = [];
   }
 
   private accionAntesDeCerrar(): void {
 
   }
+
 }

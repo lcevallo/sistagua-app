@@ -46,12 +46,12 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'ficha-tecnica',
+    path: 'hoja-de-control',
     component: SkeletonComponent,
     children: [
       {
         path: '',
-        loadChildren: () => import('@modules/ficha-tecnica/ficha-tecnica.module').then( (m) => m.FichaTecnicaModule)
+        loadChildren: () => import('@modules/hoja-control/hoja-control.module').then( (m) => m.HojaControlModule)
       }
     ]
   }
