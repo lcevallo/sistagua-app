@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {HojaControlService} from '@data/services/api/hoja-control.service';
+import { IHojaControlTmp } from '@data/interfaces/i-hoja-control-tmp';
+
 
 @Component({
   selector: 'app-lista-hojas',
@@ -10,7 +12,7 @@ import {HojaControlService} from '@data/services/api/hoja-control.service';
 })
 export class ListaHojasComponent implements OnInit {
 
-  hojaDetalleList = [];
+  hojaDetalleList: IHojaControlTmp[] = [];
 
   constructor(
     private router: Router,
@@ -23,9 +25,9 @@ export class ListaHojasComponent implements OnInit {
   }
 
   refreshList(): void {
-    this.service.getHojasControlList().then( res => {
-      console.log(res);
-      this.hojaDetalleList = res['hojas_control'];
+    this.service.getHojasControlList().subscribe( res => {
+
+      this.hojaDetalleList = res.data as IHojaControlTmp[];
     });
   }
 

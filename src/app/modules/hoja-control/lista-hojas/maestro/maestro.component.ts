@@ -8,6 +8,7 @@ import {DetalleComponent} from '@modules/hoja-control/lista-hojas/detalle/detall
 import {AccesoriosComponent} from '@modules/hoja-control/lista-hojas/accesorios/accesorios.component';
 import {FiltracionesComponent} from '@modules/hoja-control/lista-hojas/filtraciones/filtraciones.component';
 import {HojaControl} from '@data/schema/hoja-control.model';
+import { HojaControlItems } from '@data/schema/hoja-control-items.model';
 
 @Component({
   selector: 'app-maestro',
@@ -36,7 +37,12 @@ export class MaestroComponent implements OnInit {
       this.resetForm();
     }
     else {
-      // this.service.getHojaControl(+hojaControlId).subscribe()
+      this.service.getHojaControl(+hojaControlId).subscribe(
+        data => {
+          this.service.formData = data.formData;
+          this.service.hojaControlItems = data.itemDetalle as HojaControlItems[];
+        }
+      )
       console.log(hojaControlId);
 
 
