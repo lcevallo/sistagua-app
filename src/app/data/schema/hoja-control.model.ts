@@ -1,5 +1,5 @@
 export class HojaControl {
-  id: number = 0;
+  id: number;
   fk_cliente: number = 0;
   tipo_cliente: string = '';
   codigo: string = '';

@@ -44,10 +44,7 @@ export class MaestroComponent implements OnInit {
         }
       )
       console.log(hojaControlId);
-
-
     }
-
 
   }
 

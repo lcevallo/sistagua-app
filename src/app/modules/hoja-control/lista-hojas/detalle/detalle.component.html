@@ -1,6 +1,6 @@
 <form autocomplete="off" #detalleHCF = "ngForm" (submit)="onSubmit(detalleHCF)" novalidate>
   <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id">
-  <input type="hidden" name="fk_ficha_tecnica" #fk_ficha_tecnica="ngModel" [(ngModel)]="formData.fk_hoja_control">
+  <input type="hidden" name="fk_hoja_control" #fk_hoja_control="ngModel" [(ngModel)]="formData.fk_hoja_control">
 
   <div class="form-row">
     <div class="form-group col-md-6" >

@@ -44,12 +44,17 @@ export class DetalleComponent implements OnInit {
         tds: 0,
         updated_at: ''
       };
+    } else {
+      this.formData = Object.assign({}, this.service.hojaControlItems[this.data.detalleItemIndex]);
     }
   }
 
   onSubmit(form: NgForm): void{
-    if ( this.data.detalleItemIndex === 0 ) {
+    console.log(this.data.detalleItemIndex)
+    if ( this.data.detalleItemIndex === -1 ) {
       this.service.hojaControlItems.push(form.value);
+    } else {
+      this.service.hojaControlItems[this.data.detalleItemIndex] = form.value;
     }
 
     this.dialogRef.close();
