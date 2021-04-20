@@ -57,5 +57,5 @@ export class ListaHojasComponent implements OnInit {
           )
         }
       } );
-  }
+  }// fin del metodo OnHojaControlDelete
 }
