@@ -10,4 +10,5 @@ export class HojaControl {
   created_at?: string = '';
   updated_at?: string = '';
   publish: boolean = true;
+  deletedHojaControlItemIds: string = '';
 }

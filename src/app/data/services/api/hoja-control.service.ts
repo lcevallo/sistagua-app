@@ -42,6 +42,24 @@ export class HojaControlService {
 
   }
 
+  deleteHojaControl(id: number): Observable<{
+    error: boolean;
+    msg: string;
+    data: string }>
+   {
+    const response = {error: true, msg: '', data: ''};
+    return this.http.delete<{message: string}>(API_ROUTES.HOJA_CONTROL.LISTA+`/${id}`)
+    .pipe(
+      map(r => {
+                  console.log(r);
+                  response.error = false;
+                  response.data = r.message;
+                  return response;
+                }),
+      catchError(() => of(response))
+  );
+  } 
+
   getHojasControlList(): Observable<{
     error: boolean, msg: string , data: IHojaControlTmp[]
   }>{

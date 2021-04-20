@@ -40,6 +40,7 @@ export class MaestroComponent implements OnInit {
       this.service.getHojaControl(+hojaControlId).subscribe(
         data => {
           this.service.formData = data.formData;
+          this.service.formData.deletedHojaControlItemIds = '';
           this.service.hojaControlItems = data.itemDetalle as HojaControlItems[];
         }
       )
@@ -128,9 +129,9 @@ export class MaestroComponent implements OnInit {
 
   onDeleteHojaControlDetalle(IdFichaTecnicaDetalle: number, i: number): void {
     if (IdFichaTecnicaDetalle !== 0) {
-      console.log(IdFichaTecnicaDetalle);
-      // TODO: LLamar al servicio que debe de borrar solo el detalle Item de la ficha tecnica
-
+     
+      this.service.formData.deletedHojaControlItemIds +=  IdFichaTecnicaDetalle.toString() + ',';
+      console.log(this.service.formData.deletedHojaControlItemIds);
 
     }
 

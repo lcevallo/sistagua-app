@@ -1,5 +1,4 @@
-import { ParroquiasService } from './../../../data/services/api/parroquias.service';
-import { IParroquias } from './../../../data/interfaces/i-parroquias';
+
 import { Component, OnInit } from '@angular/core';
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProvinciasService} from '@data/services/api/provincias.service';
@@ -10,6 +9,8 @@ import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition}
 import {ActivatedRoute} from "@angular/router";
 import { CiudadesService } from '@data/services/api/ciudades.service';
 import { ICiudades } from '@data/interfaces/i-ciudades';
+import { IParroquias } from '@data/interfaces/i-parroquias';
+import { ParroquiasService } from '@data/services/api/parroquias.service';
 
 
 @Component({
