@@ -95,13 +95,13 @@ export class MaestroComponent implements OnInit {
 
   }
 
-  AddOrEditAccesorios(detalleItemIndex: number, fichaTecnicaId: number): void {
+  AddOrEditAccesorios(detalleItemIndex: number,hojaControlDetalleId:number, hojaControlId: number): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = '50%';
 
-    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+    dialogConfig.data = {detalleItemIndex, hojaControlDetalleId, hojaControlId};
 
     this.dialogAccesorio.open(AccesoriosComponent, dialogConfig).afterClosed().subscribe(
       res => {
@@ -112,12 +112,12 @@ export class MaestroComponent implements OnInit {
   }
 
 
-  AddOrEditFiltraciones(detalleItemIndex: number, fichaTecnicaId: number): void {
+  AddOrEditFiltraciones(detalleItemIndex: number,hojaControlDetalleId:number, hojaControlId: number): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = '50%';
-    dialogConfig.data = {detalleItemIndex, fichaTecnicaId};
+    dialogConfig.data = {detalleItemIndex,hojaControlDetalleId, hojaControlId};
 
     this.dialogFiltracion.open(FiltracionesComponent, dialogConfig).afterClosed().subscribe(
       res => {
@@ -129,7 +129,7 @@ export class MaestroComponent implements OnInit {
 
   onDeleteHojaControlDetalle(IdFichaTecnicaDetalle: number, i: number): void {
     if (IdFichaTecnicaDetalle !== 0) {
-     
+
       this.service.formData.deletedHojaControlItemIds +=  IdFichaTecnicaDetalle.toString() + ',';
       console.log(this.service.formData.deletedHojaControlItemIds);
 

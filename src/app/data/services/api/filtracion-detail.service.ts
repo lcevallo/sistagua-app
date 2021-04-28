@@ -10,8 +10,11 @@ export class FiltracionDetailService {
 
   constructor(private http: HttpClient) { }
   formData: FiltracionDetail = new FiltracionDetail();
-  list: FiltracionDetail[];
+  itemIndex: number= 0;
 
+  //#blue
+  list: FiltracionDetail[][] = [];
+//#blue
   refreshList(){
     // this.http.get(this.)
     // .toPromise()

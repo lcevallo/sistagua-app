@@ -50,7 +50,7 @@ export class DetalleComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void{
-    console.log(this.data.detalleItemIndex)
+
     if ( this.data.detalleItemIndex === -1 ) {
       this.service.hojaControlItems.push(form.value);
     } else {

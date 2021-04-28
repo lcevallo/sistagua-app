@@ -27,11 +27,33 @@ export class FiltracionDetailFormComponent implements OnInit {
 
   }
 
+  //#blue
   insertRecord(form: NgForm): void{
+
+    const filtracionItem = new FiltracionDetail();
+    filtracionItem.fk_hoja_control_detalle=this.service.formData.fk_hoja_control_detalle;
+    filtracionItem.fk_filtracion= form.value.fk_filtracion;
+    filtracionItem.cantidad=form.value.cantidad;
+    filtracionItem.descripcion=form.value.descripcion;
+
+    console.log(filtracionItem);
+    console.log(form.value);
+
+
+
+    if (this.service.list[this.service.itemIndex]) {
+
+      this.service.list[this.service.itemIndex].push(filtracionItem)
+    }
+    else{
+      this.service.list[this.service.itemIndex]= [];
+      this.service.list[this.service.itemIndex].push(filtracionItem)
+    }
+    console.log(this.service.list)
 
 
   }
-
+//#blue
 
   updateRecord(form: NgForm) {
 

@@ -9,14 +9,14 @@
     </div>
     <div class="form-group col-md-6">
       <label>Cantidad</label>
-      <input class="form-control form-control-lg" placeholder="Tipo Filtracion"
-             name="valor_filtracion" #valor_filtracion="ngModel" [(ngModel)]="service.formData.cantidad"
-             required [class.invalid]="valor_filtracion.invalid && valor_filtracion.touched" >
+      <input class="form-control form-control-lg" placeholder="Cantidad"
+             name="cantidad" #cantidad="ngModel" [(ngModel)]="service.formData.cantidad"
+             required [class.invalid]="cantidad.invalid && cantidad.touched" >
     </div>
   </div>
   <div class="form-group">
     <label>Descripcion</label>
-    <textarea class="form-control form-control-lg" placeholder="Tipo Filtracion"
+    <textarea class="form-control form-control-lg" placeholder="Descripcion"
               name="descripcion" #descripcion="ngModel" [(ngModel)]="service.formData.descripcion"
               required maxlength="600" minlength="4"
               [class.invalid]="descripcion.invalid && descripcion.touched"

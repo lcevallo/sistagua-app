@@ -96,11 +96,11 @@
             <td>{{item.persona_dio_mantenimiento}}</td>
             <td>{{item.cedula_dio_mantenimiento}}</td>
             <td>
-              <a class="btn btn-sm btn-info text-white" data-toggle="tooltip" data-placement="bottom" title="Agregar Accesorio" (click)="AddOrEditAccesorios(i,service.formData.id)">
+              <a class="btn btn-sm btn-info text-white" data-toggle="tooltip" data-placement="bottom" title="Agregar Accesorio" (click)="AddOrEditAccesorios(i,item.id,service.formData.id)">
                 <i class="fa fa-cog"></i></a>
             </td>
             <td>
-              <a class="btn btn-sm btn-info text-white"  data-toggle="tooltip" data-placement="top" title="Agregar Filtracion" (click)="AddOrEditFiltraciones(i,service.formData.id)">
+              <a class="btn btn-sm btn-info text-white"  data-toggle="tooltip" data-placement="top" title="Agregar Filtracion" (click)="AddOrEditFiltraciones(i,item.id,service.formData.id)">
                 <i class="fas fa-cloud-rain"></i> </a>
             </td>
             <td>
