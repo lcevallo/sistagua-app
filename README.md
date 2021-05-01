@@ -73,7 +73,7 @@ https://coolors.co/b8336a-c695be-726da8-7d8cc4-a0d2db-b2b1d6-c490d1
 npm run start:dev --este corre en local
 npm run start:prod --este va contra el api en internet
 
-
+sistagua en personal en quien dio mantenimiento
   class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 ng build --prod --base-href=/app/
 
