@@ -11,10 +11,20 @@
         <input  placeholder="No Factura" class="form-control" name="factura" #factura="ngModel" [(ngModel)]="formData.factura">
       </div>
     </div>
+<!-- <input type="date" placeholder="Fecha de Mantenimiento"  class="form-control" name="fecha_mantenimiento" #fecha_mantenimiento="ngModel"
+      [ngModel]="formData.fecha_mantenimiento | date:'yyyy-MM-dd'"> -->
+    <div class="form-group col-md-5">
+      <input [matDatepicker]="miFechaMantenimiento" class="form-control" type="text" [ngModel]="formData.fecha_mantenimiento" name="fecha_mantenimiento" #fecha_mantenimiento="ngModel">
 
-    <div class="form-group col-md-6">
-      <input placeholder="Fecha de Mantenimiento"  class="form-control" name="fecha_mantenimiento" #fecha_mantenimiento="ngModel" [(ngModel)]="formData.fecha_mantenimiento">
+      </div>
+      <div class="form-group col-md-1">
+        <mat-datepicker-toggle matSuffix [for]="miFechaMantenimiento" ></mat-datepicker-toggle>
+
+        <mat-datepicker  #miFechaMantenimiento></mat-datepicker>
     </div>
+
+
+
   </div>
 
   <div class="form-row">

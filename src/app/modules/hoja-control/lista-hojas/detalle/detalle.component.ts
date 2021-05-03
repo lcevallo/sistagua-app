@@ -3,6 +3,7 @@ import {HojaControlItems} from '@data/schema/hoja-control-items.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HojaControlService} from '@data/services/api/hoja-control.service';
 import {NgForm} from '@angular/forms';
+import {format} from 'date-fns';
 
 @Component({
   selector: 'app-detalle',
@@ -25,13 +26,14 @@ export class DetalleComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.data.detalleItemIndex == null) {
+
       this.formData = {
         cedula_autoriza: '',
         cedula_dio_mantenimiento: '',
         created_at: '',
         descripcion: '',
         factura: '',
-        fecha_mantenimiento: '',
+        fecha_mantenimiento:'',
         firma_url: '',
         fk_hoja_control: 0,
         hoja_control: '',
@@ -45,13 +47,17 @@ export class DetalleComponent implements OnInit {
         updated_at: ''
       };
     } else {
+      console.log('Veamos como trae los datos');
+      console.log(this.service.hojaControlItems[this.data.detalleItemIndex]);
       this.formData = Object.assign({}, this.service.hojaControlItems[this.data.detalleItemIndex]);
     }
   }
 
   onSubmit(form: NgForm): void{
+    form.value.fecha_mantenimiento=format(form.value.fecha_mantenimiento,'yyyy-MM-dd');
 
     if ( this.data.detalleItemIndex === -1 ) {
+
       this.service.hojaControlItems.push(form.value);
     } else {
       this.service.hojaControlItems[this.data.detalleItemIndex] = form.value;
@@ -59,5 +65,12 @@ export class DetalleComponent implements OnInit {
 
     this.dialogRef.close();
   }
+
+  // onMonthSelect(event: any) {
+  //   console.log(event);
+  //   this.formData.fecha_mantenimiento = new Date(event.getFullYear(), event.getMonth(), 1).toISOString();
+  // }
+
+
 
 }

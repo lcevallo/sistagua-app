@@ -30,6 +30,7 @@ export class HojaControlService {
       ...this.formData,
       detalle: this.hojaControlItems
     };
+    console.log(this.hojaControlItems);
     return this.http.post<{id: number}>(API_ROUTES.HOJA_CONTROL.LISTA, body)
       .pipe(
         map(r => {
@@ -58,7 +59,7 @@ export class HojaControlService {
                 }),
       catchError(() => of(response))
   );
-  } 
+  }
 
   getHojasControlList(): Observable<{
     error: boolean, msg: string , data: IHojaControlTmp[]

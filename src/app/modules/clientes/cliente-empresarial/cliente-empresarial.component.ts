@@ -143,7 +143,7 @@ export class ClienteEmpresarialComponent implements OnInit {
   }
   registarContactos() {
     this.cargoEmpresarialArray.push(this.clienteFormGroup.get('cargosFormGroup')?.value);
-    console.log(this.cargoEmpresarialArray);
+
   }
   onSubmit() {
     if(!this.clienteFormGroup.get('id')?.value){

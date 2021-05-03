@@ -9,7 +9,7 @@ import { CiudadesService } from '@data/services/api/ciudades.service';
 import { ClienteNaturalService } from '@data/services/api/cliente-natural.service';
 import { ParroquiasService } from '@data/services/api/parroquias.service';
 import { ProvinciasService } from '@data/services/api/provincias.service';
-import * as moment from 'moment';
+import { format } from 'date-fns/esm';
 import swal from 'sweetalert2';
 @Component({
   selector: 'app-cliente-natural',
@@ -149,10 +149,10 @@ export class ClienteNaturalComponent implements OnInit {
 
     if (this.clienteFormGroup.valid && this.direccionFormGroup.valid && this.parentescoFormGroup.valid) {
 
-      let cumple = moment(this.clienteFormGroup.get('cumpleanos')?.value);
-      let dia = (cumple.date());
-      let mes = (cumple.month()+1);
-      let anio = (cumple.year());
+      let cumple =  format(this.clienteFormGroup.get('cumpleanos')?.value,'yyyy-MM-dd');
+      // let dia = (cumple.date());
+      // let mes = (cumple.month()+1);
+      // let anio = (cumple.year());
 
       /*this.clienteNatural = [{
         codigo: this.clienteFormGroup.get('codigo')?.value,

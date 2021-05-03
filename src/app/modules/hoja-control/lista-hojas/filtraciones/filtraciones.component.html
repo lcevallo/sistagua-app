@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let fd of service.list">
+      <tr *ngFor="let fd of service.list[service.itemIndex]">
         <td (click)="populateForm(fd)">{{fd.fk_filtracion}}</td>
         <td (click)="populateForm(fd)">{{fd.descripcion}}</td>
         <td (click)="populateForm(fd)">{{fd.cantidad}}</td>

@@ -2,7 +2,7 @@ export class HojaControlItems {
   id : number = -1;
   fk_hoja_control: number = 0;
   factura: string = '';
-  fecha_mantenimiento: string = '';
+  fecha_mantenimiento:string ='';
   recibo:string = '';
   hoja_control?:string = '';
   descripcion?: string= '';

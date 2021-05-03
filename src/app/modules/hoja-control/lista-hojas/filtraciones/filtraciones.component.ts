@@ -17,6 +17,7 @@ export class FiltracionesComponent implements OnInit {
    * detalleItemIndex: Que es el indice del array
    * hojaControlDetalleId: Que es la fk de hoja control detall item
    * hojaControlId: que es el id de toda la hoja de control
+   * fks_hc_detalle: un arreglo de los ids de las fk de hoja control detalle
    *
    * @param dialogRef
    * @param service
@@ -26,10 +27,26 @@ export class FiltracionesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FiltracionesComponent>,
     public service: FiltracionDetailService) { }
+
+
   ngOnInit(): void {
+    this.service.iniciarArreglo(this.data.fks_hc_detalle);
+
+    if(this.data.hojaControlDetalleId===undefined) {
+      this.service.itemIndex=this.data.detalleItemIndex;
+    }
+    else{
+      console.log('Estoy en el otro else');
+      this.service.itemIndex=this.data.hojaControlDetalleId-1;
+    }
     this.service.formData.fk_hoja_control_detalle=this.data.hojaControlDetalleId;
-    this.service.itemIndex=this.data.detalleItemIndex;
+
+
+    console.log(this.service.itemIndex);
+    console.log(this.service.list);
     this.service.refreshList();
+    console.log(this.service.list);
+
   }
 //#blue
 

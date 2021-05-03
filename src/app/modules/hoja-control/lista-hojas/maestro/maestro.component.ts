@@ -9,6 +9,7 @@ import {AccesoriosComponent} from '@modules/hoja-control/lista-hojas/accesorios/
 import {FiltracionesComponent} from '@modules/hoja-control/lista-hojas/filtraciones/filtraciones.component';
 import {HojaControl} from '@data/schema/hoja-control.model';
 import { HojaControlItems } from '@data/schema/hoja-control-items.model';
+import { FiltracionDetailService } from '@data/services/api/filtracion-detail.service';
 
 @Component({
   selector: 'app-maestro',
@@ -26,8 +27,11 @@ export class MaestroComponent implements OnInit {
     private toaster: ToastrService,
     private router: Router,
     private  currentRoute: ActivatedRoute,
-    public service: HojaControlService
-  ) { }
+    public service: HojaControlService,
+    public serviceFiltracion: FiltracionDetailService
+  ) {
+    this.serviceFiltracion.iniciarTodo();
+  }
 
   ngOnInit(): void {
 
@@ -117,7 +121,12 @@ export class MaestroComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = '50%';
-    dialogConfig.data = {detalleItemIndex,hojaControlDetalleId, hojaControlId};
+    let fks_hc_detalle:number[] = [];
+    this.service.hojaControlItems.map( ({id}, index) => {
+      fks_hc_detalle.push(id);
+    })
+
+    dialogConfig.data = {detalleItemIndex,hojaControlDetalleId, hojaControlId, fks_hc_detalle};
 
     this.dialogFiltracion.open(FiltracionesComponent, dialogConfig).afterClosed().subscribe(
       res => {

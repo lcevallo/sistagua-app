@@ -7,4 +7,5 @@ export class FiltracionDetail {
     updated_at: string = '';
     publish: boolean = true;
     descripcion: string = '';
+    sinHojaControlDetalle?:boolean = false;
 }
