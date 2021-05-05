@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IFiltraciones } from '@data/interfaces/ifiltraciones';
-import { FiltracionesServices } from '@data/services/api/filtraciones.services';
+import { FiltracionesServices } from '@data/services/api/filtraciones.service';
 import swal from 'sweetalert2';
 
 @Component({

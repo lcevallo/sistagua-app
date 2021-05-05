@@ -3,7 +3,7 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <app-filtracion-detail-form></app-filtracion-detail-form>
+    <app-filtracion-detail-form [data]=data></app-filtracion-detail-form>
   </div>
   <div class="col-md-6">
     <table class="table">
@@ -16,12 +16,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let fd of service.list[service.itemIndex]">
+      <tr *ngFor="let fd of serviceHojaControl.hojaControlItems[data.detalleItemIndex].filtraciones_list">
         <td (click)="populateForm(fd)">{{fd.fk_filtracion}}</td>
         <td (click)="populateForm(fd)">{{fd.descripcion}}</td>
         <td (click)="populateForm(fd)">{{fd.cantidad}}</td>
         <td>
-          <!-- <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(fd.id)" ></i> -->
+          <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(fd.id)" ></i>
         </td>
       </tr>
       </tbody>

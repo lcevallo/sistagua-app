@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IFiltraciones } from '@data/interfaces/ifiltraciones';
-import { FiltracionesServices } from '@data/services/api/filtraciones.services';
+import { FiltracionesServices } from '@data/services/api/filtraciones.service';
 import swal from 'sweetalert2';
 
 @Component({

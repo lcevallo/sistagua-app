@@ -15,6 +15,12 @@ export class DetalleComponent implements OnInit {
   formData: HojaControlItems = new HojaControlItems();
   isValid = true;
 
+  /**
+   *
+   * @param data dialogConfig.data = {detalleItemIndex, hojaControlId}; Tengo el detalleItemIndex
+   * @param dialogRef
+   * @param service
+   */
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<DetalleComponent>,

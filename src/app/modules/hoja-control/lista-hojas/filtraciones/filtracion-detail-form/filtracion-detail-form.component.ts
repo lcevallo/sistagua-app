@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {FiltracionDetail} from '@data/schema/filtracion-detail.model';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {FiltracionDetailService} from '@data/services/api/filtracion-detail.service';
 import { IFiltraciones } from '@data/interfaces/ifiltraciones';
+import { HojaControlService } from '@data/services/api/hoja-control.service';
 
 @Component({
   selector: 'app-filtracion-detail-form',
@@ -13,8 +14,10 @@ import { IFiltraciones } from '@data/interfaces/ifiltraciones';
 export class FiltracionDetailFormComponent implements OnInit {
 
   listaSelect: IFiltraciones[] = [];
+  @Input() data : any;
 
   constructor(public service: FiltracionDetailService,
+              public hjservice: HojaControlService,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -33,7 +36,6 @@ export class FiltracionDetailFormComponent implements OnInit {
     else{
       this.updateRecord(form);
     }
-
   }
 
   //#blue
@@ -46,28 +48,18 @@ export class FiltracionDetailFormComponent implements OnInit {
     filtracionItem.descripcion=form.value.descripcion;
 
 
-    if (this.service.formData.fk_hoja_control_detalle === undefined) {
-
-      filtracionItem.fk_hoja_control_detalle=this.service.itemIndex;
+    if (this.data.hojaControlDetalleId === undefined) {
       filtracionItem.sinHojaControlDetalle=true;
-      if (this.service.list[this.service.itemIndex] === undefined) {
-        this.service.list[this.service.itemIndex]=[];
-      }
-      this.service.list[this.service.itemIndex].push(filtracionItem);
-
     }
-    else{
-
-      this.service.itemIndex=this.service.formData.fk_hoja_control_detalle-1;
-
-      if (this.service.list[this.service.itemIndex] === undefined) {
-        this.service.list[this.service.itemIndex]= [];
-      }
-
-      this.service.list[this.service.itemIndex].push(filtracionItem);
-
+    // Si es que esta indefinido lo inicializo al arreglo
+    if (this.hjservice.hojaControlItems[this.data.detalleItemIndex].filtraciones_list === undefined) {
+      this.hjservice.hojaControlItems[this.data.detalleItemIndex].filtraciones_list=[];
     }
 
+
+    this.hjservice.hojaControlItems[this.data.detalleItemIndex].filtraciones_list?.push(filtracionItem);
+    console.log('Estoy en el metodo insertRecord');
+    console.log(this.hjservice.hojaControlItems[this.data.detalleItemIndex]);
     this.resetForm(form);
   }
 //#blue

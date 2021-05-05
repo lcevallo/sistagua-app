@@ -1,3 +1,4 @@
+import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
 export class HojaControlItems {
   id : number = -1;
   fk_hoja_control: number = 0;
@@ -16,4 +17,5 @@ export class HojaControlItems {
   created_at:string = '';
   updated_at:string = '';
   publish:boolean = true;
+  filtraciones_list?:FiltracionDetail[] = [];
 }
