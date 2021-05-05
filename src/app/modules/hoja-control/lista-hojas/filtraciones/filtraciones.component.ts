@@ -41,18 +41,17 @@ export class FiltracionesComponent implements OnInit {
   }
 //#blue
 
-  populateForm(selectedRecord: FiltracionDetail): void  {
+  populateForm(selectedRecord: FiltracionDetail, indice: number): void  {
 
     const objectoClonado = Object.assign({}, selectedRecord);
-    console.log('Objeto clonado');
+    this.service.arrayId=indice;
 
-    console.log(objectoClonado);
-    console.log('Fin de Objeto clonado');
     this.service.formData = Object.assign({}, selectedRecord);
   }
 
-  onDelete(id: number){
+  onDelete(id: number, index: number){
 
+    this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].filtraciones_list.splice(index, 1);
 
   }
 

@@ -16,6 +16,7 @@ export class FiltracionDetailService {
   constructor(private http: HttpClient) { }
   formData: FiltracionDetail = new FiltracionDetail();
   itemIndex: number= 0;
+  arrayId: number=-1;
 
   //#blue
   list: FiltracionDetail[][] = [];

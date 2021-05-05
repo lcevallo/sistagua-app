@@ -1,5 +1,6 @@
 <form novalidate #formFiltracion="ngForm" (submit)="onSubmit(formFiltracion)" autocomplete="off">
   <input type="hidden" name="id" [value]="service.formData.id" >
+  <input type="hidden" name="arrayId" [value]="service.arrayId" >
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>Filtracion</label>

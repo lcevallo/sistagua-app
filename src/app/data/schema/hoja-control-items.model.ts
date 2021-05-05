@@ -17,5 +17,5 @@ export class HojaControlItems {
   created_at:string = '';
   updated_at:string = '';
   publish:boolean = true;
-  filtraciones_list?:FiltracionDetail[] = [];
+  filtraciones_list:FiltracionDetail[] = [];
 }

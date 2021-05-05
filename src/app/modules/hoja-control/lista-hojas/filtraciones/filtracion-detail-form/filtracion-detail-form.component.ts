@@ -16,6 +16,7 @@ export class FiltracionDetailFormComponent implements OnInit {
   listaSelect: IFiltraciones[] = [];
   @Input() data : any;
 
+
   constructor(public service: FiltracionDetailService,
               public hjservice: HojaControlService,
               private toastr: ToastrService) { }
@@ -29,11 +30,13 @@ export class FiltracionDetailFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    console.log(form.value);
-    if(this.service.formData.id === 0){
+
+    if(this.service.arrayId === -1){
+
       this.insertRecord(form);
     }
     else{
+
       this.updateRecord(form);
     }
   }
@@ -65,6 +68,21 @@ export class FiltracionDetailFormComponent implements OnInit {
 //#blue
 
   updateRecord(form: NgForm) {
+    const filtracionItem = new FiltracionDetail();
+    filtracionItem.fk_hoja_control_detalle=this.service.formData.fk_hoja_control_detalle;
+    filtracionItem.fk_filtracion= form.value.fk_filtracion;
+    filtracionItem.cantidad=form.value.cantidad;
+    filtracionItem.descripcion=form.value.descripcion;
+
+
+    if (this.data.hojaControlDetalleId === undefined) {
+      filtracionItem.sinHojaControlDetalle=true;
+    }
+
+    this.hjservice.hojaControlItems[this.data.detalleItemIndex].filtraciones_list[this.service.arrayId]=filtracionItem;
+
+
+    this.resetForm(form);
 
   }
 
@@ -76,6 +94,10 @@ export class FiltracionDetailFormComponent implements OnInit {
     let fk_hcd= this.service.formData.fk_hoja_control_detalle;
     this.service.formData = new FiltracionDetail();
     this.service.formData.fk_hoja_control_detalle=fk_hcd;
+    this.service.arrayId=-1;
+
+
+
   }
 
   onDelete(id: number){

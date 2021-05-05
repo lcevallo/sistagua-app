@@ -50,7 +50,8 @@ export class DetalleComponent implements OnInit {
         publish: false,
         recibo: '',
         tds: 0,
-        updated_at: ''
+        updated_at: '',
+        filtraciones_list: []
       };
     } else {
       console.log('Veamos como trae los datos');
