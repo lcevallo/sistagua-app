@@ -28,6 +28,8 @@ export class FiltracionDetailService {
         this.list[ids[i]-1]=[];
       }
     }
+
+
   }
 
   iniciarTodo(){
@@ -55,7 +57,9 @@ export class FiltracionDetailService {
     } // fin del metodo obtener
 
 
-  refreshList(){
+  refreshList(fkHjCD: number){
+
+
     // this.http.get(this.)
     // .toPromise()
     // .then(res ==> this.list = res as FiltracionDetail[])

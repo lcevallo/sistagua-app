@@ -90,7 +90,6 @@ export class FiltracionDetailFormComponent implements OnInit {
   resetForm(form: NgForm): void {
 
     form.form.reset();
-    console.log(form.value);
     let fk_hcd= this.service.formData.fk_hoja_control_detalle;
     this.service.formData = new FiltracionDetail();
     this.service.formData.fk_hoja_control_detalle=fk_hcd;

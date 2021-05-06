@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import {HojaControl} from '@data/schema/hoja-control.model';
 import {HojaControlItems} from '@data/schema/hoja-control-items.model';
 import { IHojaControlTmp } from '@data/interfaces/i-hoja-control-tmp';
+import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +96,23 @@ export class HojaControlService {
         }),
         catchError((e) => of(response))
       );
+    }
+
+
+    obtenerFiltracionesXHojaControlDetalle(fkHjd:number):Observable<{
+      error: boolean,
+      msg: string,
+      data: FiltracionDetail[]
+    }>{
+      const response = {error: false, msg: '', data: [] as  FiltracionDetail[] };
+      return this.http.get<{hoja_control_detalle_filtracion: FiltracionDetail[]}>(API_ROUTES.HOJA_CONTROL.DETALLE_FILTRACIONES+fkHjd)
+      .pipe(
+      map( r =>  {
+      response.data = r.hoja_control_detalle_filtracion;
+      return response;
+      }),
+      catchError((e) => of(response))
+      );
+
     }
 }

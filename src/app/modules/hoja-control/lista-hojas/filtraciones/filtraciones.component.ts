@@ -33,11 +33,19 @@ export class FiltracionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.iniciarArreglo(this.data.fks_hc_detalle);
-    // Este es el arreglo de detalleItems aqui estoy tomando al que se selecciono para poner las filtraciones
-    console.log(this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex]);
     this.service.itemIndex=this.data.detalleItemIndex;
-    console.log(this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].filtraciones_list);
-    this.service.refreshList();
+
+    if (this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].filtraciones_list === undefined) {
+
+      this.serviceHojaControl.obtenerFiltracionesXHojaControlDetalle(this.data.hojaControlDetalleId).subscribe(
+        response => {
+          this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].filtraciones_list = response.data as FiltracionDetail[];
+        }
+      )
+    }
+    else{
+      console.log('No voy a llamar a llenar el arreglo de la base de datos');
+    }
   }
 //#blue
 
