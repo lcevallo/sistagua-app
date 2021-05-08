@@ -16,15 +16,21 @@
       </tr>
       </thead>
       <tbody>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
       <tr *ngFor="let fd of serviceHojaControl.hojaControlItems[data.detalleItemIndex].filtraciones_list; let i=index">
         <td (click)="populateForm(fd, i)">{{fd.fk_filtracion}}</td>
         <td (click)="populateForm(fd, i)">{{fd.descripcion}}</td>
         <td (click)="populateForm(fd, i)">{{fd.cantidad}}</td>
+<<<<<<< Updated upstream
 
         <td>
           <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(fd.id,i)" ></i>
         </td>
+=======
+>>>>>>> Stashed changes
       </tr>
       </tbody>
     </table>
