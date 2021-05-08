@@ -57,6 +57,26 @@ export class FiltracionDetailService {
     } // fin del metodo obtener
 
 
+
+    borrarFiltracionHCDetalle(idFiltracion: number,fkHCDetalle: number): Observable<{
+      error: boolean;
+      msg: string;
+      data: string }>
+     {
+      const response = {error: true, msg: '', data: ''};
+      return this.http.delete<{message: string}>(API_ROUTES.HOJA_CONTROL.HCD_FILTRACION+`/${idFiltracion}/${fkHCDetalle}`)
+      .pipe(
+        map(r => {
+                    console.log(r);
+                    response.error = false;
+                    response.data = r.message;
+                    return response;
+                  }),
+        catchError(() => of(response))
+      );
+
+    }
+
   refreshList(fkHjCD: number){
 
 
