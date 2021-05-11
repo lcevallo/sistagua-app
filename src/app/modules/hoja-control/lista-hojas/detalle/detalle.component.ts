@@ -51,11 +51,10 @@ export class DetalleComponent implements OnInit {
         recibo: '',
         tds: 0,
         updated_at: '',
-        filtraciones_list: []
+        filtraciones_list: [],
+        accesorios_list: []
       };
     } else {
-      console.log('Veamos como trae los datos');
-      console.log(this.service.hojaControlItems[this.data.detalleItemIndex]);
       this.formData = Object.assign({}, this.service.hojaControlItems[this.data.detalleItemIndex]);
     }
   }

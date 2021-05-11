@@ -36,4 +36,24 @@ export class AccesorioDetailService {
     iniciarTodo(){
       this.formData= new AccesorioDetail();
     }
+
+    borrarAccesorioHCDetalle(idAccesorio: number,fkHCDetalle: number): Observable<{
+      error: boolean;
+      msg: string;
+      data: string }>
+     {
+      const response = {error: true, msg: '', data: ''};
+      return this.http.delete<{message: string}>(API_ROUTES.HOJA_CONTROL.HCD_ACCESORIO+`/${idAccesorio}/${fkHCDetalle}`)
+      .pipe(
+        map(r => {
+                    response.error = false;
+                    response.data = r.message;
+                    return response;
+                  }),
+        catchError(() => of(response))
+      );
+
+    }
+
+
 }

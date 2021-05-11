@@ -32,13 +32,19 @@ export class AccesoriosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].accesorios_list === undefined) {
 
+      this.serviceHojaControl.obtenerAccesoriosXHojaControlDetalle(this.data.hojaControlDetalleId).subscribe(
+        response => {
+          this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].accesorios_list = response.data as AccesorioDetail[];
+        }
+      )
+    }
   }
 
 
   populateForm(selectedRecord: AccesorioDetail, indice: number): void  {
-
-    const objectoClonado = Object.assign({}, selectedRecord);
+    this.service.arrayId=indice;
     this.service.formData = Object.assign({}, selectedRecord);
 
   }
@@ -50,9 +56,6 @@ export class AccesoriosComponent implements OnInit {
 
     if(id > 0){
 
-      alert('Este es el id:'+id);
-      alert('Este es el fk hoja control detalle: '+this.data.hojaControlDetalleId);
-
       swal.fire({
         title: 'Esta seguro?',
         text: 'No se puede revertir!',
@@ -63,13 +66,13 @@ export class AccesoriosComponent implements OnInit {
         confirmButtonText: 'Si, borrar!',
       }).then( (result) => {
           if(result.isConfirmed) {
-            // this.service.borrarFiltracionHCDetalle(id,this.data.hojaControlDetalleId).subscribe(
-            //   res => { if(res.data == ''){
-            //                 swal.fire('Borrado','La filtracion en este detalle ha sido eliminada con exito!');
-            //                 this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].filtraciones_list.splice(index, 1);
-            //               }
-            //   }
-            // )
+            this.service.borrarAccesorioHCDetalle(id,this.data.hojaControlDetalleId).subscribe(
+              res => { if(res.data == ''){
+                            swal.fire('Borrado','El Accesorio en este detalle ha sido eliminada con exito!');
+                            this.serviceHojaControl.hojaControlItems[this.data.detalleItemIndex].accesorios_list.splice(index, 1);
+                          }
+              }
+            )
           }
         } );
 

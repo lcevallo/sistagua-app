@@ -61,8 +61,7 @@ export class FiltracionDetailFormComponent implements OnInit {
 
 
     this.hjservice.hojaControlItems[this.data.detalleItemIndex].filtraciones_list?.push(filtracionItem);
-    console.log('Estoy en el metodo insertRecord');
-    console.log(this.hjservice.hojaControlItems[this.data.detalleItemIndex]);
+
     this.resetForm(form);
   }
 //#blue
