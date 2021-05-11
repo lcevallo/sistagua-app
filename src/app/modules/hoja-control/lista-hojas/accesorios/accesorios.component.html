@@ -1,1 +1,29 @@
-<p>accesorios works!</p>
+<div class="jumbotron py-3">
+  <h1 class="display-4 text-center">Información de Accesorios</h1>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <app-accesorios-detail-form [data]=data></app-accesorios-detail-form>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <thead class="thead-ligth">
+      <tr>
+        <th>Filtracion</th>
+        <th>Descripcion</th>
+        <th>Cantidad</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let fd of serviceHojaControl.hojaControlItems[data.detalleItemIndex].accesorios_list; let i=index">
+        <td (click)="populateForm(fd, i)">{{fd.fk_accesorio}}</td>
+        <td (click)="populateForm(fd, i)">{{fd.descripcion}}</td>
+        <td (click)="populateForm(fd, i)">{{fd.cantidad}}</td>
+        <td>
+          <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(fd.id,i)" ></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</div>

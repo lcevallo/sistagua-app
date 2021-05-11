@@ -1,1 +1,38 @@
-<p>accesorios-detail-form works!</p>
+<form novalidate #formAccesorios="ngForm" (submit)="onSubmit(formAccesorios)" autocomplete="off">
+  <input type="hidden" name="id" [value]="service.formData.id" >
+  <input type="hidden" name="arrayId" [value]="service.arrayId" >
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Filtracion</label>
+      <select required type="text" class="form-control form-control-lg" placeholder="Tipo Accesorio"
+             name="fk_accesorio" #fk_accesorio="ngModel" [(ngModel)]="service.formData.fk_accesorio"
+             >
+             <option *ngFor="let accesorio of listaSelect" [value]=accesorio.id>
+               {{accesorio.nombre}}
+             </option>
+             </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Cantidad</label>
+      <input class="form-control form-control-lg" placeholder="Cantidad"
+             name="cantidad" #cantidad="ngModel" [(ngModel)]="service.formData.cantidad"
+             required [class.invalid]="cantidad.invalid && cantidad.touched" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Descripcion</label>
+    <textarea class="form-control form-control-lg" placeholder="Descripcion"
+              name="descripcion" #descripcion="ngModel" [(ngModel)]="service.formData.descripcion"
+              required maxlength="600" minlength="4"
+              [class.invalid]="descripcion.invalid && descripcion.touched"
+    ></textarea>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <button class="form-control btn btn-info btn-lg btn-block" type="submit" [disabled]="formAccesorios.invalid">Guardar</button>
+    </div>
+    <div class="form-group col-md-6">
+        <button type="button" class="form-control btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Cerrar</button>
+    </div>
+  </div>
+</form>

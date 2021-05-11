@@ -63,11 +63,6 @@ export class FiltracionesComponent implements OnInit {
 
     if(id > 0){
 
-      alert('Este es el id:'+id);
-      alert('Este es el fk hoja control detalle: '+this.data.hojaControlDetalleId);
-      // TODO: Aqui debo de borrar en la base de datos
-
-
       swal.fire({
         title: 'Esta seguro?',
         text: 'No se puede revertir!',

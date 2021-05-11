@@ -7,6 +7,7 @@ import {HojaControl} from '@data/schema/hoja-control.model';
 import {HojaControlItems} from '@data/schema/hoja-control-items.model';
 import { IHojaControlTmp } from '@data/interfaces/i-hoja-control-tmp';
 import { FiltracionDetail } from '@data/schema/filtracion-detail.model';
+import { AccesorioDetail } from '@data/schema/accesorio-detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,24 @@ export class HojaControlService {
       .pipe(
       map( r =>  {
       response.data = r.hoja_control_detalle_filtracion;
+      return response;
+      }),
+      catchError((e) => of(response))
+      );
+
+    }
+
+
+    obtenerAccesoriosXHojaControlDetalle(fkHjd:number):Observable<{
+      error: boolean,
+      msg: string,
+      data: AccesorioDetail[]
+    }>{
+      const response = {error: false, msg: '', data: [] as  AccesorioDetail[] };
+      return this.http.get<{hoja_control_detalle_accesorio: AccesorioDetail[]}>(API_ROUTES.HOJA_CONTROL.DETALLE_ACCESORIOS+fkHjd)
+      .pipe(
+      map( r =>  {
+      response.data = r.hoja_control_detalle_accesorio;
       return response;
       }),
       catchError((e) => of(response))

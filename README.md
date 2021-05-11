@@ -84,3 +84,5 @@ http://localhost:4200/clientes/clientes-empresarial-oficina
 http://localhost:4200/clientes/clientes-empresarial-contactos/1
 https://www.itsolutionstuff.com/post/how-to-dynamically-add-and-remove-form-fields-in-angularexample.html
 https://therichpost.com/angular-11-bootstrap-4-project-dashboard/
+
+ng g class AccesorioDetail --type=model --skipTests

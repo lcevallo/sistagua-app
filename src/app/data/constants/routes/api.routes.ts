@@ -24,7 +24,9 @@ export const API_ROUTES = {
         LISTA:`${ENV.baseUrl}hojas-control`,
         MASTER_DETAIL:`${ENV.baseUrl}hoja-control`,
         DETALLE_FILTRACIONES:`${ENV.baseUrl}hojas-control-detalle-filtraciones/`,
-        HCD_FILTRACION:`${ENV.baseUrl}hoja-control-detalle-filtracion`
+        HCD_FILTRACION:`${ENV.baseUrl}hoja-control-detalle-filtracion`,
+        DETALLE_ACCESORIOS:`${ENV.baseUrl}hojas-control-detalle-accesorios/`,
+        HCD_ACCESORIO:`${ENV.baseUrl}hoja-control-detalle-accesorio`
     },
     FILTRACION: {
         LISTA: `${ENV.baseUrl}filtraciones`,
